@@ -1,0 +1,24 @@
+<svg width="19" height="22" viewBox="0 0 19 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Canvas.svg</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(4772 2854)">
+<g id="Capa 1">
+<g id="Group">
+<g id="notifications">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="matrix(-1 0 0 1 -4755.1 -2851.89)" fill="#ADB7BE"/>
+</g>
+</g>
+</g>
+</g>
+<g id="Ellipse 2">
+<use xlink:href="#path1_fill" transform="translate(-4762.1 -2852.89)" fill="#46C35F"/>
+<use xlink:href="#path2_stroke" transform="translate(-4762.1 -2852.89)" fill="#FFFFFF"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 8 19C 9.03529 19 9.88235 18.145 9.88235 17.1L 6.11765 17.1C 6.11765 18.145 6.96471 19 8 19ZM 14.1176 13.3L 14.1176 8.075C 14.1176 5.13 12.1412 2.755 9.41177 2.09L 9.41177 1.425C 9.41177 0.665 8.75294 0 8 0C 7.24706 0 6.58824 0.665 6.58824 1.425L 6.58824 2.09C 3.85882 2.755 1.88235 5.13 1.88235 8.075L 1.88235 13.3L 0 15.2L 0 16.15L 16 16.15L 16 15.2L 14.1176 13.3Z"/>
+<path id="path1_fill" d="M 8 4C 8 6.20914 6.20914 8 4 8C 1.79086 8 0 6.20914 0 4C 0 1.79086 1.79086 0 4 0C 6.20914 0 8 1.79086 8 4Z"/>
+<path id="path2_stroke" d="M 7 4C 7 5.65685 5.65685 7 4 7L 4 9C 6.76142 9 9 6.76142 9 4L 7 4ZM 4 7C 2.34315 7 1 5.65685 1 4L -1 4C -1 6.76142 1.23858 9 4 9L 4 7ZM 1 4C 1 2.34315 2.34315 1 4 1L 4 -1C 1.23858 -1 -1 1.23858 -1 4L 1 4ZM 4 1C 5.65685 1 7 2.34315 7 4L 9 4C 9 1.23858 6.76142 -1 4 -1L 4 1Z"/>
+</defs>
+</svg>

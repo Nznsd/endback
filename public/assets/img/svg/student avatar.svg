@@ -1,0 +1,46 @@
+<svg width="48" height="48" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>student avatar</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(4311 4675)">
+<rect x="-4311" y="-4675" width="48" height="48" fill="#E5E5E5"/>
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -6135 -4693L -4215 -4693L -4215 -3613L -6135 -3613L -6135 -4693Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="Student Profile" clip-path="url(#clip-0)">
+<path d="M -6135 -4693L -4215 -4693L -4215 -3613L -6135 -3613L -6135 -4693Z" fill="#ECF2F5"/>
+<g id="Header Portal">
+<g id="Rectangle 11" filter="url(#filter0_d)">
+<use xlink:href="#path0_fill" transform="translate(-6135 -4693)" fill="#FFFFFF"/>
+</g>
+<g id="student avatar">
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-4311 -4675)" fill="#46C35F"/>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(-4295.24 -4666)" fill="#FFFFFF"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(-4303 -4646.32)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="-6135" y="-4693" width="1920" height="91" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="4" dy="4"/>
+<feGaussianBlur stdDeviation="2.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<path id="path0_fill" d="M 0 0L 1920 0L 1920 82L 0 82L 0 0Z"/>
+<path id="path1_fill" d="M 24 47.9999C 37.2548 47.9999 48 37.2547 48 23.9999C 48 10.7451 37.2548 0 24 0C 10.7452 0 -2.17879e-06 10.7451 -2.17879e-06 23.9999C -2.17879e-06 37.2547 10.7452 47.9999 24 47.9999Z"/>
+<path id="path2_fill" d="M 8.23875 16.5518C 12.7889 16.5518 16.4775 12.8466 16.4775 8.27592C 16.4775 3.70525 12.7889 0 8.23875 0C 3.68861 0 0 3.70525 0 8.27592C 0 12.8466 3.68861 16.5518 8.23875 16.5518Z"/>
+<path id="path3_fill" d="M 16 -2.58901e-06C 9.59572 -2.58901e-06 3.86953 2.6302 -4.62607e-07 6.76735C 3.4662 11.925 9.33911 15.3168 16 15.3168C 22.6614 15.3168 28.5341 11.9255 32 6.76762C 28.1305 2.63021 22.4043 -2.58901e-06 16 -2.58901e-06Z"/>
+</defs>
+</svg>

@@ -1,0 +1,77 @@
+<svg width="262" height="275" viewBox="0 0 262 275" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>blank-paper</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-12157 2505)">
+<g id="blank-paper" opacity="0.3">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(12166.6 -2505)" fill="url(#paint0_linear)"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(12176.3 -2485.76)" fill="#00F8FE"/>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(12250.6 -2485.76)" fill="#00D9E0"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(12166.9 -2495.11)" fill="#00D9E0"/>
+</g>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(12250.6 -2495.11)" fill="#00B7BE"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path4_fill" transform="translate(12157 -2505)" fill="#FFFFFF"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path5_fill" transform="translate(12250.6 -2505)" fill="#E1E1E3"/>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path6_fill" transform="translate(12296.4 -2329.84)" fill="#00F8FE"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path6_fill" transform="translate(12296.4 -2329.84)" fill="#00F8FE"/>
+</g>
+</g>
+<g id="Vector">
+<use xlink:href="#path7_fill" transform="translate(12296.4 -2329.84)" fill="#00D9E0"/>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path8_fill" transform="matrix(-1 0 0 1 12250.4 -2464)" fill="#2D9CDB"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path9_fill" transform="translate(12192 -2422.86)" fill="#2D9CDB"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path10_fill" transform="translate(12251.2 -2422.86)" fill="#005FD2"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path11_fill" transform="translate(12192 -2382.5)" fill="#2D9CDB"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path10_fill" transform="translate(12251.2 -2382.5)" fill="#005FD2"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(127.106 226.954 -208.285 116.588 165.012 -58.5245)">
+<stop offset="0" stop-color="#003D8D"/>
+<stop offset="1" stop-color="#003D8D" stop-opacity="0"/>
+</linearGradient>
+<path id="path0_fill" d="M 252.378 116.298C 252.378 103.883 250.95 91.8014 248.252 80.2063L 168.024 9.45935e-07L 0 9.45935e-07L 0 213.355L 57.536 270.876C 69.133 273.572 81.2168 275 93.6342 275C 181.306 275 252.378 203.947 252.378 116.298Z"/>
+<path id="path1_fill" d="M 168.021 0L 0 0L 0 213.354L 168.021 213.354L 168.021 0Z"/>
+<path id="path2_fill" d="M 103.258 0L -2.64933e-06 0L -2.64933e-06 213.354L 103.258 213.354L 103.258 0Z"/>
+<path id="path3_fill" d="M 93.907 0L -2.64933e-06 0L -2.64933e-06 213.354L 93.907 213.354L 93.907 0Z"/>
+<path id="path4_fill" d="M 168.024 9.45935e-07L 177.646 175.163L 129.815 213.355L 1.05973e-06 213.355L 1.05973e-06 9.45935e-07L 168.024 9.45935e-07Z"/>
+<path id="path5_fill" d="M 84.0147 9.45935e-07L 84.0147 175.161L 45.8045 213.354L 1.05973e-06 213.354L 1.05973e-06 9.45935e-07L 84.0147 9.45935e-07Z"/>
+<path id="path6_fill" d="M 3.78475e-06 38.1944L 38.2046 7.56748e-06L 3.78475e-06 7.56748e-06L 3.78475e-06 38.1944Z"/>
+<path id="path7_fill" d="M 38.209 6.20533e-06L -4.99587e-06 38.1919L -4.99587e-06 6.20533e-06L 38.209 6.20533e-06Z"/>
+<path id="path8_fill" d="M 57.8039 -4.08237e-06L 2.64728e-06 -4.08237e-06L 2.64728e-06 18.3333L 57.8039 18.3333L 57.8039 -4.08237e-06Z"/>
+<path id="path9_fill" d="M 118.503 0L -2.71343e-06 0L -2.71343e-06 17.2959L 118.503 17.2959L 118.503 0Z"/>
+<path id="path10_fill" d="M 59.2483 0L 0 0L 0 17.2971L 59.2483 17.2971L 59.2483 0Z"/>
+<path id="path11_fill" d="M 118.503 4.62196e-06L -2.71343e-06 4.62196e-06L -2.71343e-06 17.2959L 118.503 17.2959L 118.503 4.62196e-06Z"/>
+</defs>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="5" height="8" viewBox="0 0 5 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>breadcrumb arrow 2</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(5724 2665)">
+<g id="breadcrumb arrow 2">
+<use xlink:href="#path0_fill" transform="translate(-5724 -2665)" fill="#828282"/>
+<use xlink:href="#path1_fill" transform="translate(-5724 -2665)" fill="#828282"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 4.76543 3.3663C 5.07819 3.65615 5.07819 4.12609 4.76543 4.41594C 4.45266 4.70579 3.94557 4.70579 3.6328 4.41594L 0.234925 1.26702C -0.0778407 0.977175 -0.0778406 0.507237 0.234925 0.217387C 0.547691 -0.0724624 1.05478 -0.0724624 1.36755 0.217387L 4.76543 3.3663Z"/>
+<path id="path1_fill" d="M 1.3672 7.78261C 1.05443 8.07246 0.54734 8.07246 0.234574 7.78261C -0.0781914 7.49276 -0.0781915 7.02282 0.234574 6.73298L 3.63245 3.58406C 3.94522 3.29421 4.45231 3.29421 4.76507 3.58406C 5.07784 3.87391 5.07784 4.34385 4.76507 4.6337L 1.3672 7.78261Z"/>
+</defs>
+</svg>

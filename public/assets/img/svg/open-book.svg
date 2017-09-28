@@ -1,0 +1,78 @@
+<svg width="320" height="309" viewBox="0 0 320 309" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>open-book</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(9936 4013)">
+<g id="open-book">
+<g id="XMLID 1208">
+<g id="XMLID 1210">
+<use xlink:href="#path0_fill" transform="translate(-9936 -4013)" fill="url(#paint0_linear)"/>
+</g>
+<g id="XMLID 1211">
+<use xlink:href="#path1_fill" transform="translate(-9936 -3977.21)" fill="#1D54BD"/>
+</g>
+<g id="XMLID 1212">
+<use xlink:href="#path2_fill" transform="translate(-9936 -3977.21)" fill="#487ED2"/>
+</g>
+<g id="XMLID 1213">
+<use xlink:href="#path3_fill" transform="translate(-9919.71 -3827.03)" fill="#12B5FF"/>
+</g>
+<g id="XMLID 1214">
+<use xlink:href="#path4_fill" transform="translate(-9919.71 -3818.7)" fill="#48D9FF"/>
+</g>
+<g id="XMLID 1215">
+<use xlink:href="#path5_fill" transform="translate(-9919.71 -4013)" fill="#FFFFFF"/>
+</g>
+<g id="XMLID 1216">
+<use xlink:href="#path6_fill" transform="translate(-9803.28 -4013)" fill="#E0F8FF"/>
+</g>
+<g id="XMLID 1217">
+<use xlink:href="#path7_fill" transform="translate(-9897.73 -3990.79)" fill="#A8CFFF"/>
+</g>
+<g id="XMLID 1218">
+<use xlink:href="#path7_fill" transform="translate(-9897.73 -3957.48)" fill="#A8CFFF"/>
+</g>
+<g id="XMLID 1219">
+<use xlink:href="#path8_fill" transform="translate(-9897.73 -3924.18)" fill="#A8CFFF"/>
+</g>
+<g id="XMLID 1220">
+<use xlink:href="#path7_fill" transform="translate(-9897.73 -3890.87)" fill="#A8CFFF"/>
+</g>
+<g id="XMLID 1221">
+<use xlink:href="#path9_fill" transform="translate(-9897.73 -3857.57)" fill="#A8CFFF"/>
+</g>
+<g id="XMLID 1222">
+<use xlink:href="#path7_fill" transform="translate(-9781.55 -3990.79)" fill="#73A7E6"/>
+</g>
+<g id="XMLID 1223">
+<use xlink:href="#path7_fill" transform="translate(-9781.55 -3957.48)" fill="#73A7E6"/>
+</g>
+<g id="XMLID 1224">
+<use xlink:href="#path7_fill" transform="translate(-9781.55 -3924.18)" fill="#73A7E6"/>
+</g>
+<g id="XMLID 1225">
+<use xlink:href="#path7_fill" transform="translate(-9781.55 -3890.87)" fill="#73A7E6"/>
+</g>
+<g id="XMLID 1226">
+<use xlink:href="#path10_fill" transform="translate(-9781.55 -3857.57)" fill="#73A7E6"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(150.154 188.167 -194.866 156.056 226.277 -30.4643)">
+<stop offset="0" stop-color="#246831"/>
+<stop offset="0.98895" stop-color="#27AE60" stop-opacity="0"/>
+</linearGradient>
+<path id="path0_fill" d="M 320 117.502C 320 99.3715 317.534 81.8295 312.93 65.2067L 249.16 9.14721e-07L 0 227.601L 68.1861 297.324C 88.3053 304.876 110.043 309 132.723 309C 236.153 309 320 223.263 320 117.502Z"/>
+<path id="path1_fill" d="M 249.16 -1.32126e-06L 132.723 184.347L 16.285 -1.32126e-06L 0 -1.32126e-06L 0 191.807L 115.962 191.807L 124.555 199.21L 140.89 199.21L 149.484 191.807L 265.445 191.807L 265.445 -1.32126e-06L 249.16 -1.32126e-06Z"/>
+<path id="path2_fill" d="M 16.285 -1.32126e-06C 16.285 -1.32126e-06 129.117 178.806 132.723 184.347L 132.723 199.21L 124.555 199.21L 115.961 191.807L 0 191.807L 0 -1.32126e-06L 16.285 -1.32126e-06Z"/>
+<path id="path3_fill" d="M 125.056 -1.21963e-05L 116.438 17.5187L 107.819 -1.21963e-05L 0 8.32598L 0 24.978L 99.6763 24.978C 106.672 24.978 112.832 28.6289 116.438 34.1707C 120.043 28.6289 126.204 24.978 133.199 24.978L 232.875 24.978L 232.875 8.32598L 125.056 -1.21963e-05Z"/>
+<path id="path4_fill" d="M 116.438 9.19273L 116.438 25.8447C 112.832 20.3029 106.672 16.652 99.6763 16.652L 0 16.652L 0 -1.21963e-05L 99.6763 -1.21963e-05C 106.672 -1.21963e-05 112.832 3.65095 116.438 9.19273Z"/>
+<path id="path5_fill" d="M 99.6755 9.14721e-07L 0 9.14721e-07L 0 194.297L 99.6747 194.297C 106.67 194.297 112.833 197.95 116.438 203.49L 124.58 106.345L 116.438 9.20106C 112.835 3.65678 106.673 9.14721e-07 99.6755 9.14721e-07Z"/>
+<path id="path6_fill" d="M 16.763 9.14721e-07L 116.438 9.14721e-07L 116.438 194.297L 16.763 194.297C 9.76774 194.297 3.60468 197.95 0 203.49L 0 9.20106C 3.60387 3.65678 9.76448 9.14721e-07 16.763 9.14721e-07Z"/>
+<path id="path7_fill" d="M 72.4682 0L 0 0L 0 16.652L 72.4682 16.652L 72.4682 0Z"/>
+<path id="path8_fill" d="M 35.827 0L 0 0L 0 16.652L 35.827 16.652L 35.827 0Z"/>
+<path id="path9_fill" d="M 72.4682 -1.1993e-05L 0 -1.1993e-05L 0 16.652L 72.4682 16.652L 72.4682 -1.1993e-05Z"/>
+<path id="path10_fill" d="M 35.827 -1.1993e-05L 0 -1.1993e-05L 0 16.652L 35.827 16.652L 35.827 -1.1993e-05Z"/>
+</defs>
+</svg>

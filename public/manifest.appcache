@@ -1,0 +1,62 @@
+CACHE MANIFEST
+# 2017-09-08: v2
+# 20dc61a535cb5fc945d
+
+https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js
+https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css
+https://cdn.jsdelivr.net/momentjs/latest/moment.min.js
+https://cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css
+
+/favicon.ico
+/manifest.json
+
+/assets/css/applicants.css
+/assets/css/students.css
+/assets/img/png/mynti-banner.png
+/assets/img/svg/mouse.svg
+/assets/img/svg/passport.svg
+/assets/img/svg/myntilogo.svg
+/assets/img/svg/remita.svg
+/assets/img/svg/profile_avatar.svg
+/assets/img/svg/camera.svg
+/assets/img/svg/certificate.svg
+/assets/img/svg/blank-paper.svg
+/assets/img/svg/blank-paper2.svg
+/assets/img/png/remita.png
+/assets/img/png/pdf-file.png
+/assets/img/icons/gif/loader-grey.gif
+/assets/img/icons/gif/loader-grey-2x.gif
+/assets/img/icons/gif/loader-white.gif
+/assets/img/icons/gif/loader-white-2x.gif
+/assets/js/shim/es5shim.min.js
+/assets/js/shim/manup.min.js
+/assets/js/modernizr.min.js
+/assets/js/browsengine.min.js
+/assets/js/applicants/app-commsunit.js
+/assets/js/applicants/mainunit.js
+/assets/js/applicants/login-formunit.js
+/assets/js/applicants/register-formunit.js
+/assets/js/applicants/payments-formunit.js
+/assets/js/applicants/review-formunit.js
+/assets/js/applicants/verify-formunit.js
+/assets/js/applicants/workplaceinfo-formunit.js
+/assets/js/applicants/docsupload-formunit.js
+/assets/js/applicants/peronalinfo-formunit.js
+/assets/js/applicants/programme-formunit.js
+/assets/js/applicants/educate-formunit.js
+/assets/js/applicants/dashboard-formunit.js
+/assets/js/vendor/lib/idle.js
+/assets/js/vendor/lib/radixx.js
+/assets/js/vendor/lib/cdv_js.js
+/assets/js/vendor/lib/jquery.combopack.min.js
+/assets/js/vendor/lib/sweetalert.js
+
+NETWORK:
+/services
+
+FALLBACK:
+/ /offline.html
+/applicants /offline.html?type=fallback
+/favicon.ico /offline.html?type=fallback
+/manifest.json /offline.html?type=fallback
+

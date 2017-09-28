@@ -1,0 +1,31 @@
+<svg width="23" height="26" viewBox="0 0 23 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(8138 4505)">
+<rect x="-8138" y="-4505" width="23" height="26" fill="#E5E5E5"/>
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -8180 -4693L -6260 -4693L -6260 -3613L -8180 -3613L -8180 -4693Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="Student Dashboard Home" clip-path="url(#clip-0)">
+<path d="M -8180 -4693L -6260 -4693L -6260 -3613L -8180 -3613L -8180 -4693Z" fill="#ECF2F5"/>
+<g id="Group">
+<g id="Rectangle 4">
+<use xlink:href="#path0_fill" transform="translate(-8180 -4612)" fill="#FCFEFF"/>
+</g>
+<g id="Group">
+<g id="Stroke 103">
+<use xlink:href="#path1_stroke" transform="translate(-8131.75 -4504)" fill="#ADB7BE"/>
+</g>
+<g id="Stroke 104">
+<use xlink:href="#path2_stroke" transform="translate(-8137 -4488.57)" fill="#ADB7BE"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 0L 316 0L 316 999L 0 999L 0 0Z"/>
+<path id="path1_stroke" d="M 9.5 5.14281C 9.5 7.41173 7.61701 9.28562 5.25 9.28562L 5.25 11.2856C 8.68249 11.2856 11.5 8.55499 11.5 5.14281L 9.5 5.14281ZM 5.25 9.28562C 2.88299 9.28562 1 7.41173 1 5.14281L -1 5.14281C -1 8.55499 1.81751 11.2856 5.25 11.2856L 5.25 9.28562ZM 1 5.14281C 1 2.8739 2.88299 1 5.25 1L 5.25 -1C 1.81751 -1 -1 1.73063 -1 5.14281L 1 5.14281ZM 5.25 1C 7.61701 1 9.5 2.8739 9.5 5.14281L 11.5 5.14281C 11.5 1.73063 8.68249 -1 5.25 -1L 5.25 1Z"/>
+<path id="path2_stroke" d="M 21 8.57135L 21 9.57135C 21.5523 9.57135 22 9.12364 22 8.57135L 21 8.57135ZM 0 8.57135L -1 8.57135C -1 9.12364 -0.552285 9.57135 2.22045e-16 9.57135L 0 8.57135ZM 21 7.57135L 0 7.57135L 0 9.57135L 21 9.57135L 21 7.57135ZM 1 8.57135C 1 4.40975 4.44937 1 8.75 1L 8.75 -1C 3.38363 -1 -1 3.26675 -1 8.57135L 1 8.57135ZM 8.75 1L 12.25 1L 12.25 -1L 8.75 -1L 8.75 1ZM 12.25 1C 16.5506 1 20 4.40975 20 8.57135L 22 8.57135C 22 3.26675 17.6164 -1 12.25 -1L 12.25 1Z"/>
+</defs>
+</svg>

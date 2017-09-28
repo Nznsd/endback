@@ -1,0 +1,44 @@
+<svg width="128" height="128" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-1401 2551)">
+<rect x="1401" y="-2551" width="128" height="128" fill="#E5E5E5"/>
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M 1172 -2905L 2612 -2905L 2612 -1826L 1172 -1826L 1172 -2905Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="Complete Application" clip-path="url(#clip-0)">
+<path d="M 1172 -2905L 2612 -2905L 2612 -1826L 1172 -1826L 1172 -2905Z" fill="#FFFFFF"/>
+<g id="Rectangle">
+<use xlink:href="#path0_fill" transform="translate(1172 -2905)" fill="#ECF2F5"/>
+</g>
+<g id="Group">
+<g id="Profile picture">
+<g id="Rectangle 16">
+<use xlink:href="#path1_fill" transform="translate(1294 -2625)" fill="#FFFFFF"/>
+</g>
+<g id="Group">
+<g id="User Profile">
+<use xlink:href="#path2_fill" transform="translate(1401 -2551)" fill="#C4C4C4"/>
+<use xlink:href="#path2_fill" transform="translate(1401 -2551)" fill="#ADB7BE"/>
+</g>
+<g id="Capa 1 3">
+<g id="Group">
+<g id="group">
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(1431 -2523)" fill="#FFFCFC"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 0L 1440 0L 1440 1079L 0 1079L 0 0Z"/>
+<path id="path1_fill" d="M 0 4C 0 1.79086 1.79086 0 4 0L 338 0C 340.209 0 342 1.79086 342 4L 342 292C 342 294.209 340.209 296 338 296L 4 296C 1.79086 296 0 294.209 0 292L 0 4Z"/>
+<path id="path2_fill" d="M 128 64C 128 99.3462 99.3462 128 64 128C 28.6538 128 0 99.3462 0 64C 0 28.6538 28.6538 0 64 0C 99.3462 0 128 28.6538 128 64Z"/>
+<path id="path3_fill" d="M 36 30.8571C 44.7429 30.8571 51.4286 24.1714 51.4286 15.4286C 51.4286 6.68571 44.7429 0 36 0C 27.2571 0 20.5714 6.68571 20.5714 15.4286C 20.5714 24.1714 27.2571 30.8571 36 30.8571ZM 36 41.1429C 24.1714 41.1429 0 47.3143 0 59.1429L 0 72L 72 72L 72 59.1429C 72 47.3143 47.8286 41.1429 36 41.1429Z"/>
+</defs>
+</svg>

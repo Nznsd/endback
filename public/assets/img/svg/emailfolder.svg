@@ -1,0 +1,62 @@
+<svg width="322" height="334" viewBox="0 0 322 334" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>email 2</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(8986 4504)">
+<g id="email 2">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-8986 -4475.52)" fill="url(#paint0_linear)"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-8986 -4418.56)" fill="#CECECE"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(-8871.94 -4418.56)" fill="#EFEFEF"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(-8986 -4504)" fill="#31BAFD"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path4_fill" transform="translate(-8871.94 -4503.82)" fill="#2B9ED8"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path5_fill" transform="translate(-8957.54 -4475.52)" fill="#FFFFFF"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path6_fill" transform="translate(-8871.94 -4475.52)" fill="#D0D1D3"/>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path7_fill" transform="translate(-8932.98 -4441.37)" fill="#FD8469"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path8_fill" transform="translate(-8932.98 -4426.87)" fill="#FD8469"/>
+</g>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path9_fill" transform="translate(-8871.93 -4441.37)" fill="#FC6F58"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path10_fill" transform="translate(-8871.93 -4426.87)" fill="#FC6F58"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(115.5 183.018 -192.892 121.731 257.446 -60.8655)">
+<stop offset="0" stop-color="#133474"/>
+<stop offset="1" stop-color="#133474" stop-opacity="0"/>
+</linearGradient>
+<path id="path0_fill" d="M 322 122.919L 199.193 4.1088e-06L 71.4151 113.761L -1.7021e-06 199.374L 105.884 305.353C 108.521 305.451 111.165 305.518 113.824 305.518C 220.454 305.518 308.511 225.962 322 122.919Z"/>
+<path id="path1_fill" d="M 227.649 -3.50751e-06L 0 -3.50751e-06L 0 142.402L 227.649 142.402L 227.649 -3.50751e-06Z"/>
+<path id="path2_fill" d="M 113.584 -3.50751e-06L 0 -3.50751e-06L 0 142.402L 113.584 142.402L 113.584 -3.50751e-06Z"/>
+<path id="path3_fill" d="M -1.7021e-06 85.4461L 113.824 170.892L 227.648 85.4461L 113.824 -2.35504e-06L -1.7021e-06 85.4461Z"/>
+<path id="path4_fill" d="M -4.60569e-06 4.50965e-07L -4.60569e-06 170.538L 113.588 85.2687L -4.60569e-06 4.50965e-07Z"/>
+<path id="path5_fill" d="M 5.20643e-06 4.1088e-06L 5.20643e-06 78.3259L 85.3686 142.41L 170.737 78.3259L 170.737 4.1088e-06L 5.20643e-06 4.1088e-06Z"/>
+<path id="path6_fill" d="M 85.1323 4.1088e-06L -4.60569e-06 4.1088e-06L -4.60569e-06 142.233L 85.1323 78.3259L 85.1323 4.1088e-06Z"/>
+<path id="path7_fill" d="M 121.601 -4.71008e-06L -4.90606e-06 -4.71008e-06L -4.90606e-06 5.66133L 121.601 5.66133L 121.601 -4.71008e-06Z"/>
+<path id="path8_fill" d="M 121.601 -6.2133e-06L -4.90606e-06 -6.2133e-06L -4.90606e-06 5.66133L 121.601 5.66133L 121.601 -6.2133e-06Z"/>
+<path id="path9_fill" d="M 60.5645 -4.71008e-06L 0 -4.71008e-06L 0 5.66133L 60.5645 5.66133L 60.5645 -4.71008e-06Z"/>
+<path id="path10_fill" d="M 60.5645 -6.2133e-06L 0 -6.2133e-06L 0 5.66133L 60.5645 5.66133L 60.5645 -6.2133e-06Z"/>
+</defs>
+</svg>

@@ -1,0 +1,42 @@
+<svg width="265" height="223" viewBox="0 0 265 223" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>camera</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-9352 2505)">
+<g id="camera">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(9352 -2505)" fill="url(#paint0_linear)"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(9352 -2505)" fill="#005FD2"/>
+</g>
+<g id="Intersect">
+<use xlink:href="#path2_fill" transform="translate(9352 -2505)" fill="#002B64" fill-opacity="0.6"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(9468.26 -2505)" fill="#003D8D"/>
+</g>
+<g id="Intersect">
+<use xlink:href="#path4_fill" transform="translate(9468.26 -2505)" fill="#002B64"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path5_fill" transform="translate(9505.45 -2415.09)" fill="#FEC100"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path6_fill" transform="translate(9484.53 -2415.09)" fill="#E20000"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(101.506 144.795 -172.068 120.454 178.241 -26.9349)">
+<stop offset="0" stop-color="#332100"/>
+<stop offset="0.966851" stop-color="#5C3000" stop-opacity="0"/>
+</linearGradient>
+<path id="path0_fill" d="M 265 74.2146C 265 63.3302 263.821 52.7231 261.602 42.5036L 227.783 8.67472C 223.675 3.40688 217.28 0 210.123 0L 202.995 0L 147.054 0L 70.8237 0L 46.5304 0L 22.398 0C 10.0794 0 0 10.0818 0 22.4046L 0 136.081C 0 143.24 3.40589 149.638 8.6722 153.747L 70.8237 215.917C 85.1474 220.509 100.412 222.997 116.261 222.997C 198.407 222.997 265 156.385 265 74.2146Z"/>
+<path id="path1_fill" d="M 210.123 158.487L 22.398 158.487C 10.0794 158.487 8.86555e-07 148.405 8.86555e-07 136.082L 8.86555e-07 22.4046C 8.86555e-07 10.0823 10.0788 -3.6182e-06 22.398 -3.6182e-06L 210.123 -3.6182e-06C 222.441 -3.6182e-06 232.521 10.0818 232.521 22.4046L 232.521 136.082C 232.521 148.405 222.442 158.487 210.123 158.487Z"/>
+<path id="path2_fill" d="M 232.521 59.6856L 0 59.6856L 0 22.4046C 0 10.0824 10.0786 0 22.3979 0L 210.123 0C 222.441 0 232.521 10.0818 232.521 22.4046L 232.521 59.6856Z"/>
+<path id="path3_fill" d="M 116.261 22.4046L 116.261 136.084C 116.261 148.405 106.18 158.488 93.8626 158.488L 0 158.488L 0 1.77363e-06L 93.8626 1.77363e-06C 106.18 1.77363e-06 116.261 10.0835 116.261 22.4046Z"/>
+<path id="path4_fill" fill-rule="evenodd" d="M 116.261 59.6875L 116.261 22.4045C 116.261 10.0864 106.185 0.00488281 93.8711 0C 93.8682 0 93.8652 0 93.8623 0L 0 0L 0 59.6875L 116.261 59.6875Z"/>
+<path id="path5_fill" d="M 20.9165 41.8451C 32.4683 41.8451 41.8329 32.4777 41.8329 20.9225C 41.8329 9.36734 32.4683 0 20.9165 0C 9.36462 0 0 9.36734 0 20.9225C 0 32.4777 9.36462 41.8451 20.9165 41.8451Z"/>
+<path id="path6_fill" d="M 20.9165 41.2639C 32.4683 41.2639 41.8329 32.0267 41.8329 20.632C 41.8329 9.23724 32.4683 0 20.9165 0C 9.36462 0 -2.11832e-06 9.23724 -2.11832e-06 20.632C -2.11832e-06 32.0267 9.36462 41.2639 20.9165 41.2639Z"/>
+</defs>
+</svg>
