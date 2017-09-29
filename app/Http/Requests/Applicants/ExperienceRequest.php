@@ -36,7 +36,7 @@ class ExperienceRequest extends FormRequest
     {
         return [
             'required' => ':attribute is required',
-            'date' => ':attribute must be a valid date',
+            'date' => 'invalid date',
             'after' => 'end date must be after start date',
         ];
     }

@@ -27,7 +27,7 @@
                                 <li><a href="#" tabindex="-1"><span class="numbering badge">6</span><span class="label">WorkPlace Info</span></a></li>
                             </ul>
                             @include('applicants.layouts.status')
-                            @include('applicants.layouts.errors')
+                            
                     </div>
                     <section class="container mynti-section-balanced">
                         <section class="clearfix">
@@ -37,18 +37,19 @@
                                                 <div class="mynti-form-caption form-heading-frame">
                                                     <h2 class="heading-placeholder-size">Add WorkPlace Experience</h2>
                                                 </div>
+                                                @include('applicants.layouts.errors')
                                                 <div class="form-group mynti-input-container">
                                                     <div class="row">
                                                         <div class="col-sm-12 col-xs-12 col-md-8 mynti-split-input">
                                                             <label class="mynti-box lighter-size" for="employer">Employer</label>
                                                             <div class="input-text relative pill">
-                                                                <input type="text" class="form-control" name="employer" id="employer" placeholder="Type Employer Name" tabindex="" autocomplete="off" spellcheck="true" autofocus="">
+                                                                <input type="text" value="{{ isset($experience) ? $experience->employer : '' }}" class="form-control" name="employer" id="employer" placeholder="Type Employer Name" tabindex="" autocomplete="off" spellcheck="true" autofocus="">
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 col-xs-12 col-md-4 mynti-split-input">
                                                             <label class="mynti-box lighter-size" for="position">Position</label>
                                                             <div class="input-text relative pill">
-                                                                <input type="text" class="form-control" id="position" name="position" placeholder="Type Position" tabindex="" autocomplete="off" spellcheck="true">
+                                                                <input type="text" value="{{ isset($experience) ? $experience->position : '' }}" class="form-control" id="position" name="position" placeholder="Type Position" tabindex="" autocomplete="off" spellcheck="true">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -64,7 +65,7 @@
                                                         <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                                             <label class="mynti-box lighter-size" for="to_date">Work End (Date)</label>
                                                             <div class="input-text relative pill">
-                                                                <input type="text" placeholder="" value="11/08/2010" class="form-control" id="to_date" name="to_date" tabindex="" autocomplete="off">
+                                                                <input type="text" placeholder="" value="11/08/2011" class="form-control" id="to_date" name="to_date" tabindex="" autocomplete="off">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -72,7 +73,8 @@
                                                 <div class="form-group mynti-input-container">
                                                     <label class="mynti-box lighter-size" for="job_description">Job Description</label>
                                                     <div class="input-text relative pill">
-                                                        <textarea class="form-control" placeholder="Type Short Description" id="job_description" name="job_description" tabindex="22" autocomplete="off" spellcheck="true"></textarea>
+                                                        <textarea value="" class="form-control" placeholder="Type Short Description" id="job_description" name="job_description" tabindex="22" autocomplete="off" spellcheck="true">{{ isset($experience) ? $experience->desc : '' }}
+                                                        </textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mynti-input-container">

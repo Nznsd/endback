@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('APP_ENV') == 'production' ? 's3' : env('FILESYSTEM_DRIVER', 'local'),
+    'default' => 'azure',
+    //env('APP_ENV') == 'production' ? 's3' : env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------

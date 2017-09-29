@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="mynti-form-input-container clearfix">
                                     <span class="mynti-box button-box">
-                                        <a class="btn mynti-button-calm mynti-button-login-submit mynti-submission-invalid lighter-size tablet" href="javascript:void(0);" disabled="disabled" tabindex="8"><b class="">SignIn</b></a>
+                                        <a class="btn mynti-button-calm mynti-button-login-submit mynti-submission-invalid lighter-size tablet" href="javascript:void(0);" disabled="disabled" tabindex="8"><b class="">Sign In</b></a>
                                         <button class="btn mynti-button-calm mynti-button-login-submit mynti-submission-invalid lighter-size tablet" type="submit" tabindex="8"><b class="">Sign In</b></button>
                                     </span>
                                 </div>

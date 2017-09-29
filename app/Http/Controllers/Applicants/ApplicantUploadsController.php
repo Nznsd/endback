@@ -72,7 +72,8 @@ class ApplicantUploadsController extends Controller
                 $applicant->save();
             }
 
-            return response(['src' => Storage::url($path), 'id' => $upload->id], 200);
+            return response(['src' => env('AZURE_STORAGE_FILESHARE_URL') . '/' . $path, 'id' => $upload->id], 200);
+            //return response(['src' => Storage::url($path), 'id' => $upload->id], 200);
         }
 
         return response('invalid file',422);

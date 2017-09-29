@@ -111,7 +111,7 @@
                                                       </tr>
                                                       <tr>
                                                         <td><b>Entry Type</b></td>
-                                                        <td><input type="text" class="form-control" value="{{ ucfirst($applicant->entry_type) }}" readonly="readonly"></td>
+                                                        <td><input type="text" class="form-control" value="{{ $applicant->entry_type }}" readonly="readonly"></td>
                                                       </tr>
                                                       <tr>
                                                         <td><b>Study Center</b></td>

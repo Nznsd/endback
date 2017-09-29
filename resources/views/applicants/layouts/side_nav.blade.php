@@ -5,7 +5,7 @@
                                                 <h5 class="mynti-asidemenu-heading top-half-pill"><b class="">Profile Picture</b></h5>
                                                 <span class="mynti-box mynti-image-placeholder">
                                                 @if(env('APP_ENV') == 'production')
-                                                    <img src="{{ isset($passport) ? Storage::disk('s3')->url($passport->src) : asset('assets/img/svg/profile_avatar.svg') }}" dynamic-src="source" class="mynti-icon profile-image img-circle img-responsive" alt="Avatar Profile" width="132" height="132">
+                                                    <img src="{{ isset($passport) ? env('AZURE_STORAGE_FILESHARE_URL') . '/' . $passport->src : asset('assets/img/svg/profile_avatar.svg') }}" dynamic-src="source" class="mynti-icon profile-image img-circle img-responsive" alt="Avatar Profile" width="132" height="132">
                                                 @else
                                                     <img src="{{ isset($passport) ? env('APP_URL') . str_replace('public/', '/storage/', $passport->src) : asset('assets/img/svg/profile_avatar.svg') }}" dynamic-src="source" class="mynti-icon profile-image img-circle img-responsive" alt="Avatar Profile" width="132" height="132">
                                                 @endif

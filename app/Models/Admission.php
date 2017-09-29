@@ -1,6 +1,6 @@
 <?php
 
-namespace NTI\models;
+namespace NTI\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

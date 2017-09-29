@@ -43,7 +43,10 @@
                                                                 <select class="form-control" id="state_origin" name="state_origin" tabindex="18" data-casacade-select-target="#lga_origin" data-select-loaded="false">
                                                                     <option value="-">Select State Of Origin</option>
                                                                     @foreach($states as $state)
-                                                                        <option value="{{ $state->id  }}">{{ $state->name}}</option>
+                                                                        <option value="{{ $state->id }}" 
+                                                                            {{ $applicant->soo == $state->id ? 'selected="selected"' : '' }}>
+                                                                            {{ $state->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -54,7 +57,9 @@
                                                             <div class="input-dropdown relative pill">
                                                                 <select class="form-control" id="lga_origin" name="lga_origin" tabindex="19" data-select-loaded="false">
                                                                     <option value="-">Select Local Government Of Origin</option>
-                                                                    
+                                                                    @if(isset($applicant->soo_lga))
+                                                                        <option value="{{ $applicant->soo_lga }}" selected>Use Previously Selected</option>
+                                                                    @endif
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -69,7 +74,10 @@
                                                                 <select class="form-control" id="state_residence" name="state_residence" tabindex="20" data-casacade-select-target="#lga_residence" data-select-loaded="false">
                                                                     <option value="-">Select State Of Residence</option>
                                                                      @foreach($states as $state)
-                                                                        <option value="{{ $state->id  }}">{{ $state->name}}</option>
+                                                                        <option value="{{ $state->id }}" 
+                                                                            {{ $applicant->sor == $state->id ? 'selected="selected"' : '' }}>
+                                                                            {{ $state->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -80,7 +88,9 @@
                                                             <div class="input-dropdown relative pill">
                                                                 <select class="form-control" id="lga_residence" name="lga_residence" tabindex="21" data-casacade-select-target="null" data-select-loaded="false">
                                                                     <option value="-">Select Local Government Of Residence</option>
-                                                                    
+                                                                    @if(isset($applicant->sor_lga))
+                                                                        <option value="{{ $applicant->sor_lga }}" selected>Use Previously Selected</option>
+                                                                    @endif
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -90,12 +100,19 @@
                                                 <div class="form-group mynti-input-container">
                                                     <label class="mynti-box lighter-size" for="address">Residential Address</label>
                                                     <div class="input-text relative pill">
-                                                        <input type="text" class="form-control" placeholder="Enter Residential Address" name="address" tabindex="22">
+                                                        <input type="text" class="form-control" value="{{ $applicant->address }}" placeholder="Enter Residential Address" name="address" tabindex="22">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mynti-input-container">
+                                                @if(!isset($applicant->address))
+                                                    
                                                     <a href="javascript:void(0);" rel="next" class="btn mynti-button-calm pill continue" tabindex="23" disabled="disabled"><i class="mynti-spinner-white"></i><b class="">Continue &rsaquo;</b></a>
                                                     <button class="btn mynti-button-calm pill continue" tabindex="23"><i class="mynti-spinner-white"></i><b class="">Continue &rsaquo;</b></button>
+                                
+                                                @else
+                                                    <button class="btn mynti-button-calm" tabindex="23"><b class="">Continue &rsaquo;</b></button>
+                                                     {!! csrf_field() !!}
+                                                @endif
                                                 </div>
                                             </form>
                                     </div>

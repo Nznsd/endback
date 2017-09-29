@@ -32,10 +32,12 @@
                     <div class="form-group mynti-input-container programme-div">
                         <label class="mynti-box light-size" for="programme">Select Programme</label>
                         <div class="input-dropdown relative pill">
-                            <select class="form-control" name="programme" data-casacade-select-target="[cascade-target-dropdown=courses-choice-select]" tabindex="9">
+                            <select class="form-control" name="programme" value="{{ old('programme') }}" data-casacade-select-target="[cascade-target-dropdown=courses-choice-select]" tabindex="9">
                                 <option value="-">Select Programme</option>
                                 @foreach($programmes as $programme)
-                                    <option value="{{ $programme->id }}">{{ $programme->name}}</option>
+                                    <option value="{{ $programme->id }}" 
+                                    {{ old('programme') == $programme->id ? 'selected="selected"' : '' }}>
+                                    {{ $programme->name }}</option>
                                 @endforeach
                             </select>
                             <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>

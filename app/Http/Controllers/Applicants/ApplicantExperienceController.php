@@ -32,11 +32,19 @@ class ApplicantExperienceController extends Controller
             ]
         )->latest()->first();
 
+        $experience = WorkExperience::where(
+            [
+                'param' => 'applicant',
+                'val' => $applicant->id,
+            ]
+        )->latest()->first();
+
         return view('applicants.experience', 
             [
                 'applicant' => $applicant, 
                 'passport' => $passport,
                 'page' => 'experience',
+                'experience' => $experience,
             ]);
     }
 

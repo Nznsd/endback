@@ -107,7 +107,7 @@ class ApplicantPaymentController extends Controller
             // save payment parameters to db
             if(!isset($response))
             {
-                return back()
+                return redirect('applicants/programme')->withInput()
                     ->with('status', 'We are unable to contact Remita at the moment, please try again after a few seconds...');
             }
 
@@ -208,7 +208,7 @@ class ApplicantPaymentController extends Controller
             $transaction->save();
 
             // if payment is tuition, go to dashboard
-            if($type == 'tuition')
+            if($type == 'tuition' && $transaction->status == 'paid')
             {
                 return redirect('applicants/dashboard')
                     ->with('status', 'Tuition Payment Verified, please await your student login credentials');

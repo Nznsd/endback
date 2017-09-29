@@ -33,6 +33,21 @@ class Applicant extends Model
         return ucfirst($value);
     }
 
+    protected function getGenderAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    protected function getMaritalStatusAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    protected function getEntryTypeAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
     protected function getDobAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');

@@ -150,9 +150,11 @@
                                                     @endif 
                                                  </p>
                                                  <span class="mynti-box">
-                                                    @if(count($admission) > 0)
-                                                        @if(!isset($payments['feeslist']['tuition']) || $payments['feeslist']['tuition']->status != 'paid')  {{-- if(isset($payments['feeslist']['tuition']) && $payments['feeslist']['tuition']->status != 'paid') --}}
-                                                        <a href="/applicants/payments/tuition" target="blank" class="text-titlecase dashlet-link paid" mask><b class="circular text-icon-plus">&#43;</b><small>pay tuition fees</small></a>
+                                                    @if(true)
+                                                        @if(!isset($payments['feeslist']['tuition']))  {{-- if(isset($payments['feeslist']['tuition']) && $payments['feeslist']['tuition']->status != 'paid') --}}
+                                                            <a href="/applicants/payments/tuition" target="blank" class="text-titlecase dashlet-link paid" mask><b class="circular text-icon-plus">&#43;</b><small>pay tuition fees</small></a>
+                                                        @elseif($payments['feeslist']['tuition']->status != 'paid')
+                                                            <a href="/applicants/verify/tuition" target="blank" class="text-titlecase dashlet-link paid" mask><b class="circular text-icon-plus">&#43;</b><small>verify tuition RRR</small></a>
                                                         @endif
                                                      @endif
                                                      <br>
