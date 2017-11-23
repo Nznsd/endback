@@ -2,7 +2,7 @@
 
 namespace NTI\Http\Controllers\Auth;
 
-use NTI\User;
+use NTI\Models\User;
 use NTI\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -67,54 +67,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-    }
-
-    protected function redirectTo()
-    {
-        $applicant = Applicant::where('user_id', Auth::id())->first();
-
-        switch($applicant->application_step)
-        {
-            case 1: 
-            {
-                return '/applicants/programme';
-                break;
-            }
-            case 2: 
-            {
-                return '/applicants/payments';
-                break;
-            }
-            case 3: 
-            {
-                return '/applicants/verify';
-                break;
-            }
-            case 4: 
-            {
-                return '/applicants/biodata';
-                break;
-            }
-            case 5: 
-            {
-                return '/applicants/certificates';
-                break;
-            }
-            case 6: 
-            {
-                return '/applicants/experience';
-                break;
-            }
-            case 7: 
-            {
-                return '/applicants/uploads';
-                break;
-            }
-            default: 
-            {
-                return '/applicants/review';
-                break;
-            }
-        }
     }
 }

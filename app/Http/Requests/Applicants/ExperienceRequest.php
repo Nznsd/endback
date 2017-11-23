@@ -24,11 +24,12 @@ class ExperienceRequest extends FormRequest
     public function rules()
     {
         return [
-            'employer' => 'required',
-            'position' => 'required',
-            'job_description' => 'required',
-            'from_date' => 'required|date',
-            'to_date' => 'nullable|date|after:from_date'
+            'workplaces' => 'required|array',
+            'workplaces.*.employer' => 'required',
+            'workplaces.*.position' => 'required',
+            'workplaces.*.job_description' => 'required',
+            'workplaces.*.from_date' => 'required|date',
+            'workplaces.*.to_date' => 'nullable|date|after:from_date'
         ];
     }
 
@@ -36,6 +37,9 @@ class ExperienceRequest extends FormRequest
     {
         return [
             'required' => ':attribute is required',
+            'workplaces.*.employer.required' => 'Employer is required',
+            'workplaces.*.position.required' => 'Position is required',
+            'workplaces.*.job_description.required' => 'Job description is required',
             'date' => 'invalid date',
             'after' => 'end date must be after start date',
         ];

@@ -120,6 +120,11 @@
 
 			init:function(){
 
+				/*
+					Make the print button shake by adding a class for CSS
+					transitions
+				*/
+
 				setTimeout(function(){
 
 					print_button.addClass('shake-effect');
@@ -201,7 +206,7 @@
 									[using JSPDF]
 								*/
 							
-								  invoice_iframe.style.cssText = "display: inline-block; position: absolute; left: -9999px; width:797px !important; height: 100%; top: 0;";
+								  /*invoice_iframe.style.cssText = "display: inline-block; position: absolute; left: -9999px; width:797px !important; height: 100%; top: 0;";
 						
 								 if(typeof invoice_iframe.attachEvent === 'function'){
 
@@ -210,17 +215,17 @@
 								}else if(typeof invoice_iframe.addEventListener === 'function'){
 
 									invoice_iframe.addEventListener('load', downloadPDFInvoice);
-								}
+								}*/
 
 								var endpoint, _origin = window.location.origin; // added by Onuh
 
 								if(/tuition/.test(verify_button.attr('href'))) {
 
-								     endpoint = '/applicants/invoice/download/tuition';
+								     endpoint = '/applicants/download/invoice/tuition';
 
 								}else {
 
-									endpoint = '/applicants/invoice/download';  // added by Onuh
+									endpoint = '/applicants/download/invoice';  // added by Onuh
 								}
 								
 								invoice_iframe.src = (_origin + endpoint);

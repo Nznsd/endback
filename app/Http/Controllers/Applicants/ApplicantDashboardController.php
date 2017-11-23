@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use NTI\Models\Upload;
 use NTI\Models\Transaction;
 use NTI\Repository\Services\NTI as NTIService;
+use NTI\Repository\Modules\ApplicantsModule;
 
 class ApplicantDashboardController extends Controller
 {
@@ -17,20 +18,6 @@ class ApplicantDashboardController extends Controller
     {
         $this->middleware(['auth', 'role:applicant']);
         $this->middleware('verified');
-    }
-
-    private static function getData($applicant)
-    {
-        $data['programme'] = NTIService::getInfo('programmes', $applicant->programme_id);
-        $data['first_choice'] = NTIService::getInfo('specializations', $applicant->first_choice);
-        $data['second_choice'] = NTIService::getInfo('specializations', $applicant->second_choice);
-        $data['study_center'] = NTIService::getInfo('study_centers', $applicant->study_center_id);
-        $data['soo'] = NTIService::getInfo('states', $applicant->soo);
-        $data['soo_lga'] = NTIService::getInfo('lga', $applicant->soo_lga);
-        $data['sor'] = NTIService::getInfo('states', $applicant->sor);
-        $data['sor_lga'] = NTIService::getInfo('lga', $applicant->sor_lga);
-        $data['academicSessionInfo'] = NTIService::getCurrentAcademicSessionInfo();
-        return $data;
     }
 
     public function getDashboard()
@@ -47,22 +34,14 @@ class ApplicantDashboardController extends Controller
         )->latest()->first();
 
         // get all transactions for this applicant
-        $transaction_application = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => 2,          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
-        $transaction_application->desc = NTIService::getInfo('fee_types', $transaction_application->fee_id)->name;
+        $payment = ApplicantsModule::getTransaction($applicant, 'application form', $academicSemesterId);
+        $transaction_application = $payment['transaction'];
+        $transaction_application->desc = NTIService::getInfo('fee_types', 'id', $transaction_application->fee_id)->name;
 
-        $transaction_tuition = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => 19,          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, 'tuition', $academicSemesterId);
+        $transaction_tuition = $payment['transaction'];
         if(isset($transaction_tuition))
-            $transaction_tuition->desc = NTIService::getInfo('fee_types', $transaction_tuition->fee_id)->name;
+            $transaction_tuition->desc = NTIService::getInfo('fee_types', 'id', $transaction_tuition->fee_id)->name;
 
         $payments = [];
         $payments['total'] = $transaction_tuition ? 
@@ -78,6 +57,7 @@ class ApplicantDashboardController extends Controller
                 'applicant' => $applicant,
                 'payments' => $payments,
                 'admission' => $admission,
+                'passport' => $passport,
             ]);
     }
 
@@ -98,7 +78,7 @@ class ApplicantDashboardController extends Controller
             ]
         )->latest()->first();
 
-        $data = self::getData($applicant);
+        $data = ApplicantsModule::getData($applicant);
 
         $transaction_tuition = Transaction::where([
             'param' => 'applicant', // make sure its an applicant
@@ -123,30 +103,29 @@ class ApplicantDashboardController extends Controller
         $academicSessionInfo = NTIService::getCurrentAcademicSessionInfo();
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', Auth::id())->first();
+        $passport = Upload::where(
+            [
+                'param' => 'applicant',
+                'val' => $applicant->id,
+                'object_name' => 'photo',
+            ]
+        )->latest()->first();
 
-        $transaction_application = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => 2,          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, 'application form', $academicSemesterId);
+        $transaction_application = $payment['transaction'];
 
-        $transaction_tuition = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => 19,          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, 'tuition', $academicSemesterId);
+        $transaction_tuition = $payment['transaction'];
 
-        $data['academicSessionInfo'] = NTIService::getCurrentAcademicSessionInfo();
+        $data['academicSessionInfo'] = $academicSessionInfo;
 
         return view('applicants.print.dashboard-receipts',
         [
             'applicant' => $applicant,
+            'passport' => $passport,
             'transaction_application' => $transaction_application,
             'transaction_tuition' => $transaction_tuition,
             'data' => $data,
-        ]  
-    );
+        ]);
     }
 }

@@ -20,12 +20,13 @@ class CreateFeeDefinitionsTable extends Migration
             $table->integer('specialization_id');
             $table->integer('level');
             $table->integer('semester');
-            $table->decimal('amount');
-            $table->string('category')->default('fresh');
+            $table->string('category')->default('all');            
+            $table->decimal('amount', 10, 2);
             $table->json('installment')->nullable();
             $table->json('beneficiaries')->nullable();
             $table->json('collection')->nullable();
             $table->string('desc');
+            $table->boolean('display');
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@
 
 use Illuminate\Http\Request;
 use NTI\Repository\Services\NTI;
+use NTI\Models\Grade;
 
 
 /*
@@ -80,10 +81,8 @@ Route::get('fee-types', function(){
         ->json($fees);
 });
 
-Route::get('fee/{feeId}/{programmeId}/{specializationId}/{level?}/{semester?}/{category?}', function($feeId, $programmeId, $specializationId, $level = 0, $semester = 1, $category = 'fresh') {
-    // return 'this service endpoint returns application fee for given fee & programme id
-    if($feeId == 2) // if fee is for application form
-        $specializationId = 0; // set specializationId to 0
+Route::get('fee/{feeId}/{programmeId}/{specializationId}/{level?}/{semester?}/{category?}', function($feeId, $programmeId, $specializationId, $level = 1, $semester = 1, $category = 'default') {
+    // return 'this service endpoint returns application fee for given fee & programme id    
     $fee_def = NTI::getFeeDefinition($feeId, $programmeId, $specializationId, $level, $semester, $category);
 
     return response()
@@ -104,9 +103,35 @@ Route::get('/subjects', function() {
     ->json($subjects);
 });
 
-Route::get('/grades/{id?}', function($id = 1) {
+Route::get('/grades/{cert_id}/{type_id}', function($cert_id, $type_id) {
     // return 'this service endpoint returns grades for subjects: A, B, C etc';
-    $grades = NTI::getGrades($id);
+    if($cert_id == "1" )
+    {
+        if($type_id == 'gce')
+        {
+            $type_id = 4;
+        } else {
+            $type_id = 1;
+        }  
+    } else if($cert_id == "2")
+    {
+        if($type_id == 'degree')
+        {
+            $type_id = 1;
+        } else if($type_id == 'coe'){
+            $type_id = 2;
+        } else if($type_id == 'tcii'){
+            $type_id = 3;
+        } else if($type_id == 'poly'){
+            $type_id = 5;
+        } else if($type_id == 'pttp'){
+            $type_id = 5;
+        }     
+    }
+    $grades = Grade::where([
+                ['certificate_id', $cert_id],
+                ['type_id', $type_id],
+            ])->get();
 
     return response()
         ->json($grades);

@@ -1,5 +1,5 @@
 @extends('applicants.layouts.master')
-  @section('title', 'Registration')
+  @section('title', 'Apply')
   @section('content')
     @include('applicants.layouts.register-nav')
     <main class="mynti-main-section">
@@ -14,6 +14,7 @@
                             <p class="mynti-box mynti-alert small-text relative strong hidden absolute snap-left pill text-titlecase"></p>
                             
                             <form class="mynti-register-form" name="registerform" method="post" action="/applicants/create" target="_self">
+                        
                             @include('applicants.layouts.status')
                             @include('applicants.layouts.errors')
                                 <div class="mynti-form-input-container clearfix">
@@ -22,7 +23,7 @@
                                         <input type="text" class="text-field tablet" minlength="2" maxlength="60" name="firstname" aria-validate-filter="firstname" tabindex="7" placeholder="Type Name" autocomplete="off" spellcheck autofocus>
                                     </span>
                                     <span class="mynti-box text-input-box">
-                                        <label for="middlename" class="lighter-size text-together">Other Names<sup>*</sup></label>
+                                        <label for="middlename" class="lighter-size text-together">Other Names</label>
                                         <input type="text" class="text-field tablet" minlength="2" maxlength="60" name="middlename" aria-validate-filter="middlename" tabindex="8" placeholder="Type Other Names" autocomplete="off" spellcheck>
                                     </span>
                                 </div>
@@ -39,7 +40,7 @@
                                 <div class="mynti-form-input-container clearfix">
                                     <span class="mynti-box text-input-box">
                                         <label for="phone" class="lighter-size text-together">Mobile Number<sup>*</sup></label>
-                                        <input type="number" class="text-field tablet" minlength="11" name="phone" tabindex="11" placeholder="0803 453 0000" autocomplete="off" spellcheck>
+                                        <input type="text" class="text-field tablet" minlength="11" name="phone" tabindex="11" placeholder="080 3453 0000" autocomplete="off" spellcheck>
                                     </span>
                                     <span class="mynti-box text-input-box relative">
                                         <label for="gender" class="lighter-size text-together">Gender<sup>*</sup></label>
@@ -48,13 +49,13 @@
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                         </select>
-                                        <var class="stub tablet absolute">--</var>
+                                        <var class="stub tablet absolute">Select Gender</var>
                                     </span>
                                 </div>
                                 <div class="mynti-form-input-container clearfix">
                                     <span class="mynti-box text-input-box">
                                         <label for="birthdate" class="lighter-size text-together">Date of Birth<sup>*</sup></label>
-                                        <input type="text" class="text-field tablet" name="birthdate" tabindex="13" placeholder="11/08/1980" value="11/08/1980" aria-validate-filter="^([01][0-9])\/([0-3][0-9])\/(?:[1-2][0-9]{3})$" autocomplete="off" spellcheck>
+                                        <input type="text" class="text-field tablet" name="birthdate" tabindex="13" placeholder="Enter Date Of Birth" value="" aria-validate-filter="^([01][0-9])\/([0-3][0-9])\/(?:[1-2][0-9]{3})$" autocomplete="off" spellcheck>
                                     </span>
                                     <span class="mynti-box text-input-box relative">
                                         <label for="gender" class="lighter-size text-together">Marital Status<sup>*</sup></label>
@@ -62,10 +63,8 @@
                                             <option value="-">--</option>
                                             <option value="married">Married</option>
                                             <option value="single">Single</option>
-                                            <!--<option value="divorced">Divorced</option>
-                                            <option value="widowed">Widowed</option>-->
                                         </select>
-                                        <var class="stub tablet absolute">--</var>
+                                        <var class="stub tablet absolute">Select Marital Status</var>
                                     </span>
                                 </div>
                                 <div class="mynti-form-input-container clearfix">
@@ -89,7 +88,7 @@
                     </div>
                     <footer class="mynti-main-footer">
                         <div class="mynti-copyright-info-container">
-                            <span class="mynti-box text-center lighter-size"> Copyright &copy; {{ date('Y') }} National Teachers Institute. All rights reserved. Powered by <a href="https://www.omniwsift.com" tabindex="18">Omniswift <b class="">|</b></a> <a href="/" tabindex="">Terms of Use <b class="">|</b></a> <a href="/" tabindex="">Privacy Policy</a> </span>
+                            <span class="mynti-box text-center lighter-size"> Copyright &copy; {{ date('Y') }} National Teachers Institute. All rights reserved. Powered by <a href="http://www.omniswift.com" tabindex="18">Omniswift <b class="">|</b></a> <a href="/" tabindex="">Terms of Use <b class="">|</b></a> <a href="/" tabindex="">Privacy Policy</a> </span>
                         </div>
                     </footer>
             </section>

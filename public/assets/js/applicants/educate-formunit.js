@@ -17,7 +17,7 @@
 		the PHP server [Laravel Style]
 	*/
 
-	w._delayUnloadUntil = 500; /* 500 millisecs delay ;) */
+	w._delayUnloadUntil = 200; /* 200 millisecs delay ;) */
 
 	$cdvjs.Application.registerModule("formunit", ["jQuery", "emitter", "tools"], function(box, accessControl){
 
@@ -34,6 +34,8 @@
 			menu_item,
 
 			subjects_selected_list,
+
+			skip_btn,
 
 			tracker,
 
@@ -295,23 +297,25 @@
 								o.value = value.id;
 								return o;
 							});
+
+							console.log("Options", _options);
 						
-							if($elem.children("option").length > 1){
-								$elem.find("option").remove("[value!='-']");
+							if($elem.eq(0).children("option").length > 1){
+								$elem.find("option").remove("[value!='']");
 							}
 
 							$elem.append(
-								$fragment.append.apply($fragment, _options)
+								($fragment.append.apply($fragment, _options))
 							).data(
 								"select-loaded",
 								"true"
-							);
+							) 
 
 					}).fail(function(){
 
 						E.emit('sweetalert', {
 							title:'Ooops!',
-							text:'Something unexpected happened and we\'re sorry. \r\n\t\t Please, contact <a href="/">Support</a>',
+							text:'Something unexpected happened and we\'re so sorry about it. \r\n\t\t Please, contact <a href="https://www/omniswift.com/support">Support</a>',
 							html:true,
 							info:'error',
 							timer:3500,
@@ -364,12 +368,15 @@
 						showCancelButton:true
 					}, 
 					function(){
-							if(name == 'photo'){
+						 var _text;
+							if(name === 'photo'){
 									photo_upload_button.removeAttr('disabled');
 				
 									$('p', '.sweet-alert').find('img').remove();
 				
 									photo_image.addClass('transparency-80');
+
+									_text = photo_upload_button.text();
 				
 									photo_upload_button.text('Uploading Photo...');
 				
@@ -392,16 +399,23 @@
 										
 										data = JSON.parse(data.replace(/(<([^>]+)>)/ig, ""));
 
-										var _origin = w.location.origin;
+										var _origin = w.location.origin,
+											img_src = ((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src);
 										
 										photo_image.removeClass('transparency-80')
-										.prop({'src':((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src)});
+												.prop({'src':img_src});
 				
 										_status = $form.find('[aria-has-uploaded]').attr('aria-has-uploaded');
 										
-										$form.find('[aria-has-uploaded]').attr('aria-has-uploaded', 'true');
-				
-										photo_upload_button.filter('.upload-btn').text('Upload Photo');
+										if(_status === 'false'){
+											$form.find('[aria-has-uploaded]').attr('aria-has-uploaded', 'true');
+										}
+
+										photo_upload_button.filter(":visible").text(_text);
+
+										photo_upload_button = $("a[upload-file-async]:visible");
+
+										E.emit('navavatarchange', {avatar_url:img_src});
 				
 										
 									}, function(error){
@@ -417,7 +431,16 @@
 											photo_upload_button.filter('.upload-btn').text('Upload Photo');
 
 											file_input.val("");
-									})
+									});
+							}else{
+
+								setTimeout(function(){
+										E.emit('sweetalert', {
+											title:"File Upload Status",
+											text:"The Certificate File you just attached will be \r\n uploaded as soon as you submit this form.",
+											timer:4800
+										});
+								}, 200);
 							}
 					}, function(){
 						if(name == 'photo'){
@@ -426,6 +449,7 @@
 							file_input.val("");
 						}else{
 							cert_file_input.val("");
+
 						}
 					});
 														
@@ -439,10 +463,40 @@
 
 
 					/*
-					  	initialize Popovers
+					  	Initialize Popovers
 					*/
 
 					$('[data-toggle="popover"]').popover();
+
+					/*
+					   Trigger the popover (Bootstrap) on the photo
+					   upload button
+					*/
+
+					if (photo_upload_button.filter(":visible")
+						.is('.upload-btn')) {
+						photo_upload_button.queue(function (next) {
+
+							var _this = $(this);
+							setTimeout(function () {
+								_this.popover('destroy');
+								next();
+							}, 7800);
+
+						}).focusin();
+					}
+
+					if(skip_btn.length){
+						skip_btn.queue(function (next) {
+
+							var _this = $(this);
+							setTimeout(function () {
+								_this.popover('destroy');
+								next();
+							}, 7800);
+
+						}).focusin();
+					}
 
 
 					/*
@@ -479,27 +533,44 @@
 
 									photo_upload_button.removeAttr('disabled');
 
-								},500);
+								},900);
 
 							}
 
 							if($(this).is(add_sitting_btn.selector)
 								&& !$(this).is('[disabled]')){
 								
-								$('.mynti-edu-details:last').after(edu_section_html.replace(new RegExp("\\bfirst","gm"), 
-								(tracker = ordinals[++tracker_index])));
+								if((add_sitting_btn.text()).indexOf('Add') + 1){
+										$('.mynti-edu-details:last').after(edu_section_html.replace(new RegExp("\\bfirst","gm"), 
+										(tracker = ordinals[++tracker_index])));
 
-								cert_file_input = $('input[name$="[certificate]"]:last');
+										cert_file_input = $('input[name$="[certificate]"]:last');
 
-								add_sitting_btn.attr('disabled', 'disabled');
+										//add_sitting_btn.attr('disabled', 'disabled');
 
-								check_box.attr('disabled', 'disabled');
+										check_box.attr('disabled', 'disabled');
+
+										add_sitting_btn.text('Remove Last Sitting');
+								}else{
+
+										$('.mynti-edu-details:last').remove();
+										
+										tracker = ordinals[--tracker_index];
+										
+										check_box.removeAttr('disabled');
+
+										add_sitting_btn.text('Add Sitting');
+								}
 
 							}
 
 							if($(this).is(cert_upload_btn.selector)){
 
+								var $_elem = $(this);
+
 								setTimeout(function(){
+
+									cert_file_input = $_elem.parents('.form-group:eq(0)').find('input[name$="[certificate]"]');
 
 									cert_file_input.trigger('click'); 
 
@@ -511,7 +582,7 @@
 
 									cert_upload_btn.removeAttr('disabled');
 
-								},500);
+								},900);
 							}
 
 							if($(this).is(menu_item.selector)){
@@ -559,17 +630,26 @@
 							var form_data = (info_form.data("fill-list") || '[]'),
 								filllist = JSON.parse(form_data),
 								fillprogress = filllist.length,
-								filltotal = info_form.find('input[type],select').length,
+								filltotal = info_form.find('input[type]:not([readonly]),select').length,
 								percent = 0,
 								$target = $(event.target),
 								$subtarget = null,
 								file_ext = null,
 								input_value = $target.val(),
-								offset = filllist.indexOf(event.target.name);
+								offset = filllist.indexOf(event.target.name),
+								dropdownLoadPromise = null,
+								result_type_id = (w.location.pathname.indexOf('/tertiary') > 1 ? '2' : '1' );
 
+							if(cert_file_input.get(0).name === $target.get(0).name){
+								
+								$('[name="' + cert_file_input.get(0).name.replace('[certificate]', '[cert_file_name]')+'"]')
+										.val(input_value);
+
+
+							}
 
 							if(($target.is(file_input.selector) 
-										|| $target.is(cert_file_input.selector))
+										|| $target.attr('name').indexOf("[certificate]") > -1)
 										&& input_value.length > 0){ 
 
 									file_ext = getFileExtension(input_value);
@@ -599,11 +679,15 @@
 
 												reader.onload = function(e){
 
-													fetchImageForPreview(file_ext !== ".pdf" ? e.target.result : w.location.origin+"/assets/img/png/pdf-file.png", $target.attr('name'))
-														.then(
+													fetchImageForPreview(
+														file_ext !== ".pdf" ? 
+															e.target.result : 
+															w.location.origin+"/assets/img/png/pdf-file.png",
+														$target.attr('name')
+													).then(
 															fetchImageCallback, 
 															fetchImageCalloff
-														);
+													);
 												};
 
 												reader.readAsDataURL(file); // readAsText(),  readAsBinaryString()
@@ -628,16 +712,25 @@
 
 											$subtarget = $($target.data("casacade-select-target"));
 
-											$subtarget.data('placeholder-text', $subtarget.find("option:eq(0)").text())
-												.children("option:eq(0)").text("LOADING...");
-											
-											loadDropdown('/services/lga/'+input_value, $subtarget)
-												.then(function(){
-													$subtarget.find("option:eq(0)").text($subtarget.data('placeholder-text'));
-													$subtarget.data('placeholder-text', null);
+											$subtarget.eq(0).data('placeholder-text', $subtarget.children("option:eq(0)").text());
+												
+											$subtarget.find("option:eq(0)").text("LOADING...");
+
+											if($target.attr('name').indexOf("[state]") + 1){	
+												
+												dropdownLoadPromise	= loadDropdown('/services/lga/'+input_value, $subtarget);
+												
+											}else if($target.attr('name').indexOf("[result_type]") + 1){
+												
+												dropdownLoadPromise	= loadDropdown('/services/grades/'+result_type_id+'/'+input_value, $subtarget);
+
+											}
+
+											dropdownLoadPromise.then(function(){
+													$subtarget.find("option:eq(0)").text($subtarget.eq(0).data('placeholder-text'));
+													$subtarget.eq(0).data('placeholder-text', null);
 													$subtarget = null;
 											});
-											
 									}
 
 									if(input_value !== "-"){
@@ -702,36 +795,40 @@
 							fillprogress = filllist.length;
 							percent = Math.round((fillprogress/filltotal) * 100);
 
+
+
 							if(percent >= 60){
 
 									check_box.removeAttr('disabled');
 							}else{
 
-									if(!check_box.is('[disabled]')){
+									/*if(!check_box.is('[disabled]')){
 										check_box.attr('disabled', 'disabled');
-									}
+									}*/
 
 							}
 							
 							if(percent >= 92){
 
-								add_sitting_btn.removeAttr('disabled')
-									.addClass('shake-effect')
-										.queue(function(next){
-											var _self = $(this);
-											setTimeout(function(){
-												_self.popover('destroy');
-												subjects_selected_list = [];
-												next();
-											},7800);
+								if((add_sitting_btn.text()).indexOf('Add') + 1){
+										add_sitting_btn.removeAttr('disabled')
+											.addClass('shake-effect')
+												.queue(function(next){
+													var _self = $(this);
+													setTimeout(function(){
+														_self.popover('destroy');
+														subjects_selected_list = [];
+														next();
+													},7800);
 										}).focusin();
+								}
 					
 							}else{
 
-								if(!add_sitting_btn.is('[disabled]')){
+								/*if(!add_sitting_btn.is('[disabled]')){
 									add_sitting_btn.removeClass('shake-effect')
 										.attr('disabled', 'disabled');
-								}
+								}*/
 								
 							}
 					});
@@ -748,6 +845,8 @@
 
 				check_box = $('input[name="badge"]');
 
+				skip_btn = $('.skip');
+
 				info_form = $('.mynti-context-form');
 
 				state_dropdown = $('select[name$="[state]"]');
@@ -760,7 +859,7 @@
 
 				cert_upload_btn = $('a.upload-cert');
 
-				ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+				ordinals = ['first', 'second', 'third', 'fourth', 'fifth'];
 
 				subjects_selected_list = [];
 
@@ -770,7 +869,7 @@
 
 				file_input = $('.profile-picture-file');
 
-				photo_upload_button = $('a[upload-file-async]');
+				photo_upload_button = $('a[upload-file-async]:visible');
 
 				photo_upload_iframe = $('iframe[name="avatarupload_sink"]').get(0);
 
@@ -793,7 +892,7 @@
 				T = null;
 
 				ordinals = null;
-
+				tracker_index = null;
 				tracker = null;
 
 				photo_image = null;
@@ -809,6 +908,7 @@
 				cert_upload_btn = null;
 
 				body = null;
+				skip_btn = null;
 
 				cert_file_input = null;
 				add_sitting_btn = null;

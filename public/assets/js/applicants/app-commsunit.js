@@ -193,15 +193,13 @@
 
                        C = box.cookiestore,
 
-				   transportHooks = [
+				               transportHooks = [
       						       "ajax",
       							     "eventsource",
       							     "websockets"
-                                 ],
+                       ],
 
-                                 
-                                 
-                                 store_callback = function(e){
+                       store_callback = function(e){
                                     
                                     if((this === d && typeof d.documentMode == 'number' && eventIsNative(e))
                                             || (this === d && typeof w.tickstamp == 'undefined' && !eventIsNative(e))
@@ -224,36 +222,58 @@
                                                   else if('detachEvent' in  this){
                                                       this.detachEvent('onstorage', arguments.callee);
                                                   }
+
+                                                  /*E.emit('sweetalert', {
+                                                      title:"Session Locked",
+                                                      text:"Errm... You haven't been active for quite some time. So, we \r\n logged you off (you're not logged out yet). To log back on, \r\n simply",
+                                                      type:"info",
+                                                  }, function(){
+
+                                                  });*/
+
                                                   return true;
                                               }
 
-                                              if(value.email == "guest"){
-                                                 /* E.emit('sweetalert', {
-                                                      title:"Just Testing",
-                                                      text:"XXXXXXXXXXXXXXXXXXXXXXXX",
+                                              if(value.email === ""){
+                                                  E.emit('sweetalert', {
+                                                      title:"Hello There",
+                                                      text:"Hope you're enjoying your use of the MyNTI Platform ?",
                                                       type:"info",
                                                       timer:5600,
-                                                      showCancelButton:false
-                                                  });*/
-                                              }
-                              
-                                              if(value.email != "guest" && value.status === "logged-out"){
-                                                  E.emit('sweetalert', {
-                                                      title:"Session Exhausted",
-                                                      text:"You seem to have logged out on another tab, Kindly refresh this page to continue.",
-                                                      type:"error",
-                                                      showConfirmButton:false,
                                                       showCancelButton:false
                                                   });
                                               }
                               
-                                              if(value.email != "guest" && value.status === "logged-in"){
+                                              if(value.email == "applicants.no-reply@mynti.edu.ng" 
+                                                  && value.status === "guest"){
                                                   E.emit('sweetalert', {
-                                                      title:"Session Established",
-                                                      text:"You seem to have logged in on another tab, Kindly refresh this page to continue.",
-                                                      type:"info",
-                                                      timer:5000,
+                                                      title:"Session Ended",
+                                                      text:"You seem to have logged out on another tab/window, \r\n Kindly refresh this page to continue afresh.",
+                                                      type:"error",
+                                                      showConfirmButton:true,
+                                                      confirmButtonText: "Refresh Now!",
                                                       showCancelButton:false
+                                                  }, function(){
+                                                        try{
+                                                          w.location.href = '/';
+                                                        }catch(er){  }
+                                                  });
+                                              }
+                              
+                                              if(value.email != "applicants.no-reply@mynti.edu.ng" 
+                                                    && value.status === "user"){
+                                                  E.emit('sweetalert', {
+                                                      title:"Session Refreshed",
+                                                      text:"You seem to have logged in on another tab/window, \r\n Kindly refresh this page to continue smoothly.",
+                                                      type:"info",
+                                                      timer:5900,
+                                                      showConfirmButton:true,
+                                                      confirmButtonText: "Refresh and Continue ...",
+                                                      showCancelButton:false
+                                                  }, function(){
+                                                        try{
+                                                          w.location.reload();
+                                                        }catch(er){  }
                                                   });
                                               }
                                           }
@@ -264,7 +284,7 @@
                                         w.tickstamp = undefined;
                                     }
                         
-                                    console.log("===== cross-tab storage event =====");
+                                    console.log("===== cross-tab check =====");
                             },
 
                             watchSession = function(){
@@ -282,7 +302,7 @@
                                     d.addEventListener('storage', store_callback, false);
                                 }else if(d.attachEvent){
                                     /*
-                                         IE 8 properly supports the 'storage' event for sessionStorage & localStorage
+                                         IE 8 properly supports the 'storage' event for {`localStorage`}
                                          however, the listener MUST be on the document object
                                     */ 
                     
@@ -496,7 +516,7 @@
       							   
                                                   self.cleanup(opts, data);
       							   
-					    	console.log(
+					    	                                  console.log(
                                                         "request returned with status text: ", 
                                                         ('statusText' in xhr) && xhr.statusText,
                                                         "request returned with status code: ",
@@ -634,30 +654,31 @@
                                     connect(transportLines["Server"+hook.toUpperCase()], hook);
                                  }
 
-				  promise.then(function(){
-						 $(d).on('mousemove', $.debounce(760, function(){
+                        				  promise.then(function(){
+                        						 $(d).on('mousemove', $.debounce(760, function(){
 
-						      /*
+                        						      /*
 
-							IE 9+/Edge don't support localstorage events across tabs
-							so we need to fallback to cookie polling/checking         
+                              							IE 9+/Edge don't support {`localstorage`} events across tabs
+                              							so we need to provide a fallback to cookie polling or
+                                            repeated checking of a given cookie value         
 
-						      */
-						      var _lstore = w.localStorage["MYNTI_APPLICANT_LOGIN"] || "{}",
-							newer_update_cookie = parseInt(C.get_cookie("MYNTI_APPLICANT_USER_UPDATE_COUNTER"));
+                        						      */
+                        						      var _lstore = w.localStorage["MYNTI_APPLICANT_LOGIN"] || "{}",
+                        							        newer_update_cookie = parseInt(C.get_cookie("MYNTI_APPLICANT_USER_UPDATE_COUNTER") || "-1");
 
-						      if(w.webpage.engine.edgehtml 
-							|| (w.webpage.engine.trident && d.documentMode >= 9)){
-							    if(newer_update_cookie > old_update_cookie){
-								old_update_cookie = newer_update_cookie;
+                        						      if(w.webpage.engine.edgehtml 
+                                							|| (w.webpage.engine.trident && d.documentMode >= 9)){
+                                							    if((newer_update_cookie > old_update_cookie)
+                                                        || (newer_update_cookie === -1)){
+                                								      old_update_cookie = newer_update_cookie;
+                                                      T.trigger_event('storage', d, {newValue:_lstore,url:w.location.href,key:"MYNTI_APPLICANT_LOGIN"}, w);
+                                							    }
+                        						      }
 
-								T.trigger_event('storage', d, {newValue:_lstore,url:w.location.href,key:"MYNTI_APPLICANT_LOGIN"}, w);
-							    }
-						      }
 
-
-						 }));
-				  });
+                        						 }));
+                        				  });
 
                                  $(d).on('sessionready', watchSession);
 
@@ -688,21 +709,21 @@
                                 
                                 disconnect(null);
 				  
-				$(d).off('mousemove');
-				  
-				$(d).off('sessionready');
+                        				$(d).off('mousemove');
+                        				  
+                        				$(d).off('sessionready');
 
                           },
                           destroy:function(){
 
-                               transportLines.ServerAJAX = null;
-			 	transportLines.ServerEVENTSOURCE = null;
-			 	transportLines.ServerWEBSOCKETS = null;
+                                transportLines.ServerAJAX = null;
+                        			 	transportLines.ServerEVENTSOURCE = null;
+                        			 	transportLines.ServerWEBSOCKETS = null;
 
-                               connect = null;
+                                connect = null;
 
 
-                               body = null;
+                                body = null;
 
                           }
                     

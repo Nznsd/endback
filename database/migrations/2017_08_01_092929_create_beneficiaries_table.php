@@ -15,9 +15,11 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('param');
-            $table->string('val');
             $table->integer('scholarship_id');
+            $table->integer('fee_id');
+            $table->integer('semester_id');
+            $table->string('param');
+            $table->string('val'); //use RegNo and AppNo
             $table->timestamps();
         });
     }

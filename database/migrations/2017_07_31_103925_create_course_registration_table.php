@@ -13,7 +13,7 @@ class CreateCourseRegistrationTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_registration', function (Blueprint $table) {
+        Schema::create('course_registrations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('student_id');
             $table->integer('semester_id');
@@ -30,6 +30,6 @@ class CreateCourseRegistrationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_registration');
+        Schema::dropIfExists('course_registrations');
     }
 }

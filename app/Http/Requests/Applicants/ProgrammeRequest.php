@@ -25,8 +25,8 @@ class ProgrammeRequest extends FormRequest
     {
         return [
             'programme' => 'required|in:1,2,3,4,5',
-            'first_choice' => 'required',
-            'second_choice' => 'required',
+            'first_choice' => 'required|integer',
+            'second_choice' => 'required|integer',
             'residence' => 'required',
             'study_center' => 'required'
         ];
@@ -36,7 +36,8 @@ class ProgrammeRequest extends FormRequest
     {
         return [
             'required' => ':attribute is required',
-            'in' => ':attribute must be a valid specialization'
+            'in' => ':attribute must be a valid programme',
+            'integer' => 'please choose both first and second choice'
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace NTI\Http\Middleware;
+namespace NTI\Http\Middleware\Applicants;
 
 use Closure;
 
@@ -17,8 +17,8 @@ class CheckRole
     {
 		if(! $request->user()->role == $role)
 		{
-			return back()
-			    ->with('status', 'You are not authorized to view this page!');
+			return redirect('/home')
+			    ->with('status', 'You are not authorized to view that page!');
 		}
 		
         return $next($request);

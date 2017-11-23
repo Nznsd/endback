@@ -17,12 +17,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        if(env('APP_ENV') !== 'development')
+        // serve https from remote server
+        if(env('APP_ENV') == 'production')
         {
             $url->forceScheme('https');
         }
 
+        // mysql database
         Schema::defaultStringLength(191);
+
+        // bugsnag registration
+        $this->app->alias('bugsnag.logger', \Illuminate\Contracts\Logging\Log::class);
+        $this->app->alias('bugsnag.logger', \Psr\Log\LoggerInterface::class);
     }
 
     /**

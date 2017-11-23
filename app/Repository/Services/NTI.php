@@ -24,63 +24,168 @@ class NTI{
         return json_decode(json_encode($collection));
     }
 
+    public static function jsonToArray($json)
+    {
+        //this function typecast json into array and make it iterable with forloop
+        $array = (array) json_decode($json);
+        return $array;
+    }
+
     public static function basicInfo()
     {
-        //this function contains basic info about the school
+        //this function contains basic info about the school. DO NOT ALTER ANYTHING
         $info = [
             "schoolName" => "National Teachers' Institute",
+            "supportEmail" => "support@omniswift.com",
             "schoolAbbr" => "NTI", //useful for Registartion No. e.g: NTI/NCE/2017/001
             "schoolMoto" => "",
             "schoolLogo" => "",
             "schoolAddress" => "",
             "schoolDescription" => "",
-            "domainExtention" => "nti.edu.ng"
+            "domainExtention" => "nti.edu.ng",
+            "nceId" => 1, //useful in Students->getMyLevelIn()
+            "bdpId" => 5,
+            "pttpId" => 2,
+            "commissionedSemesterId" => 21 //Set the semesterId this portal went live. Useful in Students->getMySemesterIds()
         ];
 
         return static::arrayToJson($info);
     }
 
-    public static function zeroFill($uniqueNo, $maximumDigits)
+    public static function zeroFill($digit, $minLength = 3)
     {
-        //this function appends zeros to a number
-        $uniqueNo = (string) $uniqueNo;
-        $strLength = strlen($uniqueNo);
+        //this function prepends zeros to $digit.
+        $digit = (string) $digit;
+        $digitLength = strlen($digit);
 
-        $peak = $maximumDigits - $strLength;
+        if($digitLength >= $minLength)
+            return (string) $digit;
+
+        $noOfZerosToAppend = $minLength - $digitLength;
         
-        if($peak <= 2)
-            $peak = $maximumDigits; 
-
         $array = [];
 
-        for($i = 0; $i < $peak; $i++)
+        for($i = 0; $i < $noOfZerosToAppend; $i++)
             $array[] = "0";            
             
         $zeroFill = implode('',$array);
-        $zeroFilled = "{$zeroFill}{$uniqueNo}";
+        $zeroFilled = "{$zeroFill}{$digit}";
 
-        return (string)$zeroFilled;
+        return (string) $zeroFilled;
 
     }
 
-    public static function getInfo($table, $primaryKey = null, $value = null)
+    public static function numberToPosition($number)
     {
-        //returns information about a record. Works like eloquent find() if primary key is persent
-        // and all() if no promary key
-        // and 
-        if($value == null && $primaryKey == null)
-        {
-            return DB::table($table)
-                ->get();
-        }else if($value == null && isset($primaryKey))
-        {
-            return DB::table($table)
-                ->where('id', $primaryKey)
-                ->first();
+        //this function converts a number into poistion (st, nd, rd, th..)
+        
+        $int = (int) $number; 
+        
+        switch ($int) {
+            case 1:
+                return 'First';
+                break;
+            case 2:
+                return 'Second';
+                break;
+            case 3:
+                return 'Third';
+                break;        
+            default:
+                return 'th';
+                break;
         }
+    }
+
+    public static function smiley($face = null)
+    {
+        switch ($face) {
+            case 'happy':
+                return '&#9786;';
+                break;
+            case 'sad':
+                return '&#9785;';
+                break;
+            default:
+                return '';
+                break;
+        }
+    }
+
+    public static function responseMessage($status = null)
+    {
+        switch ($status) {
+            case 'a':
+                return "Hang tight! You'll be redirected in a moment...".static::smiley('happy');
+                break;
+            case 'b':
+                return "Creating an account might take a while. Please be patient...".static::smiley('happy');
+                break;
+            case 'c':
+                return "Aww! We are unable to create your account at this moment. Please try again...".static::smiley('sad');
+                break;    
+            case 'd':
+                return "Unable to update record. Please try again...".static::smiley('sad');
+                break;                
+            default:
+                return "Hi there! This will only take a sec...".static::smiley('happy');
+                break;
+        }
+    }
+
+    public static function consoleLog($message)
+    {
+        echo"<script>console.log('".$message."')</script>";
+    }
+
+    public static function getInfo($table, $column, $value)
+    {
+        //returns information about a record. Works like eloquent find()
         return DB::table($table)
-                    ->where($primaryKey, $value)
-                    ->get();
+                    ->where($column, $value)
+                    ->first(); //it must be first(); do not change!
+    }
+
+    public static function updateRecord($table, $column, $value, $updatesArray)
+    {
+        //this function updates a single row of a table
+
+        return DB::table($table)
+            ->where($column, $value)
+            ->update($updatesArray);
+    }
+
+    public static function insertRecord($table, $insertArray)
+    {
+        //insert a single row and return the ID.(if the table has auto-increment)
+        return DB::table($table)
+                ->insertGetId($insertArray);
+    }
+
+    public static function dateFormatter($date)
+    {
+        //this function returns Carbon formatted date. E.g: Sat, Nov 28, 2017 10:19 AM
+        $date = (string) $date;
+        $carbon = new \Carbon\Carbon($date);
+        return $carbon->toDayDateTimeString();        
+    }
+
+    public static function RRRFormatter($RRR, $length = 4)
+    {
+        $RRR = (string) $RRR;
+        $array = str_split($RRR, $length);
+        
+        return implode("-", $array);
+
+    }
+
+    public static function phoneNoFormatter($phoneNo)
+    {
+        //this function formats a phone number to +234
+        $actualNo = (string) substr($phoneNo, 1);
+        $formatted = "+234".$actualNo;
+        return $formatted;
+
     }
 
     public static function emailExists($email)
@@ -102,8 +207,15 @@ class NTI{
         */
 
         //cleanse $firstname and $surname with RegEx
+        //most of the surnames and firstnames are joined with othernames, so split it eg: firstname = john doe; split as firstname = john
+
         $regEx = '/\W/';
+        $surname = explode(' ', $surname);
+        $surname = $surname[0];
         $surname = strtolower(preg_replace($regEx, '', $surname));
+
+        $firstName = explode(' ', $firstName);
+        $firstName = $firstName[0];
         $firstName = strtolower(preg_replace($regEx, '', $firstName));
         
         $concatName = $surname.".".$firstName;
@@ -121,6 +233,14 @@ class NTI{
 
         return $email;
     }
+
+    public static function generatePassword()
+    {
+        //this function generates a random password everytime
+        $password = "NTI@".rand(1000, 999999);
+        return $password;
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -187,7 +307,7 @@ class NTI{
     public static function getCurrentAcademicSessionInfo()
     {
         //returns information about the current academic session and semester
-         $query = DB::select("SELECT academic_semesters.id as semesterId,
+        $data = DB::select("SELECT academic_semesters.id as semesterId,
                            academic_sessions.id as sessionId,
                            academic_sessions.year_name as year,
                            academic_sessions.name as academicSession,
@@ -196,9 +316,32 @@ class NTI{
                            academic_semesters.end_date as semesterEnd
                            FROM academic_semesters, academic_sessions
                            WHERE academic_semesters.status = :status
-                           AND academic_session_id = academic_sessions.id",
-                           ["status" => 'green']);
-        return $query[0];
+                           AND academic_session_id = academic_sessions.id
+                           ORDER BY academic_semesters.id DESC
+                           LIMIT 1",
+                           ["status" => "green"]);
+
+        return (! empty($data)) ? $data[0] : null;   
+                           
+    }
+
+    public static function getAcademicInfo($semesterId)
+    {
+        //this function returns info of a particular semesterId
+        $data = DB::select("SELECT academic_semesters.id as semesterId,
+        academic_sessions.id as sessionId,
+        academic_sessions.year_name as year,
+        academic_sessions.name as academicSession,
+        academic_semesters.name as semester,
+        academic_semesters.start_date as semesterStart,
+        academic_semesters.end_date as semesterEnd
+        FROM academic_semesters, academic_sessions
+        WHERE academic_semesters.id = :semesterId
+        AND academic_session_id = academic_sessions.id",
+        ["semesterId" => $semesterId]);
+
+        return (! empty($data)) ? $data[0] : null;   
+
     }
 
     /*
@@ -207,7 +350,7 @@ class NTI{
     |--------------------------------------------------------------------------
     |
     */
-    
+
     public static function getProgrammes()
     {
         //this function returns all the programmes NTI offer
@@ -244,9 +387,24 @@ class NTI{
     {
         //this function returns the levels for a particular programme
         return DB::table('levels')
-            ->where('proramme_id', $programmeId)
+            ->where('programme_id', $programmeId)
             ->get();
     }
+
+    public static function getLevelName($programmeId, $level)
+    {
+        //this function returns a more human friendly Level name. E.g: Year 1 or 100 Level or N/A etc
+        $data = DB::table('levels')
+                ->where([
+                    ['programme_id', $programmeId],
+                    ['level', $level]
+                ])
+                ->first();
+
+        return @$data->level_name;                    
+
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -275,14 +433,15 @@ class NTI{
     |
     */
 
-    public static function getCourses($programmeId, $specializationId, $level, $semester)
+    public static function getCourses($programmeId, $specializationId, $level, $semester, $status = "active")
     {
         return DB::table('courses')
             ->where([
                 ['programme_id', $programmeId],
                 ['specialization_id', $specializationId],
                 ['level', $level],
-                ['semester', $semester]
+                ['semester', $semester],
+                ['status', $status]
             ])
             ->get();
     }
@@ -296,22 +455,22 @@ class NTI{
 
     public static function getFeeId()
     {
-        //returns the ID of a fee name
+        //returns the ID of a fee name for easy referencing. DO NOT DELETE (used in so many places)
         $fees = [
-            "application_fee" => 2,
-            "tuition_fee" => 19            
+            "applicationFee" => 2,
+            "tuitionFee" => 19,
+            "carryoverFee" => 3            
         ];
 
         return static::arrayToJson($fees);
     }
 
-    public static function getFeeDefinition($feeId, $programmeId, $specializationId, $level, $semester, $category)
+    public static function getFeeDefinition($feeId, $programmeId, $specializationId, $level, $semester, $category = 'default')
     {
 
         //returns a single fee definition
-        $specializationId = (static::isPractical($specializationId)) ? $specializationId : 0;
-
-        $query = DB::select("SELECT * 
+        
+        $data = DB::select("SELECT * 
                              FROM fee_definitions
                              WHERE fee_id = :feeId
                              AND programme_id = :programmeId
@@ -328,17 +487,43 @@ class NTI{
                                  "category" => $category
                              ]);
 
-          return $query[0];                   
+        return (! empty($data)) ? $data[0] : null;      
+
     }
 
-    public static function getFeeAssignments($semesterId, $key, $value)
+    public static function paymentType($number)
     {
+        //this function returns the title of a payment e.g: Full, First Installment
+        $type = "Full Payment";
+
+        if($number > 0)
+            $type = static::numberToPosition($number) . " Installment";
+
+        return $type;
+    }
+
+    public static function getFeeAssignments($key, $value)
+    {
+        //returns all the fee_assignments for the $key and $value
+        return DB::table('fee_assignments')
+            ->where([
+                ['param', $key],
+                ['val', $value]
+            ])
+            ->get();
         
     }
 
-    public static function getTransactions($semesterId, $key, $value)
+    public static function getRRRInfo($RRR)
     {
-        
+        //this function returns information about an RRR
+
+        $RRR = (string) $RRR;
+        $data = DB::table('transactions')
+            ->where('remitaBefore->RRR', $RRR)
+            ->first();
+
+        return $data;    
     }
 
     /*
@@ -348,11 +533,12 @@ class NTI{
     |
     */
 
-    public static function getApplicants($semesterId, $programmeId)
+    public static function getApplicantsWithAppNo($semesterId, $programmeId)
     {
-        //returns the list of applicants in the semesterID and programmeID
+        //returns the list of applicants in the semesterID and programmeID that has been given ApplicationNo
         return DB::table('applicants')
-            ->where([
+        ->whereNotNull('app_no')
+        ->where([
                 ['semester_id', $semesterId],
                 ['programme_id', $programmeId]
             ])
@@ -364,29 +550,14 @@ class NTI{
         //this function generates Application number in this format: APP/PROGRAMME_ABBR/YEAR/UNIQUE_NO
         //APP/NCE/2017/009
 
-        $programmeAbbr = static::getInfo('programmes', $programmeId)->abbr;
-        $uniqueNo = count(static::getApplicants($semesterId, $programmeId)) + 1;
-        $uniqueNoZF = static::zeroFill($uniqueNo, 2);
+        $programmeAbbr = static::getInfo('programmes', 'id', $programmeId)->abbr;
+        $uniqueNo = count(static::getApplicantsWithAppNo($semesterId, $programmeId)) + 1;
+        $uniqueNoZF = static::zeroFill($uniqueNo, 3);
 
         $applicantNo = "APP/{$programmeAbbr}/{$academicYear}/{$uniqueNoZF}";
 
         return $applicantNo;
     
-    }
-
-    public static function getSubjects()
-    {
-        return DB::table('subjects')->get();
-    }
-    
-    public static function getGrades($id = null)
-    {
-        if(!isset($id))
-            return DB::table('grades')->get();
-        else 
-            return DB::table('grades')
-                ->where('certificate_id', $id)
-                ->get();
     }
     
     /*
@@ -413,10 +584,10 @@ class NTI{
         SCHL_ABBR/PROGRAMME_ABBR/YEAR/UNIQUE_NO*/
         
         $schlAbbr = static::basicInfo()->schoolAbbr;
-        $programmeAbbr = static::getInfo('programmes', $programmeId)->abbr;
+        $programmeAbbr = static::getInfo('programmes', 'id', $programmeId)->abbr;
 
         $uniqueNo = count(static::getStudents($entryYear, $programmeId)) + 1;
-        $uniqueNoZF = static::zeroFill($uniqueNo, 2);
+        $uniqueNoZF = static::zeroFill($uniqueNo, 3);
         $examNo = static::zeroFill($uniqueNo, 6);
         $regNo = "{$schlAbbr}/{$programmeAbbr}/{$entryYear}/{$uniqueNoZF}";
 

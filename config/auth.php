@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => NTI\User::class,
+            'model' => NTI\Models\User::class,
         ],
 
         // 'users' => [

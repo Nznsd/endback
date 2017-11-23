@@ -21,7 +21,7 @@ class CreateScholarshipsTable extends Migration
             $table->string('payerName');
             $table->string('payerEmail');
             $table->string('payerPhone');
-            $table->decimal('amount');
+            $table->decimal('amount', 10, 2);
             $table->json('beneficiaries')->nullable();
             $table->string('desc');            
             $table->timestamps();

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 
 // start
-Route::get('/', 'ApplicantAuthController@index')->name('start');
+Route::get('/apply', 'ApplicantAuthController@apply')->name('start');
 
 /*
 |--------------------------------------------------------------------------
@@ -53,11 +53,13 @@ Route::get('verified/{type?}', 'ApplicantPaymentController@verified');
 
 Route::get('invoice/{type?}', 'ApplicantPaymentController@getInvoice');
 
-Route::get('invoice/download/{type?}', 'ApplicantPaymentController@getInvoice');
+Route::get('download/invoice/{type?}', 'ApplicantPaymentController@getInvoice');
 
 Route::get('receipt/{type?}', 'ApplicantPaymentController@getReceipt');
 
-Route::get('receipt/download/{type?}', 'ApplicantPaymentController@getReceipt');
+Route::get('download/receipt/{type?}', 'ApplicantPaymentController@getReceipt');
+
+//Route::get('fileupload', 'ApplicantPaymentController@uploadFile');
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +75,7 @@ Route::post('personal-information', 'ApplicantBioDataController@postPersonalInfo
 | Educational Certificates Routes
 |--------------------------------------------------------------------------
 */
-Route::get('certificate/{type?}', 'ApplicantCertificateController@getEducationalInfo')->name('certificate');
+Route::get('certificate/{cert?}', 'ApplicantCertificateController@getEducationalInfo')->name('certificate');
 
 Route::post('certificate/{cert}', 'ApplicantCertificateController@handleExam');
 
@@ -116,23 +118,13 @@ Route::get('review/print', 'ApplicantReviewController@printApplicationForm');
 | Dashboard Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/', 'ApplicantDashboardController@getDashboard');
+
 Route::get('dashboard', 'ApplicantDashboardController@getDashboard')->name('dashboard');
 
 Route::get('dashboard/admission/print', 'ApplicantDashboardController@printAdmissionForm');
 
 Route::get('dashboard/receipts', 'ApplicantDashboardController@getReceipts');
 
-Route::get('fakelogin', function(){
-      Auth::loginUsingId(3);
-      return redirect()->route('biodata');
-});
-
-Route::get('/test', function(){
-
-      $bool = \NTI\Repository\Services\NTI::getFeeDefinition(2, 1, 0, 0, 1, 'fresh');
-       dd($bool);
-//$q = \NTI\Repository\Services\NTI::getFeeDefinition(19, 1, 4, 1, 1, 'fresh');
-//dd($q);
-});
-
 Route::get('testfee/{type}/{programme_id}', 'ApplicantPaymentController@testParams');
+

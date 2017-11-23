@@ -1,0 +1,2717 @@
+/* DESKTOP STYLES - */
+
+            input, select{
+                color: #000000 !important;
+            }
+
+            .mynti-fullpage {
+                padding-bottom: 0px;
+                background-color:transparent;
+            }
+
+            h1, h2, h3, h4, h5, h6, a, span {
+                text-rendering: optimizelegibility;
+            }
+
+            strong,
+            .strong {
+              font-weight: bold;
+            }
+
+            em,
+            .italic {
+              font-style: italic;
+            }
+
+            cite,
+            .citation {
+              font-style: normal;
+            }
+
+            strike,
+            .strike {
+              text-decoration:line-through;
+            }
+
+            .mynti-app.js button.mynti-button-register-submit,
+            .mynti-app.js button.mynti-button-login-submit,
+            .mynti-app.js button.continue,
+            .mynti-app.no-js a.mynti-button-register-submit,
+            .mynti-app.no-js a.mynti-button-login-submit,
+            .mynti-app.no-js a.continue {
+                 display:none !important;                   
+            }
+
+            .smaller-text {
+                font-size:xx-small;
+            }
+
+            .small-text {
+                font-size:small;
+            }
+
+            .medium-text {
+                font-size:large;
+            }
+
+            .large-text {
+                font-size:x-large;
+            }
+
+            .larger-text {
+                font-size:xx-large;
+            }
+
+            .text-lowercase {
+                text-transform: lowercase;
+            }
+
+            .text-uppercase {
+                text-transform: uppercase;
+            }
+
+            .text-titlecase {
+                text-transform: capitalize;
+            }
+
+            .text-hide {
+                text-indent:-9999px;
+                color: transparent;
+                text-shadow: none;
+                background-color:transparent;
+                border:0;
+            }
+
+            .unselectable {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+            }
+
+            .hidden,
+            [hidden] {
+                display:block;
+                visibility:hidden;
+                opacity:0;
+                -ms-filter:"alpha(opacity=0)";
+                filter:alpha(opacity=0);
+            }
+
+            [mask] {
+                opacity: 0;
+                -ms-filter:"alpha(opacity=0)";
+                filter:alpha(opacity=0);
+                display:none !important;
+            }
+
+            .yes-webkit ::-webkit-input-placeholder, /* Chrome 4+/Safri/Opera 15+ */
+            .yes-moz :-moz-placeholder, /* Firefox 18- */
+            .yes-moz ::-moz-placeholder, /* Firefox 19+ */
+            .yes-ms :-ms-input-placeholder { /* Edge/IE 10+ */
+                color:#adb7be;
+            }
+
+            input[type=date]::-webkit-clear-button,
+            input[type=time]::-webkit-inner-spin-button,
+            input[type=number]::-ms-clear-button,
+            input[type=number]::-ms-inner-spin-button,
+            input[type=date]::-webkit-calendar-picker-indicator,
+            input[type=date]::-ms-calendar-picker-indicator {
+                display: none;
+            }
+
+            input[type=number]::-webkit-outer-spin-button,
+            input[type=number]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type=number] {
+                -moz-appearance:textfield;
+            }
+
+            input[type=date]::-webkit-datetime-edit{
+                letter-spacing:0;
+            }
+            input[type=date] {
+                line-height: 1;
+            }
+
+            .borderradius .circular,
+            .borderradius .yes-opera .circular,
+            .borderradius .ie-set .IE9 .circular{
+                border-radius:50%;
+                -o-border-radius:50%;
+            }
+
+            .borderradius .yes-moz .circular{
+                -moz-border-radius:50%;
+            }
+
+            .borderradius .yes-webkit .circular{
+              -webkit-border-radius:50%;
+            }
+
+            .borderradius .yes-khtml .circular{
+              -khtml-border-radius:50%;
+            }
+
+            .borderradius .tablet,
+            .borderradius .ie-set.IE9 .tablet,
+            .no-borderradius .tablet{
+                border-radius:3px;
+            }
+
+            .borderradius .non-ie.yes-moz .tablet{
+            -moz-border-radius:3px;
+            }
+
+            .borderradius .non-ie.yes-webkit .tablet{
+            -webkit-border-radius:3px;
+            }
+
+            .borderradius .non-ie.yes-opera .tablet{
+              -o-border-radius:3px;
+              border-radius:3px;
+            }
+
+            .borderradius .non-ie.yes-khtml .tablet{ /* W3C Konqueror */
+               -khtml-border-radius:3px;
+            }
+
+            .borderradius .non-ie .pill,  /* W3C all */
+            .borderradius .ie-set.IE9 .pill, /* IE9 */
+            .no-borderradius .ie-set .pill{   /* IE6-8 */
+              border-radius:4px;
+            }
+
+            .borderradius .non-ie.yes-moz .pill{ /* W3C Firefox */
+            -moz-border-radius:4px;
+            }
+
+            .borderradius .non-ie.yes-webkit .pill,
+            .borderradius .non-ie.yes-blink .pill { /* W3C Chrome, Safari */
+            -webkit-border-radius:4px;
+            }
+
+            .borderradius .non-ie.yes-opera .pill{  /* W3C Opera */
+            -o-border-radius:4px;
+            }
+
+            .borderradius .non-ie.yes-khtml .pill{ /* W3C Konqueror */
+                -khtml-border-radius:4px;
+            }
+
+            .borderradius .non-ie .ultrapill,  /* W3C all */
+            .borderradius .ie-set.IE9 .ultrapill, /* IE9 */
+            .no-borderradius .ie-set .ultrapill{   /* IE6-8 */
+              border-radius:8px;
+            }
+
+            .borderradius .yes-moz .ultrapill{ /* W3C Firefox */
+            -moz-border-radius:8px;
+            }
+
+            .borderradius .yes-webkit .ultrapill,
+            .borderradius .yes-blink .ultrapill{ /* W3C Chrome, Safari */
+            -webkit-border-radius:8px;
+            }
+
+            .borderradius .yes-opera .ultrapill{  /* W3C Opera */
+            -o-border-radius:8px;
+            }
+
+            .borderradius .yes-khtml .ultrapill{ /* W3C Konqueror */
+            -khtml-border-radius:8px;
+            }
+
+            .borderradius .non-ie .right-half-ultrapill,
+            .borderradius .ie-set.IE9 .right-half-ultrapill,
+            .no-borderradius .ie-set  .right-half-ultrapill{
+                border-radius:0px 8px 8px 0px;
+            }
+              
+            .borderradius .non-ie.yes-moz .right-half-ultrapill{  
+            -moz-border-radius:0px 8px 8px 0px;
+            }
+
+            .borderradius .non-ie.yes-webkit .right-half-ultrapill{
+               -webkit-border-radius:0px 8px 8px 0px;
+            }
+
+            .borderradius .non-ie.yes-opera .right-half-ultrapill{
+               -o-border-radius:0px 8px 8px 0px;
+            }
+
+
+            .borderradius .top-half-pill,
+            .borderradius .ie-set.IE9 .top-half-pill,
+            .no-borderradius .ie-set .top-half-pill{
+            border-radius:4px 4px 0px 0px;
+            }
+
+            .borderradius .yes-moz .top-half-pill{
+            -moz-border-radius:4px 4px 0px 0px;
+            }
+
+            .borderradius .yes-webkit .top-half-pill{
+            -webkit-border-radius:4px 4px 0px 0px;
+            }
+
+            .borderradius .yes-opera .top-half-pill{
+            -o-border-radius:4px 4px 0px 0px;
+            border-radius:4px 4px 0px 0px;
+            }
+
+            .borderradius .bottom-half-pill,
+            .borderradius .ie-set.IE9 .bottom-half-pill,
+            .no-borderradius .ie-set .bottom-half-pill{
+            border-radius:0px 0px 4px 4px;
+            }
+
+            .borderradius .yes-moz .bottom-half-pill{
+            -moz-border-radius:0px 0px 4px 4px;
+            }
+
+            .borderradius .yes-webkit .bottom-half-pill{
+            -webkit-border-radius:0px 0px 4px 4px;
+            }
+
+            .borderradius .yes-opera .bottom-half-pill{
+            -o-border-radius:0px 0px 4px 4px;
+            border-radius:0px 0px 4px 4px;
+            }
+
+            .borderradius .non-ie .left-half-pill,
+            .borderradius .ie-set.IE9 .left-half-pill,
+            .no-borderradius .ie-set .left-half-pill{
+            border-radius:4px 0px 0px 4px;
+            }
+
+            .borderradius .yes-moz .left-half-pill{
+            -moz-border-radius:4px 0px 0px 4px;
+            }
+
+            .borderradius .non-ie.yes-webkit .left-half-pill{
+            -webkit-border-radius:4px 0px 0px 4px;
+            }
+
+            .borderradius .non-ie.yes-opera .left-half-pill{
+            -o-border-radius:4px 0px 0px 4px;
+            border-radius:4px 0px 0px 4px;
+            }
+
+            .borderradius .non-ie .right-half-pill,
+            .borderradius .ie-set.IE9 .right-half-pill,
+            .no-borderradius .ie-set  .right-half-pill{
+                border-radius:0px 4px 4px 0px;
+            }
+              
+            .borderradius .non-ie.yes-moz .right-half-pill{  
+            -moz-border-radius:0px 4px 4px 0px;
+            }
+
+            .borderradius .non-ie.yes-webkit .right-half-pill{
+               -webkit-border-radius:0px 4px 4px 0px;
+            }
+
+            .borderradius .non-ie.yes-opera .right-half-pill{
+               -o-border-radius:0px 4px 4px 0px;
+            }
+
+            .no-borderradius .ie-set .circular,
+            .no-borderradius .ie-set .tablet,
+            .no-borderradius .ie-set  .pill,
+            .no-borderradius .ies-set .ultrapill,
+            .no-borderradius .ie-set .left-half-pill,
+            .no-borderradius .ie-set .left-half-ultrapill,
+            .no-borderradius .ie-set  .right-half-pill,
+            .no-borderradius .ie-set .right-half-ultrapill {
+                position:relative;
+                behavior:url('/assets/js/oldie/PIE/PIE.htc');
+            }
+
+            .IE8 img.flexible{
+              width:auto\9;
+            }
+
+            .scrollable-x{
+               overflow: auto; /* disbale all prior settings */
+               overflow-y: hidden;
+               -ms-overflow-y: hidden; /* IE8 */
+            }
+
+            .scrollable-y{
+               overflow: auto; /* disbale all prior settings */
+               overflow-x: hidden;
+               -ms-overflow-x: hidden; /* IE8 */
+            }
+
+            .not-scrollable{
+               overflow: hidden; /* all browsers */
+               overflow-x: hidden; /* all except IE */
+               -ms-overflow-x: hidden; /* IE7,8 */
+               overflow-y: hidden;
+               -ms-overflow-y: hidden; /* IE7,8 */
+               -ms-overflow-style: none; /* IE10+ */
+            }
+
+            .auto-scrollable{
+               overflow: auto; /* all browsers */
+               overflow-x: auto; /* all except IE */
+               -ms-overflow-x: auto; /* IE7,8 */
+               overflow-y: auto;
+               -ms-overflow-y: auto; /* IE7,8 */
+               -ms-overflow-style: none; /* IE10+ */
+            }
+
+            *+html .line-block-box,
+            *html .line-block-box{ 
+                  *display:inline;
+                  *zoom:1;
+            }
+
+            .mynti-fullpage [aria-has-uploaded="true"] .upload-btn,
+            .mynti-fullpage [aria-has-uploaded="false"] .change-btn,
+            .mynti-fullpage .mynti-spinner-white-2x,
+            .mynti-fullpage .mynti-spinner-white,
+            .mynti-fullpage .mynti-spinner-grey-2x,
+            .mynti-fullpage .mynti-spinner-grey {
+                display:none;    
+            }
+
+            .mynti-fullpage .change-btn {
+                margin-left:0 !important;
+            }
+
+            .mynti-fullpage .transparency-30 {
+                opacity:0.7;
+                -ms-filter:"alpha(opacity=70)";
+                filter:alpha(opacity=70);
+            }
+
+            .mynti-fullpage .transparency-50 {
+                opacity:0.5;
+                -ms-filter:"alpha(opacity=50)";
+                filter:alpha(opacity=50);
+            }
+
+            .mynti-fullpage .transparency-80 {
+                opacity:0.2;
+                -ms-filter:"alpha(opacity=20)";
+                filter:alpha(opacity=20);
+            }
+
+            .mynti-fullpage .mynti-spinner-white,
+            .mynti-fullpage .mynti-spinner-grey {
+                padding:8px;
+            }
+
+            .mynti-fullpage .mynti-spinner-white-2x,
+            .mynti-fullpage .mynti-spinner-grey-2x {
+                padding:16px;
+            }
+
+            .mynti-fullpage .mynti-spinner-white {
+                background: transparent url('/assets/img/icons/gif/loader-white.gif') center center no-repeat;
+            }
+
+            .mynti-fullpage .mynti-spinner-white-2x {
+                background: transparent url('/assets/img/icons/gif/loader-white-2x.gif') center center no-repeat;
+            }
+
+            .mynti-fullpage .mynti-spinner-grey {
+                background: transparent url('/assets/img/icons/gif/loader-grey.gif') center center no-repeat;
+            }
+
+            .mynti-fullpage .mynti-spinner-grey-2x {
+                background: transparent url('/assets/img/icons/gif/loader-grey-2x.gif') center center no-repeat;
+            }
+
+            .mynti-fullpage .mynti-button-calm.spinner-active,
+            .mynti-fullpage .mynti-button-groovy.spinner-active {
+                vertical-align:middle;
+                line-height:1.2;
+            } 
+
+            .mynti-fullpage .mynti-button-calm.spinner-active > [class*='mynti-spinner-'],
+            .mynti-fullpage .mynti-button-groovy.spinner-active > [class*='mynti-spinner-'] {
+                display:inline-block;
+                color:transparent !important;
+            }
+
+            .mynti-fullpage .mynti-button-calm.spinner-active > [class*='mynti-spinner-'] + *,
+            .mynti-fullpage .mynti-button-groovy.spinner-active > [class*='mynti-spinner-'] + * {
+                display:none;
+            }
+
+            .relative{
+                position:relative;
+            }
+
+            .absolute{
+                position:absolute;
+            }
+                        
+            .fixed{
+                position:fixed;
+            }
+
+            .snap-off{
+              top:0;
+              left:-9999px;
+            }
+
+            .snap-top {
+              top:0;
+              left:auto;
+            }
+
+            .snap-left {
+              top:auto;
+              left:0;
+            }
+
+            .snap-bottom {
+                top:auto;
+                bottom:0;
+            }
+
+            .snap-right {
+                left:auto;
+                right:0;
+            }
+
+            .snap-center {
+               top:50%;
+               left:50%;
+               margin-left:-25%;
+               margin-top:-25%;
+            }
+
+            .snap-top-center{
+                top: 50%;
+                left:auto;
+            }
+
+            .snap-left-center{
+                top: auto;
+                left:50%;
+            }
+
+            .snap-top-left-center {
+                top:0;
+                left:50%;
+            }
+
+            .snap-left-top-center {
+                top:50%;
+                right:auto;
+                left:0;
+            }
+
+            .snap-right-top-center{
+                top:50%;
+                left:auto;
+                right:0;
+            }
+
+            .snap-top-left {
+                top:0;
+                right:auto;
+                left:0;
+            }
+
+            .snap-top-right {
+                top:0;
+                left:auto;
+                right:0;
+            }
+
+            .btn { /* can be used for <a> <button> <span> */
+                white-space: nowrap;
+                -ms-touch-action: manipulation;
+                    touch-action: manipulation;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+            }
+
+            .clearfix:after{
+              content: "\0020";
+              height:0;
+              display:block;
+              overflow: hidden;
+              visibility:hidden;
+              line-height:0;
+                clear: both;
+            }
+
+            .yes-old-ms .clearfix { /* IE less than 8 */
+                zoom: 1;
+            }
+
+            .mynti-fullpage .btn-punched-up,
+            .mynti-fullpage .punched-up {
+                padding:12px 0 18px;
+            }
+
+            /* SECTION ======= [NOSWFUPLOAD STYLE] */
+
+            .mynti-fullpage .noswfupload-box {
+                height: auto !important;
+                width:75%;
+                color:#3a3a3a;
+            }
+
+            .mynti-fullpage .noswfupload {
+                position: relative;
+                display: block;
+                border:1px solid #46c35f;
+                border-top: 4px solid #46c35f;
+                width: auto !important;
+                padding: 15px 10px 10px;
+                margin-bottom:5px;
+                background: #ffffff;
+            }
+
+            .mynti-fullpage .noswfupload input {
+                opacity:0;
+                -ms-filter:"alpha(opacity=0)";
+                filter:alpha(opacity=0);
+                visibility:hidden;
+                width:0px !important;
+                height:0px !important;
+            }
+
+            .mynti-fullpage .noswfupload > a {
+                text-decoration: none;
+                display:inline-block;
+                position: absolute;
+                right:10px;
+                top:10px;
+                cursor: default;
+                color: #fdfdfd;
+            }
+
+            .mynti-fullpage .noswfupload .total,
+            .mynti-fullpage .noswfupload .current {
+                display: block !important;
+                width:0%;
+                height:14px;
+                font-size: 5px;
+                line-height: normal;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding-top:2px;
+                padding-bottom:2px;
+            }
+
+            .mynti-fullpage .noswfupload .total {
+                background-color: #222222; /* #adb7bd */
+            }
+
+            .mynti-fullpage .noswfupload .current {
+                background-color: #dfdfdf;
+            }
+
+            .mynti-fullpage .noswfupload ul {
+                display: block;
+                padding: 0 8px 8px;
+                margin: 8px 0;
+                width: 100%;
+                min-height:100px;
+                *height: 100px;
+                *height:auto !important;
+                background-color: #ffffff;
+                /*overflow-y: auto;
+                overflow-x: hidden;*/
+            }
+
+            .mynti-fullpage .noswfupload ul li {
+                display: block;
+                padding: 9px 0 9px 5px;
+                border-left:2px solid #343434;
+                margin: 3px 0;
+            }
+
+            .mynti-fullpage .noswfupload ul li a {
+                display:inline-block;
+                color:#222222 !important;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .mynti-fullpage .noswfupload li.png,
+            .mynti-fullpage .noswfupload li.jpg,
+            .mynti-fullpage .noswfupload li.jpeg,
+            .mynti-fullpage .noswfupload li.pdf,
+            .mynti-fullpage .noswfupload li.docx {
+                background-repeat: no-repeat;
+                background-origin: padding-box;
+                background-position:center left;
+                background-attachment:scroll;
+                background-color: #eeeeee;
+            }
+
+            .mynti-fullpage .noswfupload li.png {
+                background-image: url('');
+            }
+
+            .mynti-fullpage .noswfupload li.jpg {
+                background-image: url('');
+            }
+
+            .mynti-fullpage .noswfupload li.jpeg {
+                background-image: url('');
+            }
+
+            .mynti-fullpage .noswfupload li.pdf {
+                background-image: url('');
+            }
+
+            .mynti-fullpage .noswfupload .info {
+                display: inline-block;
+                width:100%;
+                padding:5px 15px;
+            }
+
+            /* END SECTION ========= */
+
+            .mynti-fullpage .mynti-upload-forms-batch {
+                width:auto !important;
+                padding:100px 60px 150px;
+                min-height:300px;
+                *height:300px;
+                *height:auto !important;
+            }
+
+            .mynti-fullpage .mynti-asidemenu {
+                float:left;
+                width:250px;
+                margin-right:25px ;
+            }
+
+            .mynti-fullpage .mynti-asidemenu > .mynti-upload-form {
+                background-color:#ffffff;
+            }
+
+            .mynti-fullpage .mynti-asidemenu .mynti-asidemenu-heading {
+                background-color:#e5e5e5;
+                padding:10px 0;
+            }
+
+            .mynti-fullpage .mynti-asidemenu .mynti-image-placeholder {
+                width:180px;
+                height:180px;
+                margin:0 auto 3px;
+                line-height:180px;
+                background:transparent url('/assets/img/icons/gif/loader-grey-2x.gif') no-repeat 50% 50%;
+            }
+
+            .mynti-fullpage .mynti-icon.profile-image {
+                padding:2px;
+            }
+
+            .mynti-fullpage .text-inflective {
+                font-size:large;
+                font-weight:100;
+                font-style:normal;
+            }
+
+            .shadow-around {            
+                -moz-box-shadow: 4px 4px 20px -13px rgba(0, 0, 0, .8);
+                -webkit-box-shadow: 4px 4px 20px -13px rgba(0, 0, 0, .8);
+                -o-box-shadow: 4px 4px 20px -13px rgba(0, 0, 0, .8);
+                box-shadow: 4px 4px 20px -13px rgba(0, 0, 0, .8);
+                position: relative;
+                behavior:url('/assets/js/oldie/PIE/PIE.htc');
+            }
+
+            .mynti-fullpage * {
+                margin:0;
+                padding:0;
+                outline:0 !important;
+            }
+
+            /* Overriding Bootstrap Grid [columns and row] */
+
+            .mynti-fullpage [class*="col-"] {
+                padding-left:5px;
+                padding-right:5px;
+            }
+
+            .mynti-fullpage [class*="row"] {
+                margin-left: -5px;
+                margin-right: -5px;
+            }
+
+            .mynti-fullpage [class*="row"] + [class*="row"] {
+                margin-top: 25px;
+            }
+
+            .mynti-fullpage h1 {
+                font-size:48px;
+            }
+
+            .mynti-fullpage h2 {
+                font-size:40px
+            }
+
+            .mynti-fullpage h3 {
+                font-size:32px;
+            }
+
+            .mynti-fullpage h4 {
+                font-size:24px;
+            }
+
+            .mynti-fullpage h5 {
+                font-size:16px;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs {
+                padding-right:25px;
+                margin-top:15px;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list {
+                list-style-position:outside;
+                list-style-type: disc;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li {
+                *display: inline;
+                *zoom: 1;
+                display: inline-block;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li + li {
+                background:transparent url('/assets/img/icons/png/breadcrumb arrow 2.png') no-repeat center left;
+                padding-left:15px;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li a {
+                text-decoration: none;
+                padding:0 5px;           
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li a > .label {
+                font-size: 14px;
+                color:#343434;
+                font-weight:normal;
+                display:inline-block;
+                margin-left:10px;
+                padding-bottom:3px;
+                border-bottom: 1px solid transparent;
+                -moz-transition:all 0.45s ease-in-out;
+                -webkit-transition:all 0.45s ease-in-out;
+                -o-transition:all 0.45s ease-in-out;
+                -ms-transition:all 0.45s ease-in-out;
+                transition:all 0.45s ease-in-out;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li > a:hover > .label {
+                border-bottom: 1px solid #343434;
+                -moz-border-radius: 0;
+                -webkit-border-radius: 0;
+                -o-border-radius: none;
+                -khtml-border-radius: 0;
+                -ms-border-radius: 0;
+                border-radius: none;
+            }
+
+            .svg .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li:first-child a {
+                background:transparent url('/assets/img/icons/svg/Breadcrumb home.svg') no-repeat center center;
+                padding:8px 16px 8px 8px;
+            }
+
+            .no-svg .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li:first-child a {
+                background:transparent url('/assets/img/icons/png/Breadcrumb home.png') no-repeat 50% 50%;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li:first-child a > .numbering,
+            .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li:first-child a > .label {
+                display:none;
+            }
+
+            .mynti-fullpage .badge{
+                padding:4px 8px;
+                background-color: #46c35f;
+            }
+
+            .mynti-fullpage .mynti-breadcrumbs .badge{
+                padding: 4px 6px;
+                background-color: #ffffff;
+                color:#46c35f;
+            }
+
+            .mynti-breadcrumbs,
+            .mynti-section-balanced,
+            .mynti-section-offsetted{
+                width:auto !important;
+                margin-left:60px;
+            }
+
+            .mynti-section-placid {
+                width:1130px;
+                margin-left:auto;
+                margin-right:auto;
+            }
+
+            .mynti-section-offsetted{
+                padding-top: 20px;
+                margin-right: 450px;
+            }
+
+            .mynti-section-balanced,
+            .mynti-section-placid {
+                padding-top:45px;
+            }
+
+            .mynti-section-balanced {
+                margin-right:80px;
+            }
+
+            input[readonly],
+            select[readonly],
+            textarea[readonly],
+            .input-text.form-group-disabled /*,.mynti-submission-invalid*/ {
+                cursor:not-allowed; 
+            }
+
+
+            [unselectable] {
+                pointer-events:none; /* disable clicking on DOM element */
+            }
+
+            .mynti-app input[readonly],
+            .mynti-app select[readonly],
+            .mynti-app .input-text.form-group-disabled,
+            .mynti-app textarea[readonly] {
+                border:1px dashed #adb7be;
+                background-color: #e5e5e5;
+            }
+
+            .mynti-app input.date-control[readonly],
+            .mynti-app input.optional-control[readonly] {
+                cursor:text !important;
+            }
+
+            .mynti-fullpage .mynti-caption,
+            .mynti-fullpage .mynti-board,
+            .mynti-fullpage .mynti-register-form,
+            .mynti-fullpage .mynti-login-form {
+                padding:0 32px;
+            }
+
+            .mynti-fullpage .mynti-board {
+                line-height:1.2;
+                margin-bottom:35px;
+            }
+
+            .mynti-fullpage .mynti-caption {
+                line-height:1.1;
+            }
+
+            .mynti-fullpage .mynti-register-form,
+            .mynti-fullpage .mynti-login-form {
+                padding-top:15px;
+            }
+
+            .mynti-fullpage .mynti-subheading {
+                font-size:20px;
+                font-stretch:semi-condensed;
+                font-variant:normal;
+            }
+
+            .mynti-fullpage .mynti-form-caption.form-heading-frame {
+                margin-top:65px;
+                margin-bottom:40px;
+            }
+
+            .mynti-fullpage .mynti-context-form .mynti-form-caption.form-heading-frame {
+                margin-top:5px;
+            }
+
+            .mynti-fullpage .heading-placeholder-size {
+                font-size:19px !important;
+                font-weight:bold;
+            }
+
+            .mynti-fullpage .mynti-heading,
+            .mynti-fullpage .mynti-subheading {
+                color:#343434;
+            }
+
+            .mynti-fullpage .mynti-heading.heading-light,
+            .mynti-fullpage .mynti-subheading.subheading-light {
+                font-weight:lighter;
+                font-weight:100;
+            }
+
+            .mynti-fullpage .mynti-heading.heading-regular {
+                font-weight:600;
+            }
+
+            .mynti-fullpage .mynti-subheading.subheading-regular {
+                font-weight:bold;
+            }
+
+            .mynti-fullpage .mynti-subheading.subheading-regular.bumped {
+                margin-bottom: 46px;
+            }
+
+            .mynti-fullpage .mynti-form-caption {
+
+            }
+
+            .mynti-fullpage .light-size{
+                font-size:14px !important;
+            }
+
+            .mynti-fullpage .lighter-size{
+                font-size:12px !important;
+            }
+
+            .mynti-fullpage .mynti-icon {
+                *zoom:1;
+                display:inline-block;
+                line-height:normal;
+            }
+
+            .mynti-fullpage .table-container {
+                width:auto !important;
+            }
+
+            .mynti-fullpage .table-heading {
+                margin-bottom: 18px;
+            }
+
+            .mynti-fullpage .table-container .table{
+                background-color:#ffffff;
+                margin-right:500px;
+            }
+
+            .mynti-fullpage .mynti-icon.currency-placeholder {
+                margin-top: -7.2%;
+                padding: 6px;
+                margin-left: 8px;
+                font-weight: bold;
+                font-size: 19px;
+                color:#adb7be;
+            }
+
+            .mynti-fullpage .mynti-icon.arrowbulb {
+                padding:13px;
+                background:transparent url('/assets/img/icons/png/arrowbtn.png') no-repeat center center;
+            }
+
+            .mynti-fullpage .mynti-icon.arrowbulb + a {
+                color:#adb7be;
+                margin-left:12px;
+            }
+
+            .mynti-fullpage .inverted > .text-icon-plus {
+                border-color:#005fd2;
+            }
+
+            .mynti-fullpage .text-icon-plus {
+                padding:2px 5px 2px 4px;
+                border-width:1px;
+                border-style:solid;
+                border-color:#ffffff;
+                font-size:xx-small;
+                margin-right:3px;
+            }
+
+            .mynti-fullpage .mynti-dashlet-heading.inverted,
+            .mynti-fullpage .dashlet-link.inverted {
+                color:#005fd2;
+            }
+
+            .mynti-fullpage .inverted-box{
+                margin-top:-10px !important;
+                right:25px;
+            }
+
+            .mynti-fullpage .mynti-dashlet-details-preamble {
+                width:400px;
+                float:left;
+                padding-top:35px;
+            }
+
+            .mynti-fullpage .dashlet-avatar {
+                width:130px;
+                overflow:visible;
+            }
+
+            .mynti-fullpage .dashlet-lead {
+                width:270px;
+                overflow:hidden;
+                color:#343434;
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel-panel{
+                height:100%;
+                padding:0 50px;
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel {
+                list-style-type:none;
+                margin:0;
+                width:100%;
+                white-space: nowrap;
+                overflow:hidden;
+                word-wrap: normal;
+                height:100%;
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel > .carousel-item,
+            .mynti-fullpage .mynti-dashlet-carousel > .carousel-item > .punched-up,
+            .mynti-fullpage .mynti-dashlet-carousel > .carousel-item > .carousel-item-heading{
+                display:inline-block;
+                *display:inline;
+                *zoom:1;
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel > .carousel-item {
+                border-left:3px solid #adb7be;
+                width:290px;
+                color:#005fd2;
+                vertical-align:top;
+                white-space:normal;
+                padding:2px 20px;
+                min-height:80%;
+                *height:80%;
+                *height:auto !important;
+            }
+
+            .mynti-fullpage .carousel-item + .carousel-item {
+                margin-left:-3px; /* Manual Float */
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel > .carousel-item > .punched-up{
+                color:#343434;
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel-panel .carousel-left-pin,
+            .mynti-fullpage .mynti-dashlet-carousel-panel .carousel-right-pin{
+                width:23px;
+                height:23px;
+                background-color:#005fd2;
+                text-decoration:none;
+                border-color:transparent;
+                color:#ffffff;
+                line-height:23px;
+                margin-top:-12px;
+                opacity:0.7;
+                filter:alpha(opacity=70);
+                -ms-filter:"alpha(opacity=70)";
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel-panel .carousel-left-pin{
+                left:15px;
+            }
+            
+            .mynti-fullpage .mynti-dashlet-carousel-panel .carousel-right-pin{
+                right:15px;
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel-panel .carousel-left-pin:hover,
+            .mynti-fullpage .mynti-dashlet-carousel-panel .carousel-right-pin:hover{
+                -moz-transition:all .15s linear;
+                -webkit-transition:all .75s linear;
+                -o-transition:all .75s linear;
+                -ms-transition:all .75s linear;
+                transition:all .75s linear;
+                opacity:1;
+                filter:alpha(opacity=100);
+                -ms-filter:"alpha(opacity=50)";
+            }
+
+            .mynti-fullpage .mynti-dashlet-carousel > .carousel-item > .carousel-item-heading{
+                font-size:14px;
+                vertical-align:middle;
+                width:100%;
+            }
+
+            .mynti-fullpage .dashlet-link {
+                text-decoration:none;
+                color:#ffffff;
+                display:inline-block;
+                padding-bottom:3px;
+                height:21px;
+                line-height:21px;
+                border-bottom:1px solid transparent;
+            }
+
+            .mynti-fullpage .dashlet-link.inverted:hover{
+                border-bottom:1px solid #005fd2;
+            }
+
+            .mynti-fullpage .dashlet-link:hover {
+                border-bottom:1px solid #ffffff;
+            }
+
+            .html-icon-user-face,
+            .html-icon-user-cog,
+            .html-icon-questionsign,
+            .html-icon-logout {
+
+            }
+
+            .mynti-fullpage .mynti-icon.chevron{
+                margin:0;
+                padding: 0 20px;
+            }
+
+            .mynti-fullpage .chevron{
+                display: block;
+                height:40px;
+            }
+
+            .mynti-fullpage .chevron:before,
+            .mynti-fullpage .chevron:after{
+                position: absolute;
+                display:block;
+                content: "";
+                border: 10px solid transparent; /* adjust chevron size */
+                z-index:400;
+            }
+
+            .mynti-fullpage .chevron:before{
+                top:0;
+                border-top-color: #adb7be; /* chevron color */
+            }
+
+            .mynti-fullpage .chevron:after{
+                top:-2px;
+                border-top-color:#ffffff; /*match background color*/
+            }
+
+            .chevron-btn{
+                pointer-events:none;
+                display:inline-block;
+            }
+
+            .borderless{
+                border-width:0;
+                border-style:solid;
+                border-color:transparent;
+            }
+
+            .dot {
+                color:green;
+                border-radius:50%;
+                border:1px solid #adb7be;
+            }
+
+            .dropdown-menu.mynti-toolsbar-menu {
+                border-color: #d8e2e7;
+                margin-top: 6px;
+                top:39px;
+                opacity:0;
+                -ms-filter:"alpha(opacity=0)";
+                filter:alpha(opacity=0);
+                left:100%;
+                height:150px;
+                -moz-transition:all 0.67s ease-in;
+                -webkit-transition:all 0.67s ease-in;
+                transition:all 0.67s ease-in;
+            }
+
+            .user-board .dropdown-menu.mynti-toolsbar-menu {
+                top:100%;
+                right:-8px;
+                padding: 0 18px;
+            }
+
+            /*.gecko.yes-moz .user-board {
+                margin-top:-20px;
+            }
+
+            .gecko.yes-moz .user-board .dropdown-menu.mynti-toolsbar-menu {
+                top:58px;
+            }*/
+
+            .dropdown.open .dropdown-menu.mynti-toolsbar-menu {
+                opacity:1;
+                -ms-filter:"alpha(opacity=100)";
+                filter:alpha(opacity=100);
+                left:auto;
+                height:auto !important;
+                line-height: 15px;
+            }
+
+            .mynti-app .dropdown-toggle::after {
+                display: inline-block;
+                width: 0;
+                height: 0;
+                margin-left:13px;
+                vertical-align: middle;
+                content: "";
+                border-top: 5px solid;
+                border-right: 4px solid transparent;
+                border-left: 4px solid transparent;
+            }
+
+            .mynti-app .sweet-alert .leader {
+                padding:8px 0;
+                letter-spacing:0;
+                font-size:12px;
+            }
+
+            .mynti-app .sweet-alert .form-list {
+                height:290px !important;
+                overflow:auto !important;
+                padding-top:6px;
+            }
+
+            .mynti-app .sweet-alert{
+                background-color: #46c35f;
+                margin-left: -256px !important;
+                padding: 20px 20px 35px !important;
+            }
+
+            .mynti-app .sweet-alert h2 {
+                font-size:25px !important;
+                color: #ffffff; /* #575757 */
+            }
+
+            .mynti-app .sweet-alert p {
+                color: #ffffff; /* #797979 */
+            }
+
+            .mynti-app .sweet-alert .sa-button-container .cancel,
+            .mynti-app .sweet-alert .sa-button-container .confirm {
+                 letter-spacing:0px;
+            }
+
+            .mynti-app .sweet-alert .sa-button-container .cancel {
+                background-color: transparent !important;
+                border:1px solid #ffffff !important;
+                color:#ffffff !important;
+            }
+
+            .mynti-app .sweet-alert .sa-button-container .confirm {
+                background-color: #ffffff !important;
+                border:1px solid transparent !important;
+                color:#46c35f !important;
+            }
+
+            .mynti-select-upload-form,
+            .mynti-verify-form,
+            .mynti-input-container {
+                margin-bottom: 30px;
+            }
+
+            .mynti-input-container .mynti-split-input + .mynti-split-input {
+                margin-left:0;
+            }
+
+            .mynti-input-container .mynti-split-input .form-control {
+                text-indent:2.9%;
+            }
+
+            .mynti-app .input-text,
+            .mynti-app .input-dropdown {
+                position: relative;
+                padding-right: 5px;
+                border:1px solid #adb7be;
+                background-color: #ffffff;
+                -moz-box-shadow:0 1px 12px -7px #5d5d5d inset;
+                -webkit-box-shadow:0 1px 12px -7px #5d5d5d inset;
+                box-shadow:0 1px 12px -7px #5d5d5d inset;
+                position: relative;
+                behavior:url('/assets/js/oldie/PIE/PIE.htc');
+            }
+
+            .mynti-app .input-text.mynti-mega-input {
+                padding: 20px 10px 20px 40px;
+            }
+
+            .mynti-app .input-dropdown .input-dropdown-addon {
+                background-color: transparent;
+                /* #dbe4ea */
+                display:block;
+                position: absolute;
+                z-index: 300;
+                top:14px;
+                left:auto;
+                right:5px;
+            }
+
+            .mynti-app .input-text .form-control,
+            .mynti-app .input-dropdown .form-control {
+                border:none;
+                background-color:transparent;
+                box-shadow:none;
+                display:inline-block;
+                height:auto !important;
+                /*color:#adb7be;*/
+                color:#343434;
+                width:94%;
+                padding:7px 4% 7px 2%;
+                box-sizing:content-box;
+            }
+
+            .mynti-app .input-dropdown textarea.form-control {
+                resize:none;
+            }
+
+            .mynti-app .input-dropdown select.form-control {
+                -moz-appearance:none;
+                -webkit-appearance:none;
+                appearance:none;
+                text-indent:1px;
+                text-overflow:'';
+            }
+
+            .mynti-app .input-dropdown select.form-control:-ms-expand {
+                display: none;
+            }
+
+            .mynti-app .input-text.not-flexible {
+                width:auto !important;
+                display:inline-block !important;
+                *display:inline;
+                *zoom:1;
+            }
+
+            .mynti-app .input-group-addon > .mynti-icon {
+                font-weight:900;
+            }
+
+            .persona-container {
+                min-height:50px;
+            }
+
+            .persona-container + .persona-container{
+                border-top:1px solid #e5e5e5;
+            }
+
+            .persona-subject{
+                float:left;
+                width:40px;
+                height:40px;
+                margin-right:8px !important;
+            }
+
+            .persona-context{
+                white-space:nowrap;
+                text-overflow:ellipsis;
+            }
+
+            .persona-context.wrap{
+                white-space:normal;
+            }
+
+            .mynti-dropdown-menu-heading,
+            .mynti-dropdown-menu-footing{
+                text-align: center;
+                padding: 12px 15px;
+            }
+
+            .mynti-dropdown-menu-heading{
+                border-bottom: 1px solid #d8e2e7;
+                font-weight: 600;
+            }
+
+            .mynti-dropdown-menu-footing{
+                border-top: 1px solid #d8e2e7;
+            }
+
+            .mynti-dropdown-menu-container{
+                width: 290px;
+                padding: 0;
+                line-height: normal;
+                border:none;
+                border-left: 1px solid #d8e2e7;
+                border-right: 1px solid #d8e2e7;
+            }
+
+            .mynti-dropdown-menu-right{
+                right: 0;
+                left: auto;
+            }
+
+            .mynti-dropdown-menu-right > .dropdown-item {
+                display: block;
+                width: auto !important;
+                padding: 10px 15px;
+            }
+
+            .mynti-dropdown-menu-right > .dropdown-item + .dropdown-item{
+                border-top: 1px solid #e5e5e5;
+            }
+
+            .mynti-dropdown-menu-left{
+                left: 0;
+                right: auto;
+            }
+
+            .mynti-desktop-navigation > .mynti-toolsbar-item{
+                font-weight:normal;
+                float:left;
+                padding:0;
+                width:32px;
+                margin-left: 10px;
+            }
+
+            .mynti-desktop-navigation > .mynti-toolsbar-item.user-board {
+                line-height:2px;
+                width:52px;
+                top:-8px;
+            }
+
+            .mynti-desktop-navigation > .mynti-toolsbar-item.button-tab {
+                width:auto !important;
+            }
+
+            .mynti-toolsbar-item > .mynti-toolsbar-item-btn.nav-link{
+                color:transparent;
+                padding:0;
+                text-indent:-9999px;
+            }
+
+/*.mynti-toolsbar-item > .mynti-toolsbar-item-btn.dropdown-toggle {
+                displ
+            }*/
+
+            .mynti-toolsbar-item-btn{
+                text-align: center;
+                
+            }
+
+            .mynti-dropdown-menu-notification-list,
+            .mynti-dropdown-menu-messages-list {
+                height: 192px;
+                padding:5px 10px;
+            }
+
+            .mynti-dropdown-menu-notification-list > .mynti-dropdown-menu-notification-item,
+            .mynti-dropdown-menu-messages-list > .mynti-dropdown-menu-messages-item {
+                padding: 8px 5px 8px;
+            }
+
+            .mynti-dropdown-menu-notification-list > .mynti-dropdown-menu-notification-item:nth-child(even) {
+                background-color: #fbfcfd;
+            }
+
+            .mynti-toolsbar-item-btn > .icon-btn-notification,
+            .mynti-toolsbar-item-btn > .icon-btn-messages{
+                padding:8px;
+                color:transparent !important;
+            }
+
+            /*.mynti-toolsbar-item-btn > .icon-btn-user{
+                padding:20px;
+                background: transparent url('../img/icons/svg/personaface.svg') no-repeat 50% 50%;
+            }
+            */
+
+            .mynti-toolsbar-item-btn > .icon-btn-notification{
+                background: transparent url('/assets/img/icons/svg/bell.svg') no-repeat 50% 50%;
+            }
+
+            .mynti-toolsbar-item-btn > .icon-btn-messages{
+                background: transparent url('/assets/img/icons/svg/envelope.svg') no-repeat 50% 50%;
+            }
+
+            .mynti-toolsbar-item-btn.active:after {
+                content: "";
+                display: block;
+                width: 8px;
+                height: 8px;
+                border: solid 1px #ffffff;
+                background: #46c35f;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                position: absolute;
+                left: 50%;
+                top: 3px;
+                margin-left: 1px;
+                behavior:url('/assets/js/oldie/PIE/PIE.htc');
+            }
+
+            .mynti-icon,
+            .mynti-toolsbar-item-btn i{
+                vertical-align:middle;
+            }
+
+            .mynti-app,
+            .mynti-app > .mynti-fullpage {
+                font-family: "Roboto", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+                line-height: 1.5;
+                font-size: 14px;
+                font-weight: 200;
+                background-color:#ecf2f5;
+                overflow: hidden;
+                height: 100%;
+                margin:0;
+            }
+
+            .mynti-fullpage .oneline{
+                white-space:nowrap;
+                left:-15px;
+            }
+
+            .mynti-fullpage .mynti-greetings-container {
+                padding-top: 23px;
+                font-size:19px;
+            }
+
+            .mynti-fullpage .mynti-banner {
+                padding:35px 30px 35px 60px;
+            }
+
+            .mynti-fullpage .mynti-aside-box > [class*="heading"],
+            .mynti-fullpage .mynti-banner [class*="heading"] { 
+                color:#ffffff !important;
+            }
+
+            .mynti-fullpage .mynti-main-header {
+                min-width: 0;
+                background-color:#fbfcfd;
+            }
+
+            .mynti-main-header {
+                height: 69px;
+                min-height: 69px;
+                line-height:29px;
+                padding: 10px 0;
+                border-bottom: 0px solid transparent;
+                display: block;
+                position: relative;
+                z-index: 800;
+            }
+
+            .mynti-heading-block {
+                margin-bottom:15px;
+            }
+
+            .work_details_block {
+                height:auto !important;
+                width:100%;padding:10px 0;
+                margin-bottom:30px;
+            }
+
+            .input-slot {
+                width:auto !important;
+                vertical-align: text-bottom !important;
+            }
+
+            .input-slot .text-bit {
+                padding-left:10px;
+            }
+
+            .mynti-old-browser-header {
+                display: none;
+                padding: 5px;
+                background: black;
+                color: white;
+                position:relative;
+            }
+
+            .mynti-old-browser-header.upgrade-browser-info .close-button {
+                padding:4px;
+                position: absolute;
+            }
+
+            .oldIE .mynti-old-browser-header,
+            .oldOpera .mynti-old-browser-header,
+            .oldFlock .mynti-old-browser-header,
+            .oldMoz .mynti-old-browser-header,
+            .oldSafari .mynti-old-browser-header,
+            .oldChrome .mynti-old-browser-header {
+                display: block;
+            }
+
+            .mynti-desktop-navigation{
+                letter-spacing:0px;
+                font-weight:200;
+                float:right;
+            }
+
+            .mynti-desktop-navigation > .nav-item{
+                float:left;
+            }
+
+            .mynti-mobile-navigation {
+                display:none;
+            }
+
+            .text-input-box,
+            .password-input-box,
+            .button-box {
+                width:50%;
+                float:left;
+            }
+
+            /*.date-input-box {
+                width:38%;
+                float:left;
+            }
+
+            .dropdown-input-box{
+                width:18%;
+                float:left;
+            }
+
+            .number-input-box{
+                width:44%;
+                float:left;
+            }*/
+
+            .text-field,
+            .password-field,
+            .dropdown-field,
+            .stub {
+                line-height:12px;
+                color:#343434;
+                border:1px solid #adb7be;
+                -moz-box-shadow:0 1px 12px -8px #5d5d5d inset;
+                -webkit-box-shadow:0 1px 12px -8px #5d5d5d inset;
+                box-shadow:0 1px 12px -8px #5d5d5d inset;
+                behavior:url('/assets/js/oldie/PIE/PIE.htc');
+            }
+
+            .text-field,
+            .password-field,
+            .dropdown-field,
+            .dropdown-field + .stub {
+                display:inline-block;
+                width:100%;
+            }
+
+            .text-field,
+            .password-field {
+                padding:8px 0;
+                text-indent:8px;
+            }
+
+            .dropdown-field,
+            .dropdown-field + .stub {
+                display: block;
+                padding:6.20% 0.9%;
+                text-align: left !important;
+                text-indent:10px !important;
+            }
+
+            .dropdown-field {
+                background-color:transparent;
+                position:static !important;
+                border:none;
+                box-shadow: none;
+                -moz-box-shadow: none;
+                -webkit-box-shadow: none;
+                -webkit-appearance:none;
+                -moz-appearance:none;
+            } 
+
+            .dropdown-field + .stub {
+                left: 4px;
+                top: 21px;
+                z-index: 300;
+                pointer-events: none;
+                background-color: #ffffff;
+                font-style: normal !important;
+            }
+
+            .mynti-box {
+                display:block;
+            }
+
+            .mynti-box.mynti-alert {
+                padding:5px;
+                top:75px;
+                left:10px;
+                -moz-transition: all 0.82s ease-in;
+                -webkit-transition: all 0.82s ease-in;
+                transition: all 0.82s ease-in;
+            }
+
+            .mynti-alert.bg-success,
+            .mynti-alert.bg-danger {
+                left:30px;
+                color:#ffffff;
+            }
+
+            .mynti-alert.bg-success {
+                background-color: #46c35f;
+            }
+
+            .mynti-alert.bg-danger {
+                background-color:red;
+            }
+
+            .mynti-aside-box,
+            .mynti-panel-box {
+                padding-top:30px;
+            }
+
+            .mynti-aside-box {
+                float:left;
+                background-color: transparent;
+                width:50%;
+                padding-bottom:60px;
+            }
+
+            .mynti-panel-box {
+                float:left;
+                background-color:#fbfcfd;
+                width:50%;
+                color:#000000;
+                padding-bottom:30px;
+            }
+
+            .mynti-app form[name="eduinfo-thunk"]{
+                margin-right:400px;
+            }
+
+            .mynti-box:first-child {
+                margin-left:15px;
+            }
+
+            .mynti-box:last-child {
+                margin-right:15px;
+            }
+
+            [class*="-container"] .mynti-box {
+                margin:0;
+            }
+
+            .mynti-application-submenu,
+            .mynti-application-menu {
+                list-style-position: inside;
+                list-style-type: none;
+                margin-top:20px;
+                background-color:#ffffff;
+            }
+
+            .mynti-application-submenu{
+                display: none;
+                margin-top: 5px !important;
+            }
+
+            .mynti-application-menuitem {
+                padding-left:15px;
+            }
+
+            .mynti-application-menuitem > .mynti-application-submenu {
+                padding-left: 35px;
+            }
+
+            .mynti-application-menuitem + .mynti-application-menuitem {
+                border-top:1px solid #e5e5e5;
+            }
+
+            .mynti-application-menuitem.accordion-open {
+                height: auto !important;
+            }
+
+            .mynti-application-menuitem.accordion-open > .mynti-application-submenu {
+                display: block;
+            }
+
+            .mynti-form-input-container {
+                margin-bottom:15px;
+            }
+
+            .mynti-form-input-container > .mynti-box {
+                padding-right:5px;
+            }
+
+            .mynti-form-input-container > .mynti-box + .mynti-box {
+                padding-left:5px;
+                padding-right:0;
+            }
+
+            .mynti-form-input-container > .mynti-box.email-input-box,
+            .mynti-form-input-container > .mynti-box.pass-input-box {
+                padding:7px 0 !important;
+            }
+
+            .mynti-form-input-container > .mynti-box + .mynti-box.dropdown-input-box{
+                padding-left:0px;
+            }
+
+            .mynti-form-input-container > .mynti-box label {
+                font-weight:800;
+            }
+
+            .mynti-link {
+                display: inline-block;
+            }
+
+            .mynti-app .input-error {
+                border:1px solid red;
+            }
+
+            .mynti-app .input-correct {
+                border:1px solid #46c35f;
+            }
+
+            .mynti-link,
+            .action-link,
+            .nav-link {   
+                text-decoration:none;
+                -moz-transition: all 0.79s ease-out;
+                -webkit-transition: all 0.79s ease-out;
+                -o-transition: all 0.79s ease-out;
+                transition: all 0.79s ease-out;
+            }
+
+            .mynti-link:hover {
+                text-decoration:none;
+                font-weight:700;
+            }
+
+            .mynti-link.nav-link:hover {
+                color:#adb7be;
+            }
+
+            .mynti-link.action-link:hover{
+                text-decoration: underline;
+            }
+
+            .action-link{
+
+            }
+
+            .logo-link{
+                color:transparent;
+                text-indent: -9999px;
+                padding:10px 40px;
+                background-size: contain !important;
+            }
+
+            .svg .logo-link{
+                background: transparent url('/assets/img/svg/myntilogo.svg') no-repeat center center;
+            }
+
+            .no-svg .logo-link{
+                background: transparent url('/assets/img/png/myntilogo.png') no-repeat 50% 50%;
+            }
+
+            .nav-link{
+                color:#acacac;
+                padding:10px 10px;
+                margin-left:3px;
+                font-size:15px;
+                font-weight:700;
+            }
+
+            .mynti-application-menuitem > .nav-link,
+            .mynti-application-submenuitem > .nav-link{
+                margin:0;
+                font-weight:lighter;
+                width:100%;
+                display:block;
+                color:#acacac;
+            }
+
+            .mynti-fullpage  .nav-link:hover {
+                text-decoration:none;
+            }
+
+            .mynti-desktop-navigation .nav-link:hover,
+            .mynti-mobile-navigation .nav-link:hover {
+                color:#222222;
+            } 
+
+            .mynti-application-menuitem > .nav-link:hover,
+            .mynti-application-submenuitem > .nav-link:hover {
+                color:#222222;
+            }
+
+            .mynti-application-menuitem > .nav-link:hover {
+                background-color: transparent;
+            }
+
+            .mynti-toolsbar-item > .nav-link:hover {
+                color:transparent;
+            }
+
+            .nav-link:active,
+            .mynti-fullpage .nav-link.active,
+            .mynti-fullpage .nav-link.active:hover {
+                color:#008001;
+                background-color: transparent !important;
+            }
+
+            .mynti-fullpage .flexible-width,
+            .mynti-fullpage .stretchable {
+                width:auto !important;
+                height:auto;
+                overflow:hidden;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box,
+            .mynti-fullpage .mynti-tabular-box {
+                color:#ffffff;
+                width:auto;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box.flexible-till-max {
+                max-width: 1850px;
+                margin:0 auto;
+            }
+
+            .mynti-fullpage .mynti-dashlet-container { 
+                height:350px;
+                padding:20px 16px;
+            }
+
+            .mynti-fullpage .mynti-dashlet-container[aria-show-particulars] {
+                height:230px;
+                padding:20px 16px;
+                width:100%;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .mynti-dashlet-heading  {
+                font-weight:bolder;
+                font-weight:bold;
+                letter-spacing:2px;
+            }         
+
+            .mynti-fullpage .mynti-dashboard-box .mynti-dashlet-details .dashlet-info-pane {
+                padding:15px 0;
+                font-weight:normal !important;
+            }
+
+            .mynti-fullpage .mynti-dashlet-container[aria-show-particulars] > .mynti-dashlet-details {
+                margin-right:176px;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .mynti-dashlet-details {
+                padding-top: 16px;
+                height:100%;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .mynti-dashlet-details .offset-pane {
+                position:relative;
+                top:auto !important;
+            }
+
+            .mynti-fullpage .table > thead.table-head,
+            .mynti-fullpage .table > tbody.table-body {
+                color: #81898e;
+            }
+
+            .mynti-fullpage .table > thead.table-head {
+                background-color: #e5e5e5;
+            }
+
+            .mynti-fullpage .table > tbody.table-body {
+                background-color: #ffffff;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .inline-table.table {
+                outline: 0px solid transparent;
+                display: inline-block;
+                margin-bottom: 0;
+                height:100%;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .table-responsive {
+                height:80px !important;
+                overflow-y:auto !important; 
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .inline-table.table > thead > tr > th,
+            .mynti-fullpage .mynti-dashboard-box .inline-table.table > tbody > tr > td {
+                border-color: #ffffff;
+            }
+
+            .mynti-fullpage .mynti-dashboard-box .inline-table.table td,
+            .mynti-fullpage .mynti-dashboard-box .inline-table.table th {
+                background-color: transparent !important; 
+            }
+
+            .mynti-fullpage [aria-show-particulars="true"]{
+                background-color: #ffffff;
+            }
+
+            .mynti-fullpage [aria-application-status="incomplete"],
+            .mynti-fullpage [aria-application-status="complete"] {
+                background-color: #00306a;
+            }
+
+            .mynti-fullpage [aria-application-fees="unpaid"] {
+                background-color: #dd1b1b;
+            }
+
+            .mynti-fullpage [aria-application-fees="paid"] {
+                background-color: #17bb38;
+            }
+            
+            .mynti-fullpage [aria-admission-status="not-issued"] {
+                background-color: #828282;
+            }
+
+            .mynti-fullpage [aria-application-status="ratified"] {
+                background-color: #ff531f;
+            }
+
+            .mynti-fullpage [aria-admission-status="pending"],
+            .mynti-fullpage [aria-admission-status="issued"] {
+                background-color: #005fd2;
+            }
+
+            .mynti-fullpage [aria-admission-status="not-issued"] #bp-1,
+            .mynti-fullpage [aria-admission-status="pending"] #bp-2,
+            .mynti-fullpage [aria-admission-status="issued"] #bp-3,
+            .mynti-fullpage [aria-admission-status="not-issued"] #noi,
+            .mynti-fullpage [aria-admission-status="pending"] #png,
+            .mynti-fullpage [aria-admission-status="issued"] #iss,
+            .mynti-fullpage [aria-application-fees="paid"] .paid,
+            .mynti-fullpage [aria-application-fees="unpaid"] .pay,
+            .mynit-fullpage [aria-application-fees="unpaid"] #digits,
+            .mynit-fullpage [aria-application-fees="paid"] #digits-table,
+            .mynti-fullpage [aria-application-status="ratified"] #passport,
+            .mynti-fullpage [aria-application-status="incomplete"] #mouse,
+            .mynti-fullpage [aria-application-status="complete"] #mouse,
+            .mynti-fullpage [aria-application-status="incomplete"] .progress-item,
+            .mynti-fullpage [aria-application-status="complete"] .done-item,
+            .mynti-fullpage [aria-application-status="ratified"] .level,
+            .mynti-fullpage [aria-admission-status="pending"] .wait,
+            .mynti-fullpage [aria-admission-status="not-issued"] .wait,
+            .mynti-fullpage [aria-admission-status="issued"] .done {
+                opacity:1 !important;
+                display:block !important;
+            }
+
+            
+            .mynti-fullpage [aria-application-status="incomplete"] .progress-item.dashlet-link,
+            .mynti-fullpage [aria-application-status="complete"] .done-item.dashlet-link,
+            .mynti-fullpage [aria-admission-status="not-issued"] .wait.dashlet-link,
+            .mynti-fullpage [aria-admission-status="pending"] .wait.dashlet-link,
+            .mynti-fullpage [aria-admission-status="issued"] .done.dashlet-link,
+            .mynti-fullpage [aria-application-status="ratified"] .level.dashlet-link,
+            .mynti-fullpage [aria-application-fees="paid"] .paid.dashlet-link,
+            .mynti-fullpage [aria-application-fees="unpaid"] .pay.dashlet-link {
+                display: inline-block !important;
+            }
+
+            .mynti-fullpage [aria-application-status] .offset-pane {
+                bottom:-54px;
+            }
+
+            .mynti-fullpage [aria-application-fees] .offset-pane {
+               bottom:22px;
+            }
+
+            /* .mynti-fullpage [aria-application-fees="paid"] .offset-pane {
+                top:-38px !important;
+                bottom:0px;
+            } */
+
+            .mynti-fullpage [aria-admission-status] .offset-pane {
+                bottom:-48px;
+            }
+
+            .mynti-fullpage .mynti-rrr-verify-container {
+                border:1px solid transparent;
+            } 
+
+            .mynti-fullpage .mynti-upload-text,
+            .mynti-fullpage .mynti-verify-text {
+                float: none !important;
+            }
+
+            .mynti-fullpage .mynti-button-calm.mynti-select-upload-link,
+            .mynti-fullpage .mynti-button-calm.mynti-verify-link {
+                width:120px;
+                margin-left:15px;
+                padding:8px 10px;
+                float:right;
+                color:#ffffff;
+            }
+
+            .mynti-fullpage .mynti-button-calm.mynti-button-register-submit {
+                padding:10px 25px;
+            }
+
+            .mynti-fullpage .box-off {
+                left:-9999px;
+                top:0;
+                width:0;
+                height:0;
+            }
+
+            .mynti-remita-mast{
+                padding: 40px 180px;
+            }
+
+            .no-svg .mynti-fullpage .mynti-remita-mast{
+                background:transparent url('/assets/img/png/remita.png') no-repeat 0 50%;
+            }
+
+            .svg .mynti-fullpage .mynti-remita-mast{
+                background:transparent url('/assets/img/svg/remita.svg') no-repeat 0 50%;
+            }
+
+            .mynti-fullpage .mynti-button-calm + .mynti-button-calm {
+                margin-left:20px;
+            }
+
+            .mynit-fullpage .mynti-button-nav-hamburger {
+
+            }
+
+
+            .mynti-fullpage .mynti-button-nav-hamburger:hover,
+            .mynti-fullpage .mynti-button-nav-hamburger:active {
+
+            }
+
+            .mynti-main-section {
+                height: 100%;
+                /* height: calc(100% - 69px); */
+                position: relative;
+                -webkit-overflow-scrolling: touch;
+                background-color:transparent;
+                padding-bottom:125px; /* this depends heavily on [box-sizing:border-box;] */
+            }
+
+            .mynti-register-container,
+            .mynti-login-container,
+            .mynti-main-container {
+                border: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                position: static !important;
+                overflow: auto; /* Especially for IE 8 / 9 */
+            }
+
+            .mynti-register-suspended-box,
+            .mynti-login-suspended-box {
+                position: relative;
+                width: 790px;
+                opacity:0;
+                -ms-filter:"alpha(opacity=0)";
+                filter:alpha(opacity=0);
+                margin-left:auto;
+                margin-right:auto;
+                top:10%;
+                background-color:#46c35f;
+                box-sizing:content-box;
+                min-height:450px;
+                -moz-transition: all .99s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0;
+                -webkit-transition: all .99s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0;
+                transition: all .99s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0;
+            }
+
+            .suspended-box-in {
+                top: 50%;
+                margin-top:-17.5%;
+                opacity:1;
+                -ms-filter:"alpha(opacity=100)";
+                filter:alpha(opacity=100);
+            }
+
+            .mynti-main-footer {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                height: 52px;
+                width: 100%;
+                background-color:transparent;
+                color:#adb7be;
+            }
+
+            .mynti-copyright-info-container {
+                width:auto !important;
+                margin-left:40px;
+                margin-right:40px;
+                padding:8px 0;
+            }
+
+            .mynti-fullpage .mynti-button-groovy,
+            .mynti-fullpage .mynti-button-calm {
+                padding:6px 55px;
+                text-decoration:none;
+                color:#ffffff;
+                text-align:center;
+            }
+
+            .mynti-fullpage .mynti-button-groovy {
+                border-color: #4f4f4f !important;
+                background-color: #4f4f4f !important;
+            }
+
+            .mynti-fullpage .mynti-button-calm {
+                border-color: #5bd874;
+                background-color:#5bd874;
+            }
+
+            .mynti-fullpage .mynti-button-calm.nav-btn,
+            .mynti-fullpage .mynti-button-calm.course-btn,
+            .mynti-fullpage .mynti-button-calm.change-btn,
+            .mynti-fullpage .mynti-button-calm.upload-btn {
+                padding:10px 12px;
+                font-weight: 700;
+            }
+
+            .mynti-fullpage .fixed-width-200 {
+                width:200px;
+                float:right;
+                margin-left:9px;
+            }
+
+            /* Popover */
+            .mynti-fullpage .popover {
+                background-color:#46c35f !important;
+            }
+
+            /* Popover Header */
+            .mynti-fullpage .popover-title {
+                color: #FFFFFF !important;
+                background-color:transparent !important;
+                font-size: 18px;
+                text-align:center;
+                padding:15px;
+                border-bottom-width:0px;
+            }
+
+            /* Popover Body */
+            .mynti-fullpage .popover-content {
+                color: #FFFFFF !important;
+                background-color:transparent !important;
+                padding:29px;
+            }
+
+            .mynti-fullpage .popover.top > .arrow {
+                bottom:-10px;
+            }
+
+            .mynti-fullpage .popover.bottom > .arrow {
+                top:-10px;
+            }
+
+            .mynti-fullpage .popover.left > .arrow {
+                right:-4px;
+            }
+
+            .mynti-fullpage .popover.right > .arrow {
+                left:-4px;
+            }
+
+            /* Popover Arrow (in all directions) */
+            .mynti-fullpage .popover.top > .arrow:after { 
+                border-top-color: #46c35f; 
+            }
+
+            .mynti-fullpage .popover.left > .arrow:after { 
+                border-left-color: #46c35f; 
+            }
+
+            .mynti-fullpage .popover.right > .arrow:after { 
+                border-right-color: #46c35f; 
+            }
+
+            .mynti-fullpage .popover.bottom > .arrow:after { 
+                border-bottom-color: #46c35f; 
+            }
+
+            .mynti-fullpage .mynti-edu-details {
+                margin-bottom: 30px;
+            }
+
+            .mynti-fullpage .mynti-result-subjects {
+                margin:5px 0 30px;
+                list-style:decimal !important;
+            }
+
+            .mynti-fullpage .mynti-result-subjects > .mynti-result-subjects-container {
+                list-style-type:decimal !important;
+                list-style-position:outside !important;
+            }
+
+            .mynti-fullpage .mynti-banner,
+            .mynti-fullpage .mynti-button-calm:hover {
+                text-decoration:none;
+                color:#ffffff;
+                background-color:#46c35f;
+                border-color:#46c35f;
+            }
+
+            .mynti-fullpage .mynti-button-groovy:hover{
+                text-decoration:none;
+                color:#ffffff;
+                background-color: #343434;
+                border-color: #343434;
+            }
+
+            .mynti-fullpage .mynti-button-groovy[unselectable],
+            .mynti-fullpage .mynti-button-calm[unselectable] {
+                opacity: 1;
+                -ms-filter:"alpha(opacity=100)";
+                filter:alpha(opacity=100);
+                background-color: #adb7be;
+                color:#e5e5e5;
+                border-color: #adb7be;
+            }
+
+            .mynti-fullpage .mynti-button-groovy {
+                background-color:#005f91;
+                border-color:#005f91;
+            }
+
+            .mynti-fullpage .shake-effect.mynti-button-calm {
+                background-color: #46c35f;
+            }
+
+            .gecko .shake-effect {
+                -moz-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+                -moz-transform: translate3d(0, 0, 0);
+                -moz-backface-visibility: hidden;
+                -moz-perspective: 1000px;
+            }
+
+            .webkit .shake-effect,
+            .blink .shake-effect {
+                -webkit-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+                -webkit-transform: translate3d(0, 0, 0);
+                -webkit-backface-visibility: hidden;
+                -webkit-perspective: 1000px;
+            }
+
+            .presto .shake-effect {
+                -o-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+                -o-transform: translate3d(0, 0, 0);
+                -o-backface-visibility: hidden;
+                -o-perspective: 1000px;
+            }
+
+            .yes-ms.trident .shake-effect,
+            .microsoftedge.edgehtml .shake-effect {
+                -ms-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+                -ms-transform: translate3d(0, 0, 0);
+                -ms-backface-visibility: hidden;
+                -ms-perspective: 1000px;
+            }
+
+            .non-ie .shake-effect {
+                animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+                transform: translate3d(0, 0, 0);
+                backface-visibility: hidden;
+                perspective: 1000px;
+            }
+
+            @-moz-keyframes shake {
+                10%, 90% {
+                    -moz-transform: translate3d(-4px, 0, 0);
+                }
+
+                20%, 80% {
+                    -moz-transform: translate3d(5px, 0, 0);
+                }
+
+                30%, 50%, 70% {
+                    -moz-transform: translate3d(-7px, 0, 0);
+                }
+
+                40%, 60% {
+                    -moz-transform: translate3d(7px, 0, 0);
+                }
+            }
+
+            @-o-keyframes shake {
+                10%, 90% {
+                    -o-transform: translate3d(-4px, 0, 0);
+                }
+
+                20%, 80% {
+                    -o-transform: translate3d(5px, 0, 0);
+                }
+
+                30%, 50%, 70% {
+                    -o-transform: translate3d(-7px, 0, 0);
+                }
+
+                40%, 60% {
+                    -o-transform: translate3d(7px, 0, 0);
+                }
+            }
+
+            @-webkit-keyframes shake {
+                10%, 90% {
+                    -webkit-transform: translate3d(-4px, 0, 0);
+                }
+
+                20%, 80% {
+                    -webkit-transform: translate3d(5px, 0, 0);
+                }
+
+                30%, 50%, 70% {
+                    -webkit-transform: translate3d(-7px, 0, 0);
+                }
+
+                40%, 60% {
+                    -webkit-transform: translate3d(7px, 0, 0);
+                }
+            }
+
+            @keyframes shake {
+                10%, 90% {
+                    -ms-transform: translate3d(-4px, 0, 0);
+                    transform: translate3d(-4px, 0, 0);
+                }
+
+                20%, 80% {
+                    -ms-transform: translate3d(5px, 0, 0);
+                    transform: translate3d(5px, 0, 0);
+                }
+
+                30%, 50%, 70% {
+                    -ms-transform: translate3d(-7px, 0, 0);
+                    transform: translate3d(-7px, 0, 0);
+                }
+
+                40%, 60% {
+                    -ms-transform: translate3d(7px, 0, 0);
+                    transform: translate3d(7px, 0, 0);
+                }
+            }
+
+
+            /* MOBILE STYLES - Breakpoint Interval = 280px */
+            /* #46C35F (button-bg-clr) , #E5E5E5 (button-bg-clr) | #ADB7BE (button-bg-clr disabled-state ) */
+
+            @media screen and (max-width: 1130px) {
+                    
+                    .mynti-app,
+                    .mynti-app > .mynti-fullpage {
+                        font-size:14px;
+                    }
+
+                    .mynti-fullpage .mynti-dashlet-details-preamble {
+                        width:300px;
+                        float:left;
+                        padding-top:35px;
+                    }
+
+                    .mynti-fullpage .dashlet-avatar {
+                        width:110px;
+                        overflow:visible;
+                    }
+
+                    .mynti-fullpage .dashlet-lead {
+                        width:190px;
+                        overflow:hidden;
+                        color:#343434;
+                    }
+
+                    .mynti-section-offsetted {
+                        padding-top: 30px;
+                        margin-right: 350px;
+                    }
+
+                    .mynti-fullpage .mynti-section-placid {
+                        width:auto !important;
+                        margin-left:60px;
+                        margin-right:60px;
+                    }
+
+                    .mynti-register-suspended-box,
+                    .mynti-login-suspended-box {
+                        width:700px;
+                    }
+
+                    .suspended-box-in {
+                        margin-top:-21%;
+                    }
+
+                     .mynti-app form[name="eduinfo-thunk"]{
+                        margin-right:300px;
+                    }
+
+                    .mynti-app [class*='1024x1366'] .mynti-register-suspended-box,
+                    .mynti-app [class*='1024x1366'] .mynti-login-suspended-box { /* iPad Pro */
+                        min-height:590px;
+                    }
+
+                    .mynti-app [class*='1024x1366'] .suspended-box-in { /* iPad Pro */
+                        margin-top:-40%;
+                    }
+
+            }
+
+            @media screen and (max-width: 915px){
+
+                    .mynti-app, 
+                    .mynti-app > .mynti-fullpage {
+                        font-size: 14px;
+                    }
+
+                    .mynti-section-offsetted {
+                        padding-top: 24px;
+                        margin-right: 300px;
+                    }
+
+                    .mynti-fullpage [class*="col-"] + [class*="col-"] {
+                        margin-top: 25px;
+                    }
+
+                    .mynti-fullpage .mynti-section-placid {
+                        width:auto !important;
+                        margin-left:30px;
+                        margin-right:30px;
+                    }
+
+                    .mynti-aside-box,
+                    .mynti-panel-box {
+                        float:none;
+                        width:100%;
+                    }
+
+                    .dropdown-field {
+                        padding: 5.383% 4.225%;
+                    }
+
+                    .dropdown-field + .stub {
+                        top: 19px;
+                        z-index: 300;
+                        left:4px;
+                        padding:4.6% 0px !important;
+                    }
+
+                    .mynti-app .mynti-panel-box.right-half-ultrapill {
+                        border-radius:0 0 8px 8px !important;
+                    }
+
+                    .mynti-app .mynti-heading {
+                        margin-bottom:35px !important;
+                        font-size:30px !important;
+                    }
+
+                    .mynti-aside-box > .mynti-subheading.subheading-light {
+                        display:none;
+                    }
+
+                    .mynti-register-suspended-box,
+                    .mynti-login-suspended-box {
+                        min-height:500px;
+                        width: 560px;
+                    }
+
+                    .suspended-box-in {
+                        top:16%;
+                        margin-top:0%;
+                        opacity:1;
+                        -ms-filter:"alpha(opacity=100)";
+                        filter:alpha(opacity=100);
+                    }
+
+                    .mynti-desktop-navigation {
+                        display:none;
+                        float:none;
+                        width:230px;
+                        line-height:normal;
+                    }
+
+                    .mynti-toolsbar-nav {
+                        padding: 0 !important;
+                    }
+
+                    .mynti-desktop-navigation > .mynti-toolsbar-item.relative,
+                    .mynti-desktop-navigation > .nav-item{
+                        float:none;
+                    }
+
+                    .mynti-app form[name="eduinfo-thunk"]{
+                        margin-right:150px;
+                    }
+
+                    .mynti-mobile-navigation {
+                        display:block;
+                    }
+
+                    .mynti-fullpage .mynti-dashboard-box .table-responsive {
+                        border:none;
+                    }
+            }
+
+            @media screen and (max-width: 694px){
+
+                    .mynti-app, 
+                    .mynti-app > .mynti-fullpage {
+                        font-size: 13px;
+                    }
+
+                    .mynti-section-offsetted {
+                        padding-top: 10px;
+                        margin-right: 230px;
+                    }
+
+                    .mynti-banner .pull-left,
+                    .mynti-banner .pull-right{
+                        float:none !important;
+                        width:100%;
+                    }
+
+                    .mynti-fullpage .mynti-breadcrumbs .mynti-breadcrumbs-list li > a > .label {
+                        display:none !important;
+                    }
+
+                    .suspended-box-in {
+                        top:10%;
+                        margin-top:0%;
+                        opacity:1;
+                        -ms-filter:"alpha(opacity=100)";
+                        filter:alpha(opacity=100);
+                    }
+
+                     .mynti-app form[name="eduinfo-thunk"]{
+                        margin-right:50px;
+                    }
+
+            }
+
+            @media screen and (max-width:593px){
+
+                    .mynti-app, 
+                    .mynti-app > .mynti-fullpage {
+                        font-size:12px;
+                    }
+
+                    .mynti-section-offsetted {
+                        margin-right: 42px;
+                    }
+
+                    .mynti-fullpage .mynti-section-placid {
+                        width:auto !important;
+                        margin-left:15px;
+                        margin-right:15px;
+                    }
+
+                    .mynti-app [class*="-box"] > .mynti-heading,
+                    .mynti-app [class*="-box"] > .mynti-register-form,
+                    .mynti-app [class*="-box"] > .mynti-login-form {
+                        padding-left:10px;
+                        padding-right:10px;
+                        /*font-size:25px !important;*/
+                    }
+
+                    .mynti-register-suspended-box,
+                    .mynti-login-suspended-box {
+                        width:auto !important;
+                        margin-left:20px;
+                        margin-right:20px;
+                        min-height:400px;
+                    }
+
+                    .suspended-box-in {
+                        top:7%;
+                        margin-top:0%;
+                        opacity:1;
+                        -ms-filter:"alpha(opacity=100)";
+                        filter:alpha(opacity=100);
+                    }
+            }

@@ -16,12 +16,12 @@ class CreateSpecializationsTable extends Migration
 
         Schema::create('specializations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('dept_code');
+            $table->string('dept_code')->nullable();
             $table->string('abbr');
             $table->string('name');
+            $table->boolean('practical');
             $table->integer('programme_id');
-            $table->string('status');
-            $table->boolean('practical')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

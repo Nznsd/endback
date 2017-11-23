@@ -12,7 +12,7 @@
                                                     <input type="file" class="profile-picture-file hidden" name="photo" tabindex="-1">
                                                 </span>
                                                 <p class="btn-punched-up">
-                                                    <a href="javascript:void(0);" tabindex="-1" class="btn mynti-button-calm pill upload-btn" upload-file-async="true"><b class="">Upload Photo</b></a>
+                                                    <a href="javascript:void(0);" tabindex="-1" class="btn mynti-button-calm pill upload-btn" upload-file-async="true" data-toggle="popover" data-content="You can put a face to your application. Simply Click this button to start" title="Upload A Profile Photo" data-trigger="focus"><b class="">Upload Photo</b></a>
                                                     <a href="javascript:void(0);" tabindex="-1" class="btn mynti-button-calm pill change-btn" upload-file-async="true"><b class="">Change Photo</b></a>
                                                 </p>
                                             </div>

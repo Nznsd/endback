@@ -42,7 +42,7 @@
                                                     <div class="form-group mynti-input-container">
                                                     <label class="mynti-box lighter-size" for="sittings[first][school_name]">Tertiary Institution</label>
                                                     <div class="input-text relative pill">
-                                                        <input type="text" class="form-control" placeholder="Enter School Name" name="sittings[first][school_name]" tabindex="">
+                                                        <input type="text" class="form-control" value="{{ isset($education) ? json_decode($education->school)->name : '' }}" placeholder="Enter School Name" name="sittings[first][school_name]" tabindex="">
                                                     </div>
                                                 </div>
                                                     
@@ -54,8 +54,10 @@
                                                                 <select class="form-control" name="sittings[first][year]" tabindex="">
                                                                     <option value="-">Select Year</option>
                                                                     @foreach($years as $year)
-                                                                            <option value="{{ $year }}">{{ $year }}</option>
-                                                                        @endforeach
+                                                                            <option value="{{ $year }}"
+                                                                            {{ isset($education) && json_decode($education->school)->year == $year ? 'selected="selected"' : '' }}>
+                                                                            {{ $year }}</option>
+                                                                    @endforeach
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -63,13 +65,18 @@
                                                         <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                                             <label class="mynti-box lighter-size" for="sittings[first][result_type]">Result Type<sup>*</sup></label>
                                                             <div class="input-dropdown relative pill">
-                                                                <select class="form-control" name="sittings[first][result_type]" tabindex="">
+                                                                <select class="form-control" name="sittings[first][result_type]" data-casacade-select-target="[cascade-select-dropdown=first_grade_type]" tabindex="">
                                                                     <option value="-">Select Result Type</option>
-                                                                    <option value="degree">Degree</option>
-                                                                    <option value="coe">College of Education</option>
-                                                                    <option value="tcii">TCII</option>
-                                                                    <option value="poly">Polythecnic</option>
-                                                                    <option value="pttp">PTTP</option>
+                                                                    <option value="degree"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'degree' ? 'selected="selected"' : '' }}>Degree</option>
+                                                                    <option value="coe"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'coe' ? 'selected="selected"' : '' }}>College of Education</option>
+                                                                    <option value="tcii"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'tcii' ? 'selected="selected"' : '' }}>TCII</option>
+                                                                    <option value="poly"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'poly' ? 'selected="selected"' : '' }}>Polythecnic</option>
+                                                                    <option value="pttp"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'pttp' ? 'selected="selected"' : '' }}>PTTP</option>
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -78,8 +85,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group mynti-input-container">
+                                                     <div class="row">
+                                                        <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
+                                                            <label class="mynti-box lighter-size" for="address">Certificate File</label>
+                                                            <div class="input-text form-group-disabled relative pill">
+                                                                <input type="text" class="form-control" readonly="readonly" value="[No Certificate File Selected]" name="sittings[first][cert_file_name]">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                                             <input type="file" hidden name="sittings[first][certificate]">
-                                                            <a href="javascript:void(0);" class="btn mynti-button-calm pill upload-cert">Upload Certificate</a>
+                                                            <a href="javascript:void(0);" class="btn mynti-button-calm pill upload-cert">Attach Certificate</a>
+                                                        </div>
+                                                     </div>
                                                 </div>
                                                 <div class="mynti-results-box">
                                                     <div class="mynti-form-caption form-heading-frame">
@@ -97,22 +114,18 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][0]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select class="form-control" name="sittings[first][grades][0]" tabindex="" cascade-select-dropdown="first_grade_type"   data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                                  </span>
-                                                                 <span class="mynti-box stretchable input-dropdown relative pill">
-                                                                    <select name="sittings[first][subjects][0]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Certificate</option>
-                                                                        @foreach($majors as $key => $value)
-                                                                            <option value="{{ $value }}">{{ $key }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
+                                                                 <span class="mynti-box stretchable relative pill">
+                                                                    <div class="input-text pill">
+                                                                        <input type="text" class="form-control" placeholder="Enter Major, eg B.ED Mathematics Education" name="sittings[first][subjects][0]" tabindex="">
+                                                                    </div>
                                                                 </span>
                                                             </div>
                                                         </li>
@@ -126,7 +139,7 @@
                                                 </div>
                                                 <div class="form-group mynti-input-container">
                                                     <a href="javascript:void(0);" rel="next" class="btn mynti-button-calm pill continue" tabindex="" disabled="disabled"><i class="mynti-spinner-white"></i><b class="">Continue &rsaquo;</b></a>
-                                                    <!--<a href="javascript:void(0);" class="btn mynti-button-groovy pill add" tabindex="" data-toggle="popover" title="Add Exam Sittings" data-content="You can add more certificate exam sittings if you have any" data-trigger="focus" disabled="disabled">Add Sitting</a>-->
+                                                    <a href="/applicants/experience" class="btn mynti-button-calm pill skip" data-toggle="popover" data-placement="top" data-content="If you don't have this record for entry. Simply Click this button to continue" title="Skip Past This Page" data-trigger="focus"><i class="mynti-spinner-white"></i><b class="">Skip</b></a>
                                                 </div>
                                             </form>
                                     </div>

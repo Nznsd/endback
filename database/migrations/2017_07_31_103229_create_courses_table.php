@@ -23,7 +23,7 @@ class CreateCoursesTable extends Migration
             $table->string('title');
             $table->integer('credit_unit');
             $table->string('type');
-            $table->string('desc');
+            $table->string('status');
             $table->timestamps();
         });
     }

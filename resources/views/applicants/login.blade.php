@@ -14,6 +14,7 @@
                             
                             <p class="mynti-box mynti-alert small-text relative strong hidden absolute snap-left pill text-titlecase"></p>
                             <form class="mynti-login-form" name="loginform" method="post" action="/applicants/login" target="_self">
+                            
                             @include('applicants.layouts.status')
                             @include('applicants.layouts.errors')
                                 <div class="mynti-form-input-container clearfix">
@@ -39,7 +40,7 @@
                                 </div>
                                 <div class="mynti-form-input-container clearfix">
                                     <span class="mynti-box">
-                                        If this is your first time, kindly <a href="/applicants" class="text-titlecase">create your account here.</a>
+                                        If this is your first time, kindly <a href="/applicants/apply" class="text-titlecase">create your account here.</a>
                                     </span>
                                     <span class="mynti-box punched-up">
                                         I forgot my <a href="/password/reset" class="text-titlecase">password </a>

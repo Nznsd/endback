@@ -16,7 +16,9 @@
                         </div>
                     </article>
                     <div class="mynti-breadcrumbs">
-                            <span class="mynti-reg-number"><b>{{ $applicant->app_no }}</b></span> 
+                            <span class="mynti-reg-number">
+                                <a href="javascript:window.history.go(-1);" class="btn mynti-button-calm pill">&laquo; Go Back</a>
+                            </span> 
                     </div>
                     <section class="mynti-section-placid">
                     @include('applicants.layouts.status')
@@ -25,10 +27,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12 col-md-12">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" summary="list of payments made by NTI applicant">
+                                            <caption>
+                                                <b>{{ $applicant->app_no }}</b>
+                                            </caption>
                                             <thead class="table-head top-half-pill">
                                                 <tr>
-                                                    <th>Select</th>
+                                                    <th>S/N</th>
                                                     <th>Receipt Description</th>
                                                     <th>Date</th>
                                                     <th>Amount</th>
@@ -37,24 +42,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody  class="table-body bottom-half-pill">
+                                                 @if(isset($transaction_application))
+                                                    <tr>
+                                                        <td class="text-center">1</td>
+                                                        <td>NTI Application Form Fees for {{ $data['academicSessionInfo']->academicSession }} Session</td>
+                                                        <td>{{ $transaction_application->created_at}}</td>
+                                                        <td><b>₦{{ $transaction_application->amount }}</b></td>
+                                                        <td>{{ $transaction_application->status}}</td>
+                                                        <td><i class="mynti-icon arrowbulb"></i><a href="/applicants/receipt/application-form" target="_blank"><span class="">View Receipt</span></a></td>
+                                                    </tr>
+                                                @endif
                                                 @if(isset($transaction_tuition))
                                                     <tr>
-                                                        <td class="text-center"><input type="checkbox" name="selecteditem[]"></td>
+                                                        <td class="text-center">2</td>
                                                         <td>Tuition Fees for {{ $data['academicSessionInfo']->academicSession }} Session</td>
                                                         <td>{{ $transaction_tuition->created_at}}</td>
                                                         <td><b>₦{{ $transaction_tuition->amount }}</b></td>
                                                         <td>{{ $transaction_tuition->status}}</td>
                                                         <td><i class="mynti-icon arrowbulb"></i><a href="/applicants/receipt/tuition" target="_blank"><span class="">View Receipt</span></a></td>
-                                                    </tr>
-                                                @endif
-                                                @if(isset($transaction_application))
-                                                    <tr>
-                                                        <td class="text-center"><input type="checkbox" name="selecteditem[]"></td>
-                                                        <td>NTI Application Form Fees for {{ $data['academicSessionInfo']->academicSession }} Session</td>
-                                                        <td>{{ $transaction_application->created_at}}</td>
-                                                        <td><b>₦{{ $transaction_application->amount }}</b></td>
-                                                        <td>{{ $transaction_application->status}}</td>
-                                                        <td><i class="mynti-icon arrowbulb"></i><a href="/applicants/receipt/application" target="_blank"><span class="">View Receipt</span></a></td>
                                                     </tr>
                                                 @endif
                                             </tbody>

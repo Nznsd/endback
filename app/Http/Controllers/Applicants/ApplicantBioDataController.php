@@ -18,12 +18,11 @@ class ApplicantBioDataController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('verified');
+        $this->middleware('role:applicant');
     }
 
     public function getPersonalInfo()
-    {
-        $states = State::all();
-        
+    {   
         $applicant = Applicant::where('user_id', Auth::id())->first();
 
         $passport = Upload::where(
@@ -34,12 +33,17 @@ class ApplicantBioDataController extends Controller
             ]
         )->latest()->first();
 
+        $states = State::all();
+
+        $lgas = LGA::all();
+
         return view('applicants.biodata', 
             [
                 'applicant' => $applicant, 
                 'states' => $states, 
                 'passport' => $passport,
                 'page' => 'biodata',
+                'lgas' => $lgas,
             ]);
     }
 

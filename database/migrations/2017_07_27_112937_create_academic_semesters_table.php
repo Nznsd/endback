@@ -19,8 +19,8 @@ class CreateAcademicSemestersTable extends Migration
             $table->increments('id');
             $table->integer('academic_session_id');
             $table->integer('name');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->string('status')->default('yellow'); //green, yellow, red 
             $table->timestamps();
         });

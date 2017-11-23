@@ -1,0 +1,36 @@
+<svg width="136" height="142" viewBox="0 0 136 142" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>team</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(9777 4132)">
+<g id="team">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-9777 -4129.44)" fill="url(#paint0_linear)"/>
+</g>
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-9776.81 -4085.45)" fill="#F9ED32"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(-9731.17 -4085.43)" fill="#F7C900"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(-9751.39 -4132)" fill="#F9ED32"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path4_fill" transform="translate(-9731.17 -4131.99)" fill="#F7C900"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(74.5263 85.7931 -84.7624 74.1823 75.2233 -28.216)">
+<stop offset="0" stop-color="#002235"/>
+<stop offset="1" stop-color="#005F91" stop-opacity="0"/>
+</linearGradient>
+<path id="path0_fill" d="M 46.9524 139.441C 95.6073 138.535 130.92 111.046 136 63.3802L 55.6264 0L 55.6264 16.6026L 44.2013 10.2154L 36.3351 10.2154L 28.2813 10.2154L 44.2013 34.7422L 44.2013 53.6193L 9.9265 63.3802L 9.9265 67.8888L 5.99341 74.8397L 0 87.8022L 46.9524 139.441Z"/>
+<path id="path1_fill" d="M 1.17663e-06 45.1222C 1.17663e-06 20.2025 20.1254 2.55924e-06 44.9505 2.55924e-06C 69.7757 2.55924e-06 89.901 20.2025 89.901 45.1238L 1.17663e-06 45.1222Z"/>
+<path id="path2_fill" d="M -3.9221e-07 -5.90595e-07L -3.9221e-07 45.1053L 44.2581 45.1053C 44.2581 20.417 24.5055 0.372537 -3.9221e-07 -5.90595e-07Z"/>
+<path id="path3_fill" d="M 20.2474 40.6518C 31.4298 40.6518 40.4949 31.5516 40.4949 20.3259C 40.4949 9.10021 31.4298 0 20.2474 0C 9.06509 0 -3.726e-06 9.10021 -3.726e-06 20.3259C -3.726e-06 31.5516 9.06509 40.6518 20.2474 40.6518Z"/>
+<path id="path4_fill" d="M 0.0329453 7.13635e-07C 0.0216998 7.13635e-07 0.0104418 0.00161254 -3.9221e-07 0.00161254L -3.9221e-07 40.6518C 0.0112451 40.6518 0.0225031 40.6534 0.0329453 40.6534C 11.2158 40.6534 20.2804 31.5536 20.2804 20.3275C 20.2804 9.10137 11.2166 7.13635e-07 0.0329453 7.13635e-07Z"/>
+</defs>
+</svg>

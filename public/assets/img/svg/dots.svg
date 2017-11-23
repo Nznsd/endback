@@ -1,0 +1,36 @@
+<svg width="22" height="6" viewBox="0 0 22 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-2614 -1347)">
+<g id="group">
+<g id="oval">
+<mask id="mask0_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(2630.58 1347.6)"/>
+</mask>
+<g mask="url(#mask0_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(2630.58 1347.6)" fill="#A2A6AD"/>
+</g>
+</g>
+<g id="oval">
+<mask id="mask1_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(2622.38 1347.6)"/>
+</mask>
+<g mask="url(#mask1_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(2622.38 1347.6)" fill="#A2A6AD"/>
+</g>
+</g>
+<g id="oval">
+<mask id="mask2_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(2614.26 1347.6)"/>
+</mask>
+<g mask="url(#mask2_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(2614.26 1347.6)" fill="#A2A6AD"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 2.64 5.28C 4.09803 5.28 5.28 4.09803 5.28 2.64C 5.28 1.18197 4.09803 0 2.64 0C 1.18197 0 0 1.18197 0 2.64C 0 4.09803 1.18197 5.28 2.64 5.28Z"/>
+<path id="path1_stroke_2x" d="M 2.64 6.78C 4.92646 6.78 6.78 4.92646 6.78 2.64L 3.78 2.64C 3.78 3.2696 3.2696 3.78 2.64 3.78L 2.64 6.78ZM 6.78 2.64C 6.78 0.353541 4.92646 -1.5 2.64 -1.5L 2.64 1.5C 3.2696 1.5 3.78 2.0104 3.78 2.64L 6.78 2.64ZM 2.64 -1.5C 0.353541 -1.5 -1.5 0.353541 -1.5 2.64L 1.5 2.64C 1.5 2.0104 2.0104 1.5 2.64 1.5L 2.64 -1.5ZM -1.5 2.64C -1.5 4.92646 0.353541 6.78 2.64 6.78L 2.64 3.78C 2.0104 3.78 1.5 3.2696 1.5 2.64L -1.5 2.64Z"/>
+</defs>
+</svg>

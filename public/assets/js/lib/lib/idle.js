@@ -65,28 +65,9 @@
       activeMethod.$$onmousemove = window.onmousemove;
       activeMethod.$$onmousedown = window.onmousedown;
       activeMethod.$$ontouchstart = window.ontouchstart;
-      activeMethod.$$ontouchmove = window.ontouchmove;
       activeMethod.$$onkeydown = window.onkeydown;
       activeMethod.$$onscroll = window.onscroll;
       activeMethod.$$onmousewheel = window.onmousewheel;
-
-      if(typeof document.documentMode == 'number'
-          && (document.documentMode >= 8 
-            && document.documentMode <= 9)){
-          // IE 8+ allows `Object.defineProperty` on DOM nodes
-          Object.defineProperty(document, 'oldMsHidden', {
-                status:false,
-                get:function(){
-                    return this.status;
-                },
-                set:function(value){
-                  if(typeof value != 'boolean'){
-                    return;
-                  }
-                  this.status = value;
-                }
-          });
-      }
 
       window.onload = function(){
            if(activeMethod.$$onload){ 
@@ -117,13 +98,6 @@
       window.ontouchstart = function(){ 
           if(activeMethod.$$ontouchstart){
               activeMethod.$$ontouchstart();
-          }
-          activeMethod();
-      }
-
-      window.ontouchmove = function(){ 
-          if(activeMethod.$$ontouchmove){
-              activeMethod.$$ontouchmove();
           }
           activeMethod();
       }
@@ -166,47 +140,15 @@
     Idle.prototype.start = function() {
       var activity;
       if (!this.listener) {
-        this.listener = (function(e) {
-              if (!/^focus(?:in|out)$/.test(e.type) || (
-                    (e.toElement === undefined || e.toElement === null)  &&
-                    (e.fromElement === undefined || e.fromElement === null) &&
-                    (e.relatedTarget === undefined || e.relatedElement === null) &&
-                    typeof document.documentMode === 'number'
-                  )
-              ) {
-          
-                  if((document.oldMsHidden 
-                      || /^(?:blur|focusout)$/.test(e.type)) 
-                          && !document.hasFocus()){
-                      document.oldMsHidden = true;
-                  }else{
-                      document.oldMsHidden = false;
-                  }
-        
-              }
-
-              return activity.handleVisibilityChange();
+        this.listener = (function() {
+          return activity.handleVisibilityChange();
         });
         
         if(typeof document.addEventListener === 'function'){
           
-            if('hidden' in document &&
-              !('webkitHidden' in document
-                  || 'oHidden' in document
-                    || 'mozHidden' in document
-                        || 'msHidden' in document)){
-                         document.addEventListener("visibilitychange", this.listener, false);
-            }else{
-                    document.addEventListener("webkitvisibilitychange", this.listener, false);
-                    document.addEventListener("msvisibilitychange", this.listener, false);
-                    document.addEventListener("ovisibilitychange", this.listener, false);
-                    document.addEventListener("mozvisibilitychange", this.listener, false);
-            }
-        }else if(typeof document.attachEvent === 'function'){
-            document.attachEvent('focusin', this.listener);
-            document.attachEvent('focusout', this.listener);
-            window.attachEvent('focus', this.listener);
-            window.attachEvent('blur', this.listener);
+            document.addEventListener("visibilitychange", this.listener, false);
+            document.addEventListener("webkitvisibilitychange", this.listener, false);
+            document.addEventListener("msvisibilitychange", this.listener, false);
         }
       }
       this.awayTimestamp = new Date().getTime() + this.awayTimeout;
@@ -227,23 +169,9 @@
       if (this.listener !== null) {
 
         if(typeof document.removeEventListener === 'function'){
-            if('hidden' in document &&
-                  !('webkitHidden' in document
-                      || 'oHidden' in document
-                        || 'mozHidden' in document
-                            || 'msHidden' in document)){
-                        document.removeEventListener("visibilitychange", this.listener);
-            }else{
-                    document.removeEventListener("webkitvisibilitychange", this.listener);
-                    document.removeEventListener("msvisibilitychange", this.listener);
-                    document.removeEventListener("ovisibilitychange", this.listener);
-                    document.removeEventListener("mozvisibilitychange", this.listener);
-            }
-        }else if(typeof document.attachEvent === 'function'){
-            document.detachEvent('focusin', this.listener);
-            document.detachEvent('focusout', this.listener);
-            window.detachEvent('focus', this.listener);
-            window.detachEvent('blur', this.listener);
+            document.removeEventListener("visibilitychange", this.listener);
+            document.removeEventListener("webkitvisibilitychange", this.listener);
+            document.removeEventListener("msvisibilitychange", this.listener);
         }
 
         this.listener = null;
@@ -277,9 +205,7 @@
     };
 
     Idle.prototype.handleVisibilityChange = function() {
-      if (document.hidden || document.msHidden 
-              || document.webkitHidden || document.mozHidden 
-                  || document.oHidden || document.oldMsHidden) {
+      if (document.hidden || document.msHidden || document.webkitHidden) {
         if (this.onHidden) {
           return this.onHidden();
         }

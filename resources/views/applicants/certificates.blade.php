@@ -42,7 +42,7 @@
                                                     <div class="form-group mynti-input-container">
                                                     <label class="mynti-box lighter-size" for="sittings[first][school_name]">School/Institution</label>
                                                     <div class="input-text relative pill">
-                                                        <input type="text" class="form-control" placeholder="Enter School Name" name="sittings[first][school_name]" tabindex="">
+                                                        <input type="text" value="{{ isset($education) ? json_decode($education->school)->name : '' }}" class="form-control" placeholder="Enter School Name" name="sittings[first][school_name]" tabindex="">
                                                     </div>
                                                 </div>
                                                     <div class="form-group mynti-input-container">
@@ -53,7 +53,9 @@
                                                                 <select class="form-control" name="sittings[first][state]" tabindex="18" data-casacade-select-target="[cascade-select-dropdown=first_lga_exam]">
                                                                     <option value="-">Select State</option>
                                                                      @foreach($states as $state)
-                                                                            <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                                            <option value="{{ $state->id }}"
+                                                                            {{ isset($education) && json_decode($education->school)->state == $state->id ? 'selected="selected"' : '' }}>
+                                                                            {{ $state->name }}</option>
                                                                         @endforeach
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -63,7 +65,10 @@
                                                             <label class="mynti-box lighter-size" for="sittings[first][lga]">Local Government<sup>*</sup></label>
                                                             <div class="input-dropdown relative pill">
                                                                 <select class="form-control" cascade-select-dropdown="first_lga_exam" name="sittings[first][lga]" tabindex="19" data-select-loaded="false">
-                                                                    <option value="-">Select Local Government</option>
+                                                                    <option value="">Select Local Government</option>
+                                                                    @if(isset($education))
+                                                                        <option value="{{ json_decode($education->school)->lga }}" selected>{{ $lgas[json_decode($education->school)->lga - 1]->name }}</option>
+                                                                    @endif
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -78,8 +83,10 @@
                                                                 <select class="form-control" name="sittings[first][year]" tabindex="">
                                                                     <option value="-">Select Year</option>
                                                                     @foreach($years as $year)
-                                                                            <option value="{{ $year }}">{{ $year }}</option>
-                                                                        @endforeach
+                                                                            <option value="{{ $year }}"
+                                                                            {{ isset($education) && json_decode($education->school)->year == $year ? 'selected="selected"' : '' }}>
+                                                                            {{ $year }}</option>
+                                                                    @endforeach
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -87,12 +94,16 @@
                                                         <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                                             <label class="mynti-box lighter-size" for="sittings[first][result_type]">Result Type<sup>*</sup></label>
                                                             <div class="input-dropdown relative pill">
-                                                                <select class="form-control" name="sittings[first][result_type]" tabindex="">
+                                                                <select class="form-control" name="sittings[first][result_type]" tabindex="" data-casacade-select-target="[cascade-select-dropdown=grade_category]">
                                                                     <option value="-">Select Result Type</option>
-                                                                    <option value="waec">WAEC</option>
-                                                                    <option value="neco">NECO</option>
-                                                                    <option value="nabteb">NABTEB</option>
-                                                                    <option value="gce">GCE</option>
+                                                                    <option value="waec" 
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'waec' ? 'selected="selected"' : '' }}>WAEC</option>
+                                                                    <option value="neco"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'neco' ? 'selected="selected"' : '' }}>NECO</option>
+                                                                    <option value="nabteb"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'nabteb' ? 'selected="selected"' : '' }}>NABTEB</option>
+                                                                    <option value="gce"
+                                                                    {{ isset($education) && json_decode($education->school)->type == 'gce' ? 'selected="selected"' : '' }}>GCE</option>
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
                                                             </div>
@@ -101,8 +112,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group mynti-input-container">
-                                                            <input type="file" hidden name="sittings[first][certificate]">
-                                                            <a href="javascript:void(0);" class="btn mynti-button-calm pill upload-cert">Upload Certificate</a>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
+                                                                <label class="mynti-box lighter-size" for="address">Certificate File</label>
+                                                                <div class="input-text form-group-disabled relative pill">
+                                                                    <input type="text" class="form-control" readonly="readonly" value="[No Certificate File Selected]" name="sittings[first][cert_file_name]">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
+                                                                <input type="file" hidden name="sittings[first][certificate]">
+                                                                <a href="javascript:void(0);" class="btn mynti-button-calm pill upload-cert">Attach Certificate</a>
+                                                            </div>
+                                                        </div>
                                                 </div>
                                                 <div class="mynti-results-box">
                                                     <div class="mynti-form-caption form-heading-frame">
@@ -120,8 +141,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][0]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][0]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -130,9 +151,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][0]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -142,8 +163,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][1]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][1]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -152,9 +173,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][1]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -164,8 +185,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][2]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][2]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -174,9 +195,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][2]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -186,8 +207,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][3]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][3]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -196,9 +217,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][3]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -208,8 +229,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][4]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][4]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -218,9 +239,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][4]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -230,8 +251,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][5]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][5]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -240,9 +261,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][5]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                         
                                                                     </select>
@@ -253,8 +274,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][6]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][6]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -263,9 +284,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][6]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -275,8 +296,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][7]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][7]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -285,9 +306,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][7]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -297,8 +318,8 @@
                                                         <li class="mynti-result-subjects-container">
                                                             <div class="clearfix">
                                                                  <span class="mynti-box fixed-width-200 input-dropdown relative pill">
-                                                                    <select name="sittings[first][grades][8]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Grade</option>
+                                                                    <select name="sittings[first][grades][8]" tabindex="" class="form-control" cascade-select-dropdown="first_grade_type"  data-select-loaded="false">
+                                                                        <option value="">Select Grade</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                                         @endforeach
@@ -307,9 +328,9 @@
                                                                  </span>
                                                                  <span class="mynti-box stretchable input-dropdown relative pill">
                                                                     <select name="sittings[first][subjects][8]" tabindex="" class="form-control">
-                                                                        <option value="-">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
                                                                         @foreach($subjects as $subject)
-                                                                            <option value="{{ $subject->id }}">{{ ucfirst($subject->name) }}</option>
+                                                                            <option value="{{ $subject->id }}">{{ ucwords($subject->name) }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>

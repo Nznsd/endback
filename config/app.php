@@ -120,8 +120,7 @@ return [
     |
     */
 
-    //'log' => env('APP_LOG', 'single'),
-    'log' => 'errorlog', // this is for heroku
+    'log' => env('APP_LOG', 'single'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -163,9 +162,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-        Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        NTI\Providers\AzureStorageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -180,7 +176,10 @@ return [
         // NTI\Providers\BroadcastServiceProvider::class,
         NTI\Providers\EventServiceProvider::class,
         NTI\Providers\RouteServiceProvider::class,
-
+		NTI\Providers\AzureStorageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        NTI\Providers\ManulaServiceProvider::class
     ],
 
     /*
@@ -229,8 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+		'Image' => Intervention\Image\Facades\Image::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
 
     ],
 

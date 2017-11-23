@@ -7,9 +7,9 @@ var $ = {
      * @compatibility   Chrome 1, FireFox 3+, Internet Explorer 5+, Opera 8+, Safari 3+
      * @original-author Andrea Giammarchi
      * @current-author 	Ifeora Okechukwu
-     * @project-owner 	https://www.articon.com.ng/
+     * @project 	Furppa (https://www.furppa.com.ng/)
      * @original-repo 	https://code.google.com/p/noswfupload
-     * @current-repo    https://www.github.com/synergixe/noswfupload
+     * @current-repo		https://github.com/furppa/noswfupload
      * @blog            webreflection.blogspot.com
      * @license         MIT
      */
@@ -83,13 +83,13 @@ var $ = {
             lastInput = wrap.dom.input;
             $.event.del(wrap.dom.input, "change", arguments.callee);
             for(var max = false, input = wrap.dom.input.cloneNode(true), i = 0, files = $.files(wrap.dom.input); i < files.length; i++){
-                
+                console.log(" PPPPPPPPPPPPPPPPPP    blob array: ", files, "item method: ", typeof files.item);
                 var file = files.item(i),
                     type = file.fileType || file.type, 
                     value   = file.fileName || (file.fileName = ( !!((({}).toString.call(file)).indexOf('[object HTMLInputElement]') + 1) ? file.value.split("\\").pop() : file.name)),
-                    size = file.fileSize && (Math.ceil(file.fileSize / 1048576)) || (Math.ceil(file.size / 1048576)),
+                    size = file.fileSize || (Math.ceil(file.size / 1048576)),
                     ext     = -1 !== value.indexOf(".") ? value.split(".").pop().toLowerCase() : "unknown";
-                if((wrap.fileType || type) && -1 === (wrap.fileType || type).search(new RegExp("(?:\\*|image)(?:\\.|\\/)" + ext, "ig"))){
+                if((wrap.fileType || type) && -1 === (wrap.fileType || type).indexOf("*." + ext)){
                     max = true;
                     $.text(
                         wrap.dom.info,
@@ -120,7 +120,7 @@ var $ = {
                             return function(e){
                                 for(var i = 0, childNodes = li.parentNode.getElementsByTagName("li"); i < childNodes.length; i++){
                                     if(childNodes[i] === li){
-                                        var _value = (wrap.files[i].fileName || wrap.files[i].name);
+                                        var value = wrap.files[i].fileName || wrap.files[i].name;
                                         $.event
                                             .del(li, "click", $.empty)
                                             .del(li, "dblclick", arguments.callee)
@@ -128,7 +128,7 @@ var $ = {
                                         li.parentNode.removeChild(li);
                                         li = a = null;
                                         wrap.files.splice(i, 1);
-                                        $.text(wrap.dom.info, $.lang.removedFile.replace(/{fileName}/g, _value));
+                                        $.text(wrap.dom.info, $.lang.removedFile.replace(/{fileName}/g, value));
                                         break;
                                     }
                                 };
@@ -137,7 +137,7 @@ var $ = {
                         })(li))
                     ;
                     if(typeof size != "number")
-                        file.fileSize = -1;
+                        files.item(i).fileSize = -1;
                     if(wrap.dom.ul.firstChild)
                         wrap.dom.ul.insertBefore(li, wrap.dom.ul.firstChild);
                     else
@@ -200,10 +200,10 @@ var $ = {
      */
     sendFile:(function(toString){
         var multipart = function(boundary, name, file, type){
-        		/* type = "application/json";
+        		// type = "application/json";
         		if(!type || (type.indexOf('image/') + 1)){
         			type = "application/octet-stream";
-        		}*/
+        		}
                 return  "--".concat(
                     boundary, CRLF,
                     'Content-Disposition: form-data; name="', name, '"; filename="', (file.fileName || file.name), '"', CRLF,

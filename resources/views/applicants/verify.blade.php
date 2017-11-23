@@ -74,7 +74,7 @@
                                     <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                         <label class="mynti-box lighter-size" for="paystatus">Payment Status</label>
                                         <div class="input-text form-group-disabled relative pill">
-                                            <input type="text" value="{{ $transaction->status }}" class="form-control" placeholder="" readonly="readonly" name="paystatus" tabindex="14">
+                                            <input type="text" value="{{ strtoupper($transaction->status) }}" class="form-control" placeholder="" readonly="readonly" name="paystatus" tabindex="14">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
@@ -90,13 +90,13 @@
                                     <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                         <label class="mynti-box lighter-size" for="rrr">RRR</label>
                                         <div class="input-text form-group-disabled relative pill">
-                                            <input type="number" class="form-control" placeholder="" value="{{ json_decode($transaction->remita_before)->RRR }}" readonly="readonly" name="rrr" tabindex="16">
+                                            <input type="number" class="form-control" placeholder="" value="{{ json_decode($transaction->remitaBefore)->RRR }}" readonly="readonly" name="rrr" tabindex="16">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-xs-12 col-md-6 mynti-split-input">
                                         <label class="mynti-box lighter-size" for="orderid">Order ID</label>
                                         <div class="input-text form-group-disabled relative pill">
-                                            <input type="text" class="form-control" placeholder="" value="{{ $transaction->order_id }}" readonly="readonly" name="orderid" tabindex="17">
+                                            <input type="text" class="form-control" placeholder="" value="{{ $transaction->orderId }}" readonly="readonly" name="orderid" tabindex="17">
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                                 <a href="{{ '/applicants/verified/' . $type }}" rel="next" class="btn mynti-button-calm pill continue" tabindex="18"><i class="mynti-spinner-white"></i><b class="">Continue &rsaquo;</b></a>
                                  <a href="javascript:void(0);" class="btn mynti-button-calm pill save-and-print" tabindex="19"><b class="">Save Receipt</b></a>
                             @else
-                                 <a href="{{ '/applicants/payments/' . $type }}" class="btn mynti-button-calm pill" tabindex="18"><b class="">Pay Via Remita</b></a>
+                                 <a href="{{ '/applicants/payments/' . $type }}" class="btn mynti-button-calm pill" tabindex="18"><b class="">Pay Now</b></a>
                             @endif
                             </div>
                         </form>

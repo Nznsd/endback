@@ -1,0 +1,107 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #ECF2F5;
+	font-family: 'Roboto', sans-serif; 
+}
+
+
+/* HEADER */
+
+.main-header {
+	width: 100%;
+	height: 5.42vw;
+	background-color: #FFFFFF;
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.05);
+}
+
+.main-header li {
+	padding: 1.25vw;
+}
+
+.main-header img {
+	width: 7.76vw;
+	height: auto;
+}
+
+
+/* ERROR CONTENTS */
+
+.error-content {
+	width: 100%;
+}
+
+p,
+.num {
+	display: inline-block;
+	width: 100%;
+}
+
+.error-content {
+	text-align: center;
+}
+
+.header {
+	color: #004468;
+	font-size: 2.50vw;
+	font-weight: lighter;
+	margin-top: 5.00vw;
+	margin-bottom: 1.25vw;
+}
+
+.text {
+	color: #434343;
+	font-size: 1.25vw;
+	font-weight: bold;
+}
+
+.text a:link,
+.text a:visited,
+.text a:active {
+	text-decoration: none;
+	color: #46C35F;
+}
+
+.text a:hover,
+.text a:visited:hover {
+	font-weight: lighter;
+	text-decoration: underline;
+	color: #ADB7BE;
+}
+
+.num {
+	color: #005F91;
+	font-size: 20.83vw;
+	margin-top: 1.25vw;
+}
+
+.num span {
+	position: relative;
+	bottom: 5.00vw;
+	right: 0.83vw;
+}
+
+.num .error-404 {
+	width: 19.69vw;
+}
+
+.num .error-500 {
+	width: 27.60vw;
+}
+
+.num .error-403 {
+	width: 20.68vw;
+}
+
+.num .error-413 {
+	width: 22.43vw;
+}
+
+.num img {
+	height: auto;
+}
+

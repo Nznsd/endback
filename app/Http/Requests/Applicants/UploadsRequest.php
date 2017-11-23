@@ -24,7 +24,7 @@ class UploadsRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'file|mimes:jpeg,bmp,png,gif,pdf|size:100' // file means file must be uploaded, size 100kb
+            'file' => 'file|mimes:jpeg,bmp,png,gif,pdf|size:200' // file means file must be uploaded, size 100kb
         ];
     }
 

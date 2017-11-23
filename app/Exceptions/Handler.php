@@ -44,6 +44,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException)
+        {
+            return redirect()
+                ->back()
+                ->withInput($request->except('_token'))
+                ->with("status", "Oops! Seems you couldn't submit the form for a long time. please try again...");
+        }
+
+        if (!$exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+            //abort(500, 'Something went wrong, a message has been sent to support');
+        }
+        
         return parent::render($request, $exception);
     }
 
@@ -60,6 +72,6 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login_get'));
+        return redirect()->guest('/login');
     }
 }

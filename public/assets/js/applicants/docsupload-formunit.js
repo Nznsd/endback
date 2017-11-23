@@ -11,13 +11,15 @@
 
 ;(function(w, d){
 
-	$cdvjs.Application.registerModule("formunit", ["jQuery", "emitter", "tools", "noswfupload"], function(box, accessControl){
+	$cdvjs.Application.registerModule("formunit", ["jQuery", "emitter", "tools", "DocxJS", "noswfupload"], function(box, accessControl){
 
 		var $ = box.jQuery,
 
 			E = box.emitter,
 
 			T = box.tools,
+
+			docx_js = new box.DocxJS() || {},
 
 			noswfupload = box.noswfupload || {},
 
@@ -26,6 +28,8 @@
 			uploadList,
 
 			forms_batch,
+
+			upload_nodes,
 
 			select_dropdown,
 
@@ -49,6 +53,16 @@
 
 			body,
 
+		   /**
+		    *
+		    *
+		    */
+
+		    randomIntFromInterval = function(min,max){
+    
+    			return Math.floor(Math.random()*(max-min+1)+min);
+			},	
+
 	       /**
 			*
 			*
@@ -64,61 +78,77 @@
 			       			immediately
 			       		*/
 
-			       		var hasFiles = !!(payload.form.find('input[type="file"]').length);
+			       		var _origin = w.location.origin,
+			       			hasFiles = !!(payload.node.wrap.files.length),
+			       			id = payload.node.wrap.dom.wrap.parentNode.id;
 
-			       		if(hasFiles){
-			       			return asyncServerUpload({
-				       				url:'/applicants/uploads/save/other', /*'/applicants/uploads/'+$('button[name="file-attribution"]').eq(uploadList.length).val(),*/
-				       				loadstart:loadstart,
-				       				complete:complete,
-				       				error:error,
-				       				progress:progress,
-				       				form:payload.form.get(0)
-					       	});
-			       		}
+			       		// set wrap url
 
-			       		function loadstart(){
+			       		payload.node.wrap.url = _origin + '/applicants/uploads/save/'+id;
+
+
+            			// set wrap object properties and methods (events)
+
+			       		payload.node.wrap.onloadstart = function loadstart(){
+
+			       			var _that = this;
 		            
 		                	// we need to show progress bars and disable input file (no choice during upload)
-		                	this.show(0);
+		                	_that.show(0);
 		                
 		                	// write something in the span info
 		                	noswfupload.text(this.dom.info, "Preparing for Upload ... ");
-		            	}
 
-			       		function complete(rpe, xhr){
+		                	setTimeout(function(){
+
+		                		// write something in the span info again...
+
+		                		noswfupload.text(_that.dom.info, "Upload Started... ");
+
+		                	},100);
+
+		                	
+		            	};
+
+			       		payload.node.wrap.onload = function complete(rpe, xhr){
 			                
-			                var self = this;
+			                var _that = this;
+
 			                // just show everything is fine ...
-			                noswfupload.text(this.dom.info, "Upload complete");
 			                
 			                // ... and after a second reset the component
 			                setTimeout(function(){
-			                    self.clean();   // remove files from list
-			                    self.hide();    // hide progress bars and enable input file
+
+			                    //_that.clean();   // remove files from list
+			                    //_that.hide();    // hide progress bars and enable input file
 			                    
-			                    noswfupload.text(self.dom.info, "");
+			                    noswfupload.text(_that.dom.info, "Upload complete");
 			                    
 			                    // enable again the submit button/element
-			                    // submit.removeAttribute("disabled");
-			                }, 1000);
+			                    submit.removeAttribute("disabled");
 
-		            	}
+			                }, 1500);
 
-			       		function error(){
+		            	};
+
+			       		payload.node.wrap.onerror = function error(){
 		                	
-		                		noswfupload.text(this.dom.info, "WARNING: Unable to Upload " + (this.file.fileName || this.file.name));
-			       		}
+		                	// if there is an error pertaining the upload file, show it
 
-			       		function progress(rpe, xhr){
+	                		noswfupload.text(this.dom.info, "WARNING: Unable to Upload " + (this.file.fileName || this.file.name));
+			       		};
 
-				            	var size = this.file.fileSize || this.file.size;
+			       		payload.node.wrap.onprogress = function progress(rpe, xhr){
+
+				            	var size = (this.file.fileSize || this.file.size),
+				            		percent_total =  ((this.sent + rpe.loaded) * 100 / this.total),
+				            		percent_sent = (rpe.loaded * 100 / rpe.total);
 				            
 				                // percent for each bar
-				                this.show((this.sent + rpe.loaded) * 100 / this.total, rpe.loaded * 100 / rpe.total, "width", "width");
+				                this.show(percent_total, percent_sent, "width", "width");
 				                
 				                // info to show during upload
-				                noswfupload.text(this.dom.info, "Uploading: " + (this.file.fileName || this.file.name));
+				                noswfupload.text(this.dom.info, percent_sent+"% Uploading: ");
 				                
 				                // fileSize is -1 only if browser does not support file info access
 				                // this if splits recent browsers from others
@@ -140,7 +170,7 @@
 				                        );
 				                    }
 				                } else  {
-				                    // if fileSIze is -1 browser is using an iframe because it does not support
+				                    // if fileSize is -1 browser is using an iframe because it does not support
 				                    // files sent via Ajax (XMLHttpRequest)
 				                    // We can still show some information
 				                    noswfupload.text(this.dom.info,
@@ -148,9 +178,15 @@
 				                        "Sent: " + (this.sent / 100) + " out of " + (this.total / 100)
 				                    );
 				                }
-            			}
+            			};
 
-			       		return null;
+            			if(hasFiles){
+			       			asyncServerUpload({
+			       				target:payload.node.wrap
+					       	});
+			       		}
+
+			       		return id;
 	        },
 
 	       /**
@@ -189,7 +225,7 @@
 		    		fileExtension = "";
 		    	}
 
-		    	return /\.(?:jpe?g|pdf|docx?)$/.test(fileExtension.toLowerCase());
+		    	return /\.(?:jpe?g|pdf|png|docx?)$/.test(fileExtension.toLowerCase());
 		    },
 
 		   /**
@@ -221,35 +257,13 @@
 			* @return - {Undefined}
 			*/
 
-		    proceedToUpload = function(){
-
-					var attribution = $(upload_element).attr('file-attribution'),
-
-					input_btn = $(d.createElement('input')).attr({
-							name:'file-attribution',
-							type:'button'
-					}).addClass('hidden').val(attribution),
-				
-					input_file = $(upload_element.cloneNode(true)).attr({
-							id:'file-input-'+attribution,
-							name:'file-input-'+attribution,
-							type:'file'
-					}).addClass('hidden'),
-
-					doc_upload_box = $(d.createElement('div'));
-
-					doc_upload_box.append
-						.apply(doc_upload_box, [input_btn, input_file])
-							.appendTo(forms_batch);
+		    proceedToUpload = function(unode){
 
 					uploadList.push({
-						file:upload_element.value,
-						upload_spec:documentFileUpload({
-							form:doc_upload_box
+						upload_id:documentFileUpload({
+							node:unode
 						})
 					});
-
-					upload_element.value = ""; /* no change event triggered - safe */
 								
 		    },
 
@@ -299,64 +313,38 @@
 
 	        asyncServerUpload = function(payload){
 
-	        	payload.multipart_async_upload = true;
 
-	        	var _origin = w.location.origin,
+	        	
+	        var form = $(payload.target.dom.wrap);
+
                 // the input type file to wrap
-                input   = payload.form.getElementsByTagName("input")[1],
+                input   = form.find('input[type="file"]').get(0),
                 
                 // the submit button
-                submit  = payload.form.getElementsByTagName("input")[0],
-                
-                // the form action to use with noswfupload
-                url = _origin + payload.url,
-                
-                // noswfupload wrap Object
-                wrap;
+                submit  = form.prev('input[type="button"]').get(0);
+            	
             
-            
-            	// if we do not need the form ...
-                // move inputs outside the form since we do not need it
-                with(payload.form.parentNode){
-                    appendChild(input);
-                    appendChild(submit);
-                };
-                
-                // remove the form
-                payload.form.parentNode.removeChild(payload.form);
-            
-            	// create the noswfupload.wrap Object with 50Mb of limit
-            	wrap = noswfupload.wrap(input, 50 * 1024 * 1024);
-
-            	// accepted file types (filter)
-            	// fileType could contain whatever text but filter checks *.{extension} if present
-            	wrap.fileType = "Images (*.jpg, *.jpeg, *.png, *.doc, *.pdf)";
-
-				// trigger a change event to register the files in {noswfupload}
-				T.trigger_event(input, "change", {}, w);
-				//input.dispatchEvent(new CustomEvent('change'));
-            
-            	// form and input are useless now (remove references)
-            	//payload.form = input = null;
             
             	// assign event to the submit button
             	noswfupload.event.add(submit, "click", function(e){
             
                 		// only if there is at least a file to upload
-		                if(wrap.files.length){
+		                if(payload.target.files.length){
 
 		                    submit.setAttribute("disabled", "disabled");
 
-		                    wrap.upload(
+		                    
+		                    payload.target.upload(
 		                        // it is possible to declare events directly here
 		                        // via Object
 		                        // {onload:function(){ ... }, onerror:function(){ ... }, etc ...}
 		                        // these callbacks will be injected in the wrap object
 		                        // In this case events are implemented manually
-		                    );
+		                        
+		                     );
 		                } else {
 
-		                    noswfupload.text(wrap.dom.info, "No files selected");
+		                    noswfupload.text(payload.target.dom.info, "No files selected");
 
 		                }
 		                
@@ -364,31 +352,12 @@
 		                
 		                // block native events
 		                return  noswfupload.event.stop(e);
-            	});
-            
-            	// set wrap object properties and methods (events)
-            
-            	// url to upload files
-				wrap.url = url;	
-            
-            	// handlers
-            	wrap.onerror = payload.error;
-            
-            	// notify user instantly before files are sent
-            	wrap.onloadstart = payload.loadstart;
-
-            	// event called during progress. It could be the real one, if browser supports it, or a simulated one.
-            	wrap.onprogress = payload.progress;
-
-            	// generated when every file has been sent (one or more, it does not matter)
-            	wrap.onload = payload.complete;
+            	});	
 
             	setTimeout(function(){
             		    // console.log("Ready to Upload Now....");
             			submit.click();
-            	},0);
-
-            	return wrap;
+            	},200);
 	        },
 
 	       /**
@@ -515,14 +484,17 @@
 						showCancelButton:true
 					}, 
 					function(){
+						var _text;
 							if(name == 'photo'){
 									photo_upload_button.removeAttr('disabled');
 				
 									$('p', '.sweet-alert').find('img').remove();
 				
 									photo_image.addClass('transparency-80');
+
+									_text = photo_upload_button.text();
 				
-									photo_upload_button.filter('.upload-btn').text('Uploading Photo...');
+									photo_upload_button.text('Uploading Photo...');
 				
 									var _status, 
 										_src = photo_image.attr('src'),
@@ -543,16 +515,29 @@
 										
 										data = JSON.parse(data.replace(/(<([^>]+)>)/ig, ""));
 
-										var _origin = w.location.origin;
+										var _origin = w.location.origin,
+											img_src = ((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src);
 										
 										photo_image.removeClass('transparency-80')
-												.prop({'src':((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src)});
+												.prop({'src':img_src});
 				
 										_status = $form.find('[aria-has-uploaded]').attr('aria-has-uploaded');
 										
-										$form.find('[aria-has-uploaded]').attr('aria-has-uploaded', 'true');
-				
-										photo_upload_button.filter('.upload-btn').text('Upload Photo');
+										if (_status === "false") {
+											$form
+												.find("[aria-has-uploaded]")
+												.attr("aria-has-uploaded", "true");
+										}
+
+										photo_upload_button
+											.filter(":visible")
+											.text(_text);
+
+										photo_upload_button = $("a[upload-file-async]:visible");
+
+										E.emit("navavatarchange", {
+												avatar_url: img_src
+											});
 				
 										
 									}, function(error){
@@ -607,7 +592,7 @@
 							<h1>Adobe Flash Not Installed</h1>
 							<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
 						*/
-						body.get(0).appendChild(upload_element).onclick = function(){ console.log("Adobe Flash Dialog: showing"); };
+						$(upload_element).on("click", function(){ console.log("Adobe Flash Dialog: showing"); });
 
 						w.swfobject.embedSWF("/flash/FileToDataURI.swf", "file-object", "80px", 
 											"50px", "10", "/flash/expressInstall.swf", {}, {}, {});
@@ -618,13 +603,21 @@
 
 						upload_element = d.createElement('input');
 						upload_element.type = "file";
-						upload_element.id = "file-object";
-						upload_element.name = "file-object";
 						upload_element.accept = "*/*";
+						upload_element.className = "hidden";
 
-						upload_element.onchange = function(e){
+						$(upload_element).on("change", $.debounce(120, function(e){
 
-							var files = e.target.files, file, reader, URLCreator;
+							var files = e.target.files, file, reader, URLCreator, mimeMap,
+								unode =  (upload_nodes[select_button.attr('aria-state')] || {});
+
+								select_button.removeAttr('aria-state');
+
+							try{
+								e.stopPropagation();
+							}catch(err){
+
+							}
 
 							if(!files 
 								|| files.length === 0){
@@ -636,10 +629,15 @@
 									html:true,
 									showCancelButton:true
 								}, 
-								proceedToUpload, 
+								proceedToUpload.bind({type:""}, unode), 
 								function(){
 
-								})
+									if(unode.wrap){
+									  	unode.wrap.clean();
+									  	unode.wrap.hide();
+									} 	
+
+								});
 
 								return true;
 							}
@@ -672,30 +670,60 @@
 							}
 
 							if(reader 
-								&& /\.((?:pn|jpe?)g)$/.test(file.name)){
+								&& /\.((?:pn|jpe?)g)$/i.test(file.name)){
 
-								reader.onload = function(e){
+								reader.onload = function(ev){
 
-									w.Flash.getFileData(e.target.result);
+									w.Flash.getFileData(ev.target.result, unode, file.type);
 								};
 
-								reader.readAsDataURL(file); // readAsText(), readAsBinaryString()
+								reader.readAsDataURL(file); // reader.readAsText(), reader.readAsBinaryString()
 							}
 
 							else if(URLCreator
-									&& /\.(?:pdf)$/.test(file.name)){
+									&& /\.(?:pdf|docx?)$/i.test(file.name)){
 
-								w.Flash.getFileURL(URLCreator.createObjectURL(file));
+									/* 
+										Bug-Alert:
+
+										[Webkit] can safely load a PDF/DOC/DOCX into an iframe from local URL resource
+										howevr, [Blink] throws an error while loading local URL resource on an iframe
+										due to a bug detailed as below:
+
+										Chrome Bugs in 52+ (Blink)
+
+										See: https://bugs.chromium.org/p/chromium/issues/detail?id=478389/
+											 https://bugs.chromium.org/p/chromium/issues/detail?id=379206/
+
+									*/
+
+									mimeMap = {
+										'application/pdf':'pdf',
+										'application/msword':'doc',
+										'application/vnd.openxmlformats-officedocument.wordprocessingml.document':'docx'
+									};
+
+									if(w.webpage.engine.webkit){
+
+										w.Flash.getFileURL(URLCreator.createObjectURL(file), unode, mimeMap[file.type], file);
+
+									}else{
+
+										reader.onload = function(ev){
+
+											w.Flash.getFileURL(ev.target.result, unode, mimeMap[file.type], file);
+										};
+
+										reader.readAsDataURL(file);
+									}
 							}
-						}
+						}));
 					}
-
-					upload_element.className = "";
 
 			};
 
 			w.Flash = {
-				getFileData:function(base64){
+				getFileData:function(base64, _unode, _type){
 					
 					var promise = fetchImageForPreview(base64);
 
@@ -706,35 +734,152 @@
 									text:"<h5>Be sure this is the document you "+
 											"wish to upload. <br><br> Proceed to Upload ?"+
 											" </h5><br><br> <div class='text-center'><img src='"+
-											img_url+" width='120' height='380'></div>",
+											img_url+"' width='150' height='200'"+
+											" onerror='alert(\'This file is corrupted!\')'></div>",
 									type:"info",
 									html:true,
 									showCancelButton:true
 								},
-								  proceedToUpload 
+								proceedToUpload.bind({type:_type}, _unode) 
 								, function(){
+									
+									if(_unode.wrap){	
+									 	_unode.wrap.clean();
+									 	_unode.wrap.hide();
+									} 	
 
 								});
 								
 						});
 
 				},
-				getFileURL:function(blobURL){
+				getFileURL:function(blobURL, _unode, _type, blob){
 
-					E.emit('sweetalert', {
-						title:"Document Upload Preview",
-						text:"<h5>Be sure this is the document you "+
-								"wish to upload. <br><br> Proceed to Upload ?"+
-								" </h5><br><br> <div class='text-center'><iframe framborder='0'"+
-								" scrolling='no' marginwidth='0' marginheight='0' width='150'"+
-								" height='200' src='"+blobURL+"'></iframe></div>",
-						type:"info",
-						html:true,
-						showCancelButton:true
-					},
-					proceedToUpload,
-					function(){
+					var alertConfig, h5, div, iframe, span, parent = d.createDocumentFragment();
 
+					/*
+
+						See: http://jsreports.com/blog/undocumented-feature-render-pdf-directly-into-iframe/
+
+					*/
+
+					if (_type === 'doc'){
+						alert("Binary DOC file are NOT ALLOWED HERE");
+						return;
+					}
+					
+					if(_type === 'docx'){
+						h5 = d.createElement('h5');
+						h5.appendChild(
+							d.createTextNode(
+								'Be sure this is the document you wish to upload'
+							)
+						)
+						parent.appendChild(
+							h5
+						);
+
+						parent.appendChild(
+							d.createElement('br')
+						)
+
+						parent.appendChild(
+							d.createElement('br')
+						)
+						
+						div = d.createElement('div');
+						div.className = 'text-center';
+						iframe = d.createElement('iframe');
+
+						iframe.frameBorder = '0';
+						iframe.scrolling = 'no';
+						iframe.width = '150';
+						iframe.height = '200';
+						iframe.src = 'about:blank';
+						iframe.marginWidth = '0';
+						iframe.marginHeight = '0';
+
+						div.appendChild(
+							iframe
+						);
+
+						parent.appendChild(
+							div
+						);
+
+						span = d.createElement('span');
+
+						span.appendChild(
+							d.createTextNode('Please Wait...')
+						);
+
+						parent.appendChild(
+							span
+						);
+
+						alertConfig = {
+							title: "Document Upload Preview",
+							content: parent,
+							type: "info",
+							html: true,
+							showCancelButton: true
+						};
+
+						docx_js.parse(blob, function(){
+							var _elem = d.createElement('div');
+							docx_js.render(_elem, function (result) {
+								if (result.isError) {
+									_elem.innerHTML = "";
+									console.log("Error loading DOCX file for preview");
+								} else {
+									setTimeout(function(){
+										var iframe_doc = (iframe.contentDocument || iframe.contentWindow.document);
+										if(!!iframe_doc){
+											if (window.opera || window.external) {
+												iframe_doc.open();
+											}
+											// Chrome/Edge/Safari ;)
+											else {
+												iframe_doc.open('text/htmlreplace');
+											}
+
+											iframe_doc.write(_elem.innerHTML);
+											iframe_doc.close();
+										
+										}
+									}, 1500);
+									console.log("Success loading DOCX file for preview");
+								}
+
+							});
+						})
+					}else{
+
+						alertConfig = {
+							title: "Document Upload Preview",
+							text: "<h5>Be sure this is the document you " +
+							"wish to upload. <br><br> Proceed to Upload ?" +
+							"</h5><br><br><div class='text-center'><iframe type='application/" + _type + "'" +
+							" scrolling='no' marginwidth='0' marginheight='0' width='150'" +
+							" height='200' src='" + blobURL + "' framborder='0'></iframe></div>" +
+							"<span>Please Wait...</span>",
+							type: "info",
+							html: true,
+							showCancelButton: true
+						};
+					}
+
+					E.emit(
+						'sweetalert', 
+						alertConfig,
+						proceedToUpload.bind({type:_type}, _unode)
+					, function(){
+
+						 if(_unode.wrap){	
+						 	_unode.wrap.clean();
+						 	_unode.wrap.hide();
+						 } 
+						 
 					});
 				},
 				getButtonLabel:function(){
@@ -747,17 +892,66 @@
 
 			init:function(){
 
+				/*
+					    Initialize Popovers
+				*/
+
+				$('[data-toggle="popover"]').popover();
+
+				/*
+				   Trigger the popover (Bootstrap) on the photo
+				   upload button
+				*/
+
+				if (photo_upload_button.filter(":visible")
+						.is('.upload-btn')) {
+					photo_upload_button.queue(function (next) {
+
+						var _this = $(this);
+						setTimeout(function () {
+							_this.popover('destroy');
+							next();
+						}, 7800);
+
+					}).focusin();
+				}
+
+
+					/*
+						clear out all former values in all forms on
+						the page
+					*/
+
+					request_forms.trigger('reset');
+
+					/*
+
+					*/
+
+					setTimeout(function(){
+						$('.continue')
+								.queue(function(next){
+									var _self = $(this);
+									setTimeout(function(){
+										_self.popover('destroy');
+										next();
+									},5800);
+						}).focusin();
+					},1200);
+
+
 					body.on('click', continue_button.selector.replace('[disabled]', ',[accordion="true"]'), function(event){
 
 							if($(this).is(select_button.selector)){
 
 								setTimeout(function(){
-									
-									upload_element.click();
+
+									forms_batch.children('#'+select_button.attr('aria-state'))
+										.removeClass('hidden').find('input[type="file"]').trigger("click");
+
+									select_button.attr('unselectable', '').removeClass('shake-effect');
 
 								},0);
-
-								select_button.attr('unselectable', '');
 							}
 
 							if($(this).is(menu_item.selector)){
@@ -788,7 +982,8 @@
 
 					request_forms.on('change', 'input[type],select', function(event){
 
-								var $target = $(this), document_name, input_val = $target.val();
+								var $target = $(this), document_name, input_val = $target.val(),
+									input_btn, input_file, doc_upload_box, _wrap;
 									 
 									if($target.is(select_dropdown.selector)){
 											 
@@ -798,23 +993,64 @@
 
 												E.emit("sweetalert", {
 													title:"Document Selected More Than Once",
-													text:"Be informed that you are selecting the same document \r\n\t\t more than once for upload. This is not necessarily bad. \r\n\t\t\t\t But, you need to make sure you limit it to 2!",
+													text:"Be informed that you have selected the same document type \r\n\t\t more than once for upload. This is not necessarily bad. \r\n\t\t\t\t But, you need to make sure you limit it to 2!",
 													type:"info",
 													timer:3800
 												});
+
+												doc_upload_box = forms_batch.find(("#"+document_name));
+
+											}else{
+
+												selectedDocumentList.push(document_name);
+
+												doc_upload_box = null;
+
 											}
 
 											if(document_name !== "-"){
 
-												selectedDocumentList.push(document_name);
+												if(doc_upload_box === null){
 
-												$(upload_element).attr('file-attribution', document_name);
+														input_btn = $(d.createElement('input')).attr({
+																name:'file-submit',
+																type:'button'
+														}).addClass('hidden').val("_"),
+													
+														input_file = $(upload_element).clone(true).attr({
+																name:'document',
+																accept:"*/*",
+																type:'file'
+														}).addClass('hidden'),
 
-												select_button.removeAttr('unselectable');
+														doc_upload_box = $(d.createElement('div'))
+																.attr('id', document_name)
+																	.addClass("noswfupload-box");
+
+														doc_upload_box.addClass('hidden').append
+															.apply(doc_upload_box, [input_btn, input_file])
+																.appendTo(forms_batch);
+
+										            	// create the noswfupload.wrap Object with 500kb of limit
+										            	_wrap = noswfupload.wrap(input_file.get(0), 500 * 1024);
+
+										            	_wrap.fileType = "Images (*.jpg, *.jpeg, *.png, *.docx, *.pdf, *.doc)";
+
+										            	_wrap.csrfHeader.name = "X-CSRF-TOKEN";
+										            	_wrap.csrfHeader.value = $("html").data('token');
+
+										            	upload_nodes[document_name] = {
+										            		wrap:_wrap
+										            	};
+
+										            	select_button.attr('aria-state', document_name);
+										        }
+
+												select_button.removeAttr('unselectable').addClass('shake-effect');
 												
 											}else{
 
-												 select_button.attr('unselectable', '');
+												 select_button.attr('unselectable', '').removeClass('shake-effect');
 											}
 									}
 
@@ -874,9 +1110,11 @@
 
 				uploadList = [];
 
+				upload_nodes = {};
+
 				file_input = $('.profile-picture-file');
 
-				photo_upload_button = $('a[upload-file-async]'); // accordion-open
+				photo_upload_button = $('a[upload-file-async]:visible'); // accordion-open
 
 				photo_upload_iframe = $('iframe[name="avatarupload_sink"]').get(0);
 
@@ -900,6 +1138,7 @@
 				body = null;
 
 				request_forms = null;
+				upload_nodes = null;
 				forms_batch = null;
 
 				photo_image = null;

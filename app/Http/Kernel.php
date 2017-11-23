@@ -18,7 +18,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \NTI\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        'Fideloper\Proxy\TrustProxies',
     ];
 
     /**
@@ -57,8 +56,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \NTI\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'role' => \NTI\Http\Middleware\CheckRole::class,
-        'payment' => \NTI\Http\Middleware\CheckPayment::class,
-        'verified' => \NTI\Http\Middleware\Verified::class,
+		'role' => \NTI\Http\Middleware\Applicants\CheckRole::class,
+        'payment' => \NTI\Http\Middleware\Applicants\CheckPayment::class,
+        'verified' => \NTI\Http\Middleware\Applicants\Verified::class,
     ];
 }

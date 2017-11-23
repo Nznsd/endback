@@ -48,24 +48,18 @@
 			           	*/
 			           user_monitor,
 
-			           	/*
-			           		@var - {Review Mode Status string}
-			           	*/
-
-			           mode,
 
 			           	/*
-			           		@var - {Acknowledgement Flag for Review Mode - don't run code more than once}
-			           	*/
-
-			           review_mode_ack,
-
-
-			           	/*
-			           		@var - {Navigation Bar jQuery object}
+			           		@var - {App Header jQuery object}
 			           	*/
 			           
-			           navigation,
+			           header,
+
+			           /*
+			           		@var - {App Side Bar (Menu) jQuery object}
+			           	*/
+			           
+			           sidebar,
 
 			           	/*
 			           		@var - {Form Validation Alert Message jQuery object}
@@ -299,25 +293,7 @@
 
 									default:
 
-										/*
-
-											detect if the user is reviewing his/her
-											registration, if so, modify all links on
-											the page to have the review mode query
-											string key and value
-
-										*/
-
-										if(state.review_mode && !review_mode_ack){
-											
-											review_mode_ack = true;
-
-											$('a[rel="next"]').each(function(index){
-
-												this.href += '?mode='+mode;
-
-											});
-										}
+										return;
 
 									break;
 								}
@@ -351,9 +327,8 @@
 						       		store.setChangeListener(storeListener);
 
 						       		store.hydrate({
-						       			password:'',
 			           					session:{},
-			           					review_mode:(mode === 'review')
+			           					dashboard_news:[]
 			           				});
 
 									
@@ -384,19 +359,31 @@
 								      	  $('.jspDrag').stop(true, true).fadeOut('slow');
 								  });
 					
-								  navigation.on('click', 'a.mynti-link.action-link', function(event){
-
+								  header.on('click', 'button.btn', function(event){
+								  		
+								  		if($(this).is(".mynti-trigger-menu")){
+								  			 if(sidebar.is(".flow-in")){
+								  			 	sidebar.removeClass("flow-in");
+								  			 }else{
+								  			 	sidebar.addClass("flow-in");
+								  			 }
+								  		}
 								  });
+
+								  sidebar.on('click', '.capsule', function(event){
+			           				
+			           						return true;
+			           			  });
 							      
 						       },
 						       defineVars:function(){
 
 						       		/* define all variables/references */
 
-						       	   mode = U.handle_query('mode') || 'application';
 
-						           navigation = $('nav.mynti-desktop-navigation');
-						           alertbox = $('p.mynti-alert');
+						           header = $('header.mynti-main-header');
+
+						           sidebar = $('aside.mynti-side-bar');
 
 						           user_monitor = new I({
 										awayTimeout:960000,
@@ -407,8 +394,8 @@
 						           }).start();
 
 						           action = R.createAction({
-						           		'storeRegPassword':'STORE_REG_PASSWORD',
-						           		'storeSessionLockOnIdle':'IDLE_SESSION_LOCK'
+						           		'storeSessionLockOnIdle':'IDLE_SESSION_LOCK',
+						           		'addDsahBoardNews': 'ADD_DASHBOARD_NEWS'
 						           });
 
 						           store = R.createStore('myntiapp', function(action, area){
@@ -416,13 +403,13 @@
 						           		var state = area.get();
 
 						           		switch(action.actionType){
-						           			case "STORE_REG_PASSWORD":
-						           				state.password = action.actionData;
-						           			break;
 						           			case "IDLE_SESSION_LOCK":
 						           				if(action.actionKey){
 						           					state.session[action.actionKey] = action.actionData;
 						           				}
+						           			break;
+						           			case "ADD_DASHBOARD_NEWS":
+
 						           			break;
 						           			default:
 						           				user_monitor.handleVisibilityChange();
@@ -438,7 +425,9 @@
 
 						       		/* unbind event handlers/listeners */
 
-						       		navigation.off('click');
+						       		header.off('click');
+
+						       		sidebar.off('click');
 
 						       		$(w).off('scroll');
 
@@ -457,7 +446,8 @@
 
 						       		/* recliam/clear-up memory */	
 
-							       navigation = null;
+							       header = null;
+							       sidebar = null;
 							       alertbox = null;
 
 								   store.destroy();
@@ -465,11 +455,10 @@
 								   action = null;
 								   store = null;
 
-								   mode = null;
 								   user_monitor = null;
-								   review_mode_ack = null;
 
 							       E = null;
+							       I = null;
 							       U = null;
 							       $ = null;
 							       R = null;

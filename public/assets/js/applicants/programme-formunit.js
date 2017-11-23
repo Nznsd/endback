@@ -130,6 +130,19 @@
 
 			init:function(){
 
+				/*
+
+					Initialize Popovers
+				*/
+
+				$('[data-toggle="popover"]').popover();
+			
+
+				/*
+					Clear out the contents of the form 
+					just in case..
+				*/
+
 				courses_form.trigger('reset');
 
 				if(body.parent().is('.js')){
@@ -158,7 +171,7 @@
 							continue_button.addClass('spinner-active');
 
 							setTimeout(function(){
-								console.log("about to submit.....");
+								
 								courses_form.trigger('submit');
 
 							},0);
@@ -312,19 +325,20 @@
 
 					if(percent === 100){
 						
-						/*E.emit('sweetalert', {
-							title:"Please Wait...",
-							text:"Your Application Fees are being calculated. Thank You!",
-							type:"info",
-							timer:2000,
-							showConfirmButton: false
-						});*/
-
+						
 						var form_fields = courses_form.serialize()
 						.replace("&application-fees=", "")
 						     .replace("&send=", "");
 
 						form_fields = T.query_to_json(form_fields, true);
+
+						/*
+							Trigger the popover (Bootstrap) on the fees
+							input
+						*/
+
+				
+						fees.focusin();
 
 						asyncServerRequest({
 							url:'/services/fee/2/'+programmeId+"/"+form_fields.first_choice,
@@ -333,6 +347,7 @@
 							data:null
 						}).done(function(data){
 
+							fees.popover('destroy');
 							fees.val(data.amount);
 
 							$('<input/>')

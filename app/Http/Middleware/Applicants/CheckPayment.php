@@ -1,6 +1,6 @@
 <?php
 
-namespace NTI\Http\Middleware;
+namespace NTI\Http\Middleware\Applicants;
 
 use Closure;
 use NTI\Models\Applicant;

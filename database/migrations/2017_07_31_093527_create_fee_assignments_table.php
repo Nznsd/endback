@@ -18,10 +18,10 @@ class CreateFeeAssignmentsTable extends Migration
             $table->integer('fee_id');
             $table->integer('semester_id');
             $table->string('param');
-            $table->string('val');
+            $table->string('val'); //use RegNo and AppNo
             $table->integer('level');
             $table->string('nature')->default('add');
-            $table->decimal('amount');
+            $table->decimal('amount', 10, 2);
             $table->json('installment')->nullable();
             $table->json('beneficiaries')->nullable();
             $table->string('desc');

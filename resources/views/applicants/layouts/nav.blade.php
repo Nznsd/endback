@@ -6,6 +6,9 @@
                 </span>
             </div>
             <nav class="mynti-desktop-navigation mynti-toolsbar-nav clearfix" role="navigation">
+                <div class="button-tab mynti-toolsbar-item relative">
+                    <a href="/applicants/logout" class="btn mynti-button-calm pill">Logout</a>
+                </div>
                 <div class="dropdown mynti-toolsbar-item relative">
                             <a href="#" class="mynti-toolsbar-item-btn nav-link dropdown-toggle active" id="mynti-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="1">
                                 <i class="icon-btn-notification">0</i>
@@ -17,7 +20,7 @@
                                 <div class="mynti-dropdown-menu-notification-list">
                                     <div class="mynti-dropdown-menu-notification-item persona-container clearfix">
                                         <span class="persona-subject mynti-box">
-                                            <img src="{{ asset('assets/img/photo-face.jpg') }}" alt="" class="img-responsive">
+                                            <!--<img src="{{ asset('assets/img/photo-face.jpg') }}" alt="" class="img-responsive">-->
                                         </span>
                                         <div class="persona-context flexible-width">
                                            
@@ -40,7 +43,7 @@
                                 <div class="mynti-dropdown-menu-messages-list clearfix">
                                     <div class="mynti-dropdown-menu-messages-item persona-container clearfix">
                                         <span class="persona-subject mynti-box">
-                                            <img src="{{ asset('assets/img/photo-face.jpg') }}" alt="" class="img-responsive"  tabindex="-1">
+                                            <!--<img src="{{ asset('assets/img/photo-face.jpg') }}" alt="" class="img-responsive"  tabindex="-1">-->
                                         </span>
                                         <div class="persona-context flexible-width">
                                             
@@ -54,10 +57,14 @@
                      </div>
                      <div class="dropdown mynti-toolsbar-item relative user-board">
                             <a href="javascript:void(0);" class="mynti-toolsbar-item-btn nav-link dropdown-toggle" id="mynti-user-board" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="3">
-                                <i class="icon-btn-user">0</i>
+                                @if(env('APP_ENV') == 'production')
+                                    <img src="{{ isset($passport) ? env('AZURE_STORAGE_FILESHARE_URL') . '/' . $passport->src : asset('assets/img/icons/svg/personaface.svg') }}" class="img-circle img-responsive" width="60" height="60" id="nav-avatar">
+                                @else
+                                    <img src="{{ isset($passport) ? env('APP_URL') . str_replace('public/', '/storage/', $passport->src) : asset('assets/img/icons/svg/personaface.svg') }}" class="img-circle img-responsive" width="60" height="60" id="nav-avatar">
+                                @endif
                             </a>
                             <div class="dropdown-menu mynti-toolsbar-menu mynti-dropdown-menu-right" aria-labelledby="mynti-user-board">
-                                <a class="dropdown-item" href="#" tabindex="6">Help</a>
+                                <a class="dropdown-item" href="/support" tabindex="6">Help</a>
                                 <!--<div class="dropdown-divider"></div>-->
                                 @if(Auth::check())
                                     <a class="dropdown-item" href="/applicants/logout" tabindex="7">Logout</a>

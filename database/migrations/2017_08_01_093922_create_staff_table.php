@@ -14,25 +14,26 @@ class CreateStaffTable extends Migration
     public function up()
     {
         Schema::create('staff', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->string('staff_id');
-            $table->string('title');
-            $table->string('surname');
-            $table->string('firstname');
-            $table->string('othername');
-            $table->string('email');
-            $table->string('phone_no');
-            $table->date('dob');
-            $table->string('gender');
-            $table->string('marital_status');
-            $table->string('address');
-            $table->string('position');
-            $table->integer('sor');
-            $table->integer('sor_lga');
-            $table->integer('soo');
-            $table->integer('soo_lga');
-            $table->integer('sub_division_id');
+            $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unique()->nullable();
+            $table->string('staff_id')->nullable();
+            $table->string('title')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('othername')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone_no')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('address')->nullable();
+            $table->string('position')->nullable();
+            $table->integer('sor')->nullable();
+            $table->integer('sor_lga')->nullable();
+            $table->integer('soo')->nullable();
+            $table->integer('soo_lga')->nullable();
+            $table->integer('sub_division_id')->nullable();
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }

@@ -59,10 +59,15 @@
 
 			           mode,
 				   
-				   	/*
-						@var - {Applicant access control status}
-					*/
-				   _status,
+						/*
+							@var - {Applicant access control status}
+						*/
+					   _status,
+					   
+					   /*
+							@var -
+					   */
+					    nav_avatar,
 
 			           	/*
 			           		@var - {Acknowledgement Flag for Review Mode - don't run code more than once}
@@ -277,38 +282,48 @@
 			           			
 			           			return store.getState(key? key : undefined);
 			           		}
-			           },
+		            },
 				   
 				   /**
-						*
-						*
-						*
-						* @param imageSrc - {String}
-						* @return - {Undefined}
-						*/
+					*
+					*
+					*
+					* @param imageObj - {Object}
+					* @return - {Undefined}
+					*/
 				   
-				   avatarChange = function(imageSrc){
-				   
-				   },
+				    avatarChange = function(imageObj){
 
-			           /**
-						*
-						*
-						*
-						* @params storeTitle - {String}
-						* @params actionKey - {String}
-						* @return - {Undefined}
-						*/
+				   		var _url = imageObj.avatar_url;
+							
+						if(nav_avatar.length){
+							setTimeout(function(){
+								nav_avatar.attr({src:_url});
+							},0);
+						}
+				   		
+				    },
 
-						storeListener = function(storeTitle, actionKey){
+		           /**
+					*
+					*
+					*
+					* @params storeTitle - {String}
+					* @params actionKey - {String}
+					* @return - {Undefined}
+					*/
+
+					storeListener = function(storeTitle, actionKey){
 
 								console.log("store changed event fired !!");
 
 								if(user_monitor.checkAway()){
 
 									/* 
-										if user session is locked, do 
-										not respond to store change event
+										if applicant user session is locked
+										or applicant user is idle, do 
+										not respond to any store change 
+										events
 									*/
 
 									return;
@@ -369,41 +384,70 @@
 			           		.on('inlinealert', inlineAlert)
 			           			.on('appstate', appState)
 			           				.on('imagepreview', imagePreview)
-									.on('navavatarchange', avatarChange);
+										.on('navavatarchange', avatarChange);
 
 					  	return {
 						       init:function(promise){
 
 							       /*
 							       	  Ready all static assets for offline support
-								  MyNTI should work basically without internet
-								  access.
+									  MyNTI should work basically without internet
+									  access.
 								  
 							       */
 							       
 							       if(('serviceWorker' in w.navigator)){
-							       	 	w.UpUp && w.UpUp.start({
-										'content-url': '/offline-v2.html',
-  										'assets': [
-											'/assets/img/svg/myntilogo.svg', 
-											'/assets/css/applicants.css',
-											'/assets/css/index.css',
-											'/assets/js/modernizr.min.js',
-											'/assets/js/browsengine.min.js',
-											'/assets/js/app-bootstrap.js',
-											'/assets/js/applicants/mainunit.js',
-											'/assets/js/applicants/app-commsunit.js',
-											'/assets/js/applicants/register-formunit.js',
-											'/assets/js/applicants/login-formunit.js',
-											'/assets/js/applicants/docsupload-formunit.js',
-											'/manifest.json'
-										]
-									});
+							       	 	
+								       	 	w.UpUp && w.UpUp.start({
+												'content-url': '/offline-v2.html',
+		  										'assets': [
+		  											'/assets/img/png/mynti-banner.png',
+													'/assets/img/svg/myntilogo.svg', 
+													'/assets/css/applicants.css',
+													'/assets/css/index.css',
+													'/assets/img/svg/remita.svg',
+													'/assets/img/svg/profile_avatar.svg',
+													'/assets/img/svg/camera.svg',
+													'/assets/img/svg/certificate.svg',
+													'/assets/img/svg/blank-paper.svg',
+													'/assets/img/svg/blank-paper2.svg',
+													'/assets/img/png/remita.png',
+													'/assets/img/png/pdf-file.png',
+													'/assets/img/icons/gif/loader-grey.gif',
+													'/assets/img/icons/gif/loader-grey-2x.gif',
+													'/assets/img/icons/gif/loader-white.gif',
+													'/assets/img/icons/gif/loader-white-2x.gif',
+													'/assets/js/shim/es5shim.min.js',
+													'/assets/js/shim/manup.min.js',
+													'/assets/js/modernizr.min.js',
+													'/assets/js/browsengine.min.js',
+													'/assets/js/app-bootstrap.js',
+													'/assets/js/applicants/mainunit.js',
+													'/assets/js/applicants/app-commsunit.js',
+													'/assets/js/applicants/register-formunit.js',
+													'/assets/js/applicants/login-formunit.js',
+													'/assets/js/applicants/payments-formunit.js',
+													'/assets/js/applicants/review-formunit.js',
+													'/assets/js/applicants/verify-formunit.js',
+													'/assets/js/applicants/docsupload-formunit.js',
+													'/assets/js/applicants/peronalinfo-formunit.js',
+													'/assets/js/applicants/programme-formunit.js',
+													'/assets/js/applicants/educate-formunit.js',
+													'/assets/js/applicants/dashboard-formunit.js',
+													'/assets/js/lib/lib/idle.js',
+													'/assets/js/lib/lib/radixx.js',
+													'/assets/js/lib/lib/cdv_js.js',
+													'/assets/js/lib/lib/jquery.combopack.min.js',
+													'/assets/js/lib/lib/sweetalert.js',
+													'/manifest.json'
+												]
+											});
 							       }
 							       else if(('applicationCache' in w)){
-							       		w.Cachr && Cachr.go({
+							       		
+							       			w.Cachr && Cachr.go({
 									
-									});
+											});
 							       }
 								
 						       		/* 
@@ -568,9 +612,16 @@
 												 		xhr.onload = resetFlags;
 												 	}
 
-												 	xhr.ontimeout = function(){};
-												 	xhr.timeout = 0; // enforce no delay for request timeouts 
-												 	xhr.onprogress = function(){};
+												 	xhr.ontimeout = function(){ onLine = true; };
+
+												 	/*!!
+												 	 * Avoid InvalidAccessError: synchronous XMLHttpRequests do not support [timeout] and [responseType]
+												 	 * in Firefox (Gecko) browser
+												 	 */
+												 	if(!w.webpage.engine.gecko){
+												 		xhr.timeout = 0; // enforce no delay for request timeouts 
+												 		xhr.onprogress = function(){};
+												 	}
 
 												 	try{
 												 		// setTimeout(function(){
@@ -803,6 +854,8 @@
 						           });
 
 						           user_monitor.start();
+								   
+								   nav_avatar = $('img#nav-avatar');
 
 						           action = R.createAction({
 						           		'storeRegPassword':'STORE_REG_PASSWORD',

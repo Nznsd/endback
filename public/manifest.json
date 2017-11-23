@@ -4,28 +4,27 @@
 	"lang":"en",
 	"icons":[
 		{
-			"src":"./img/icons/logo_low_res.png",
+			"src":"./img/icons/png/logo_low_res.png",
 			"sizes":"64x64",
 			"type":"image/png"
 		},
 		{
-			"src":"./img/icons/logo_hd_low.png",
+			"src":"./img/icons/png/logo_hd_low_res.png",
 			"sizes":"64x64",
 			"type":"image/png"
 		},
 		{
-			"src":"./img/icons/logo_hd_high.png",
+			"src":"./img/icons/png/logo_hd_high_res.png",
 			"sizes":"128x128",
 			"type":"image/png",
 			"density":2
 		}
 	],
 	"scope": "/",
-	"start_url": "/applicants?launcher=true",
-	"theme_color":"#46c35f",
-	"background_color":"#efefef",
+	"start_url": "/",
 	"display": "fullscreen",
 	"alt_display": "standalone",
 	"prefer_related_applications":false,
-	"orientation": "landscape"
+	"orientation": "landscape",
+	"RRRRRRRRRRRRRRRRRR":"888888888888888888888888"
 }

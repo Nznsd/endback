@@ -52,7 +52,7 @@ class ApplicantProgrammeController extends Controller
         $applicant->second_choice = $request->second_choice;
         $applicant->sor = $request->residence;
         $applicant->study_center_id = $request->study_center;
-        $applicant->app_no = NTIService::generateApplicantNo($academicSessionInfo->semesterId,
+        $applicant->app_no = NTIService::generateApplicantNo($applicant->semester_id,
                                  $request->programme, $academicSessionInfo->year);
         $applicant->application_state = $applicant->application_state < $appstate ? $appstate : $applicant->application_state;
         $applicant->save();

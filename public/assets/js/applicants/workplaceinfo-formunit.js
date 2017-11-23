@@ -31,6 +31,8 @@
 
 			work_end,
 
+			text_inputs,
+
 			request_forms,
 
 			file_input,
@@ -41,13 +43,27 @@
 
 			body,
 
+			initial_vals,
+
 			info_form,
 
 			photo_image,
 
 			menu_item,
 
+			skip_btn,
+
+			add_btn,
+
+			add_section_html,
+
 			photo_upload_iframe,
+
+			ordinals,
+				
+			tracker_index,
+				
+			tracker,
 
 		   /**
 		    *
@@ -266,13 +282,17 @@
 					}, 
 					function(){
 	
+						var _text;
+
 						photo_upload_button.removeAttr('disabled');
 	
 						$('p', '.sweet-alert').find('img').remove();
 	
 						photo_image.addClass('transparency-80');
+
+						_text = photo_upload_button.text();
 	
-						photo_upload_button.filter('.upload-btn').text('Uploading Photo...');
+						photo_upload_button.text('Uploading Photo...');
 	
 						var _status, 
 							_src = photo_image.attr('src'),
@@ -293,16 +313,25 @@
 							
 							data = JSON.parse(data.replace(/(<([^>]+)>)/ig, ""));
 
-							var _origin = w.location.origin;
+							var _origin = w.location.origin,
+								img_src = ((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src);
 							
 							photo_image.removeClass('transparency-80')
-									.prop({'src':((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src)});
+									.prop({'src':img_src});
 	
 							_status = $form.find('[aria-has-uploaded]').attr('aria-has-uploaded');
 							
-							$form.find('[aria-has-uploaded]').attr('aria-has-uploaded', 'true');
-	
-							photo_upload_button.filter('.upload-btn').text('Upload Photo');
+							if (_status === "false") {
+								$form
+									.find("[aria-has-uploaded]")
+									.attr("aria-has-uploaded", "true");
+							}
+
+							photo_upload_button.filter(":visible").text(_text);
+
+							photo_upload_button = $("a[upload-file-async]:visible");
+
+							E.emit("navavatarchange", { avatar_url: img_src });
 	
 							
 						}, function(error){
@@ -335,6 +364,44 @@
 
 			init:function(promise){
 
+					var _self = this;
+
+					/*
+
+					  	Initialize Popovers
+					*/
+
+					$('[data-toggle="popover"]').popover();
+
+					/*
+					   Trigger the popover (Bootstrap) on the photo
+					   upload button
+					*/
+
+					if (photo_upload_button.filter(":visible")
+						.is('.upload-btn')){
+						photo_upload_button.queue(function (next) {
+							
+								var _this = $(this);
+								setTimeout(function () {
+									_this.popover('destroy');
+									next();
+								}, 7800);
+							
+						}).focusin();
+					}
+
+					if (skip_btn.length) {
+						skip_btn.queue(function (next) {
+
+							var _this = $(this);
+							setTimeout(function () {
+								_this.popover('destroy');
+								next();
+							}, 7800);
+
+						}).focusin();
+					}
 
 					/*
 						clear out all former values in all forms on
@@ -343,79 +410,16 @@
 
 					request_forms.trigger('reset');
 
-					work_start.daterangepicker({
-	       						singleDatePicker: true, 
-	       						showDropdowns:true
-	       					}, function(start, end, label){
-							    
-							    work_start.data('stored', start);
+					/*
 
-							    var end = work_end.data('stored');
-							    
+						run [repeatable] code logic section for (date-picking event) and (input event) handlers
+					*/
 
-							    if(end && end.diff(start, 'years') < -1){
-
-							    	E.emit('sweetalert', {
-							    		title:"Wrong Work Experience Dates",
-							    		text:"The dates for your work experience don't add up. \r\n\t\t Please, check agian",
-							    		info:"error",
-							    		showCancelButton:false
-							    	}, function(){
-
-							    		setTimeout(function(){
-											
-											work_start.val("11/08/2005").addClass('wrong');
-
-							    		},1);
-							    	});
-
-
-							    	return false;
-							    }
-
-							    if(work_start.is('.wrong')){
-									work_start.removeClass('wrong');
-							    }
-					});
-
-					work_end.daterangepicker({
-	       						singleDatePicker: true, 
-	       						showDropdowns:true
-	       					}, function(start, end, label){
-							    
-							    work_end.data('stored', start);
-							    
-							    var end = work_start.data('stored');
-							    
-
-							    if(start && start.diff(end, 'years') < -1){
-
-							    	E.emit('sweetalert', {
-							    		title:"Wrong Work Experience Dates",
-							    		text:"The dates for your work experience don't add up. \r\n\t\t Please, check agian",
-							    		info:"error",
-							    		showCancelButton:false
-							    	}, function(){
-
-							    		setTimeout(function(){
-
-							    			work_end.val("11/08/2011").addClass('wrong');
-
-							    		}, 1);
-
-							    	});
-
-							    	return false;
-							    }
-
-							    if(work_end.is('.wrong')){
-									work_end.removeClass('wrong');
-							    } 
-					});
+					_self.repeat(false);
 
 					/*
-						if javascript is enabled add novalidate
-						attribute
+
+						if javascript is enabled add `novalidate` attribute
 					*/
 
 					if(body.parent().is('.js')){
@@ -425,10 +429,28 @@
 
 
 					/*
+
 						setup click event handler to capture clicks page-wide
 					*/
 
-					body.on('click', continue_button.selector.replace('[disabled]', ',[accordion="true"]'), function(event){
+					body.on('click', continue_button.selector.replace('[disabled]', ',.mynti-button-groovy,[accordion="true"]'), function(event){
+
+							if($(this).is(add_btn.selector) 
+								&& !$(this).is('[disabled]')){
+
+								 $('.work_details_block:last').after(add_section_html.replace(new RegExp("\\bfirst","igm"), 
+								(tracker = ordinals[++tracker_index])));
+
+								 setTimeout(function(){
+								 	
+								 	_self.repeat(true);
+
+								 }, 0);
+
+								 add_btn.attr('disabled', 'disabled');
+
+								 continue_button.attr('disabled', 'disabled').removeClass('shake-effect');
+							}
 
 							if($(this).is(photo_upload_button.selector)){
 
@@ -452,34 +474,58 @@
 							if($(this).is(".continue") && 
 								!$(this).is('[disabled]')){
 
+									/*
+										pass the {Laravel} CSRF token from the meta tag
+										to the submission form to avoid the dreaded
+
+										:: [TokenMismatchException]
+									*/
+
+									if(!([].slice(info_form.get(0).elements)
+											.map(function(el){
+												return el.name;
+											}).indexOf('_token') + 1)){
+
+											$('<input/>')
+												.attr({type:'hidden', 'name':'_token'})
+													.val($("html").data('token'))
+														.appendTo(info_form);
+									
+									}
+
 								info_form.trigger('submit');
 							}
 					});
-
-					$('[placeholder]').on("input", $.debounce(300, function(event){
-						
-						if(event.target.value.length >= 4){
-							
-							$(this).trigger('change');
-						}
-					}));
 
 					/*
 						setup change event handler to capture text/dropdown
 						input
 					*/
 
-					request_forms.on('change', 'input[type],textarea', function(event){
+					request_forms.on('change', 'input[type],textarea', function(event, data){
 
 							var form_data = (info_form.data("fill-list") || '[]'),
 								filllist = JSON.parse(form_data),
 								fillprogress = filllist.length,
-								filltotal = info_form.find('input[placeholder],textarea').length,
+								filltotal = info_form.find('input:not(.no-pick),textarea').length,
 								percent = 0,
 								$target = $(this),
 								input_value = $target.val(),
-								offset = filllist.indexOf(event.target.name);
+								offset = filllist.indexOf((
+												event.target.name.indexOf("[current_date]") > -1 
+												? 
+													$(this).parent().prev()
+														.children(work_end.selector+':eq(0)').attr('name') 
+												: 
+													event.target.name
+										));
 
+								if(!data
+									&& $target.data('early-trigger')){
+
+									$target.data('early-trigger', false);
+									return true;
+								}
 
 							if($target.is(file_input.selector) 
 										&& $target.val().length > 0){ 
@@ -526,58 +572,251 @@
 
 							}else {
 
-									if(input_value !== ""){
-										
-										if(((this.name === "work_start" 
-												|| this.name === "work_end")
-											&& !!(this.className.indexOf('wrong') + 1))){
+									if(this.className.indexOf("current_date") + 1){
+										if(this.checked){
+											
+											$target
+												.removeClass('no-pick');	
 
-											/*return true;*/
-										}
+											$target
+												.parent().prev()
+												.find('input:eq(0)')
+												.val(moment().format('M/D/Y'))
+													.addClass('no-pick')
+														.attr('unselectable', '')
+															.parent()
+																.addClass('form-group-disabled');	
 
-										if(!(offset + 1)){
-											filllist.push(this.name);
-										}
-									}else{
-										if((offset + 1)){
-											filllist.splice(offset, 1);
+										}else{
+											$target
+												.addClass('no-pick');
+
+											$target
+												.parent().prev()
+												.find('input:eq(0)')
+												.val(initial_vals.end_date)
+													.removeClass('no-pick')
+														.removeAttr('unselectable')
+															.parent()
+																.removeClass('form-group-disabled');
+
+											input_value = "";
 										}
 									}
 
+									if(input_value !== ""){
+
 										
-							}
+										if(((this.name.search(/\[from_date\]$/) != -1)
+												|| (this.name.search(/\[to_date\]$/) != -1))
+													&& ($target.attr('aria-changed') === 'false')){
+
+											return true;
+
+										}else{
+
+											$target.attr('aria-changed', 'false');
+
+										}
+
+										if(!(offset + 1)){
+											filllist.push((
+													this.name.indexOf("[current_date]") > -1
+													? 
+														$(this).parent()
+															.prev()
+																.children(work_end.selector+':eq(0)')
+																	.attr('name') 
+													: 
+														this.name
+											));
+										}
+
+									}else{
+
+										if((offset + 1)){
+
+											filllist.splice(offset, 1);
+										}
+
+									}
+
+										
+							} 
 
 							info_form.data("fill-list", JSON.stringify(filllist));
 							fillprogress = filllist.length;
 							percent = Math.round((fillprogress/filltotal) * 100);
 
-							console.log("percne completed: ", percent, "%");
+							//console.log("percent: ", percent, "%");
+
+							if(percent > 0){
+
+								skip_btn.attr({'disabled':'disabled','unselectable':''});
+
+							}else if(percent == 0){
+
+								skip_btn.removeAttr('disabled').removeAttr('unselectable');
+							}
 
 							if(percent === 100){
-
-
-									/*
-										pass the {Laravel} CSRF token from the meta tag
-										to the submission form to avoid the dreaded
-
-										:: [TokenMismatchException]
-									*/
-
-									if(!([].slice(info_form.get(0).elements)
-											.map(function(el){
-												return el.name;
-											}).indexOf('_token') + 1)){
-
-											$('<input/>')
-												.attr({type:'hidden', 'name':'_token'})
-													.val($("html").data('token'))
-														.appendTo(info_form);
-									
-									}
 							
-									continue_button.removeAttr('disabled').addClass('shake-effect');
+								add_btn.removeAttr('disabled')
+											.queue(function(next){
+												if(tracker == "first"){
+													var _this = $(this);
+													setTimeout(function(){
+														_this.popover('destroy');
+														next();
+													},7800);
+												}else{
+													next();
+												}
+											}).focusin();
+
+								continue_button.removeAttr('disabled').addClass('shake-effect');
 					
+							}else{
+
+								add_btn.attr('disabled', 'disabled');
+
+								continue_button.attr('disabled', 'disabled').removeClass('shake-effect');
 							}
+					});
+
+			},
+			repeat:function(again){
+
+				
+
+				if(again === true){
+
+
+					work_start = $('[name$="[from_date]"]').last();
+
+					work_end = $('[name$="[to_date]"]').last();
+
+					text_inputs = $('[placeholder]', '.work_details_block:last');
+
+				}
+
+				text_inputs.on("blur input", $.debounce(250, function(event){
+						
+						if((event.type === "blur"
+								&& event.target.value.length == 0)
+									|| (event.type === "input" 
+											&& event.target.value.length >= 3)){
+
+							$(this).data('early-trigger', true).trigger('change', {fakeEvent:true});
+
+						}
+				}));
+
+
+				work_start.daterangepicker({
+	       						singleDatePicker: true, 
+	       						showDropdowns:true
+	       					}, function(start, end, label){
+							    
+
+							    var  _target = this.element,
+
+							    	 work_end_elem = $(_target.attr('name').replace(
+							    							"[from_date]", "[to_date]"
+							    						)),
+
+							    	 _end =  new Date(
+							    						(work_end_elem.val() 
+							    						|| initial_vals.end_date)
+							    			), 
+
+							    	_start = new Date(
+							    						(start.format('M/D/Y') 
+							    							|| _target.val())
+							    			);
+
+							    _target.data('stored', _start);
+
+							    _target.attr('aria-changed', true);
+							    
+
+							    if((work_end_elem.attr('aria-changed') === true)
+							    	
+							    	&& (_end.getTime() < _start.getTime())){
+
+							    	E.emit('sweetalert', {
+							    		title:"Wrong Work Experience Dates",
+							    		text:"The dates for your work experience don't add up. \r\n\t\t Please, check agian",
+							    		info:"error",
+							    		showCancelButton:false
+							    	}, function(){
+
+											
+										_target.val(initial_vals.start_date).addClass('wrong');
+
+
+							    	});
+
+
+							    	return false;
+							    }
+
+							    if(_target.is('.wrong')){
+
+									_target.removeClass('wrong');
+							    }
+					});
+
+					work_end.daterangepicker({
+	       						singleDatePicker: true, 
+	       						showDropdowns:true
+	       					}, function(start, end, label){
+							    
+							    
+							    var _target = this.element,
+
+
+							    	work_start_elem = $(_target.attr('name').replace(
+							    							"[to_date]", "[from_date]"
+							    						)),
+							    	_start =  new Date(
+							    						(work_start_elem.val() 
+							    						|| initial_vals.start_date)
+							    				),
+
+							     	_end  = new Date( 
+							     					(start.format('M/D/Y') 
+							     						|| _target.val()) 
+							     			);
+							    
+							    _target.data('stored', _end);
+
+							    _target.attr('aria-changed', true);			    
+
+							    if((work_start_elem.attr('aria-changed') === true)
+
+							    	&& (_start.getTime() > _end.getTime())){
+
+							    	E.emit('sweetalert', {
+							    		title:"Wrong Work Experience Dates",
+							    		text:"The dates for your work experience don't add up. \r\n\t\t Please, check agian",
+							    		info:"error",
+							    		showCancelButton:false
+							    	}, function(){
+
+
+							    			_target.val(initial_vals.end_date).addClass('wrong');
+
+
+							    	});
+
+							    	return false;
+							    }
+
+							    if(_target.is('.wrong')){
+
+									_target.removeClass('wrong');
+							    } 
 					});
 
 			},
@@ -586,9 +825,11 @@
 
 				body = $(d.body);
 
-				work_start = $('[id="from_date"]');
+				work_start = $('[name$="[from_date]"]');
 
-				work_end = $('[id="to_date"]');
+				work_end = $('[name$="[to_date]"]');
+
+				text_inputs = $('[placeholder]');
 
 				photo_image = $('.profile-image');
 
@@ -598,13 +839,30 @@
 
 				file_input = $('.profile-picture-file');
 
-				photo_upload_button = $('a[upload-file-async]');
+				photo_upload_button = $('a[upload-file-async]:visible');
 
 				photo_upload_iframe = $('iframe[name="avatarupload_sink"]').get(0);
 
 				continue_button = $('.mynti-button-calm[disabled]');
 
 				menu_item = $('.mynti-application-menuitem[accordion="true"]');
+
+				skip_btn = $('.skip');
+
+				add_btn = $('.add');
+
+				initial_vals = {
+					start_date:work_start.val(),
+					end_date:work_end.val()
+				}
+
+				add_section_html = $('.work_details_block:first').get(0).outerHTML;
+
+				ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+
+				tracker_index = 0;
+
+				tracker = ordinals[tracker_index];
 
 			},
 			stop:function(){
@@ -618,17 +876,26 @@
 				E = null;
 				T = null;
 
+				ordinals = null;
+				tracker_index = null;
+				tracker = null;
+
 				photo_image = null;
 
 				photo_upload_button = null;
 				photo_upload_iframe = null;
 				continue_button = null;
+				text_inputs = null;
+				initial_vals = null;
 
 				work_start = null;
 				work_end = null;
 
 				body = null;
 				menu_item = null;
+				add_section_html = null;
+				add_btn = null;
+				skip_btn = null;
 
 				file_input = null;
 				info_form = null;

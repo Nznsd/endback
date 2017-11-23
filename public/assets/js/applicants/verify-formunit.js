@@ -308,7 +308,7 @@
 											[using JSPDF]
 										*/
 										
-										 receipt_iframe.style.cssText = "display: inline-block; position: absolute; left: -9999px; width:797px !important; height: 100%; top: 0;";
+										 /*receipt_iframe.style.cssText = "display: inline-block; position: absolute; left: -9999px; width:797px !important; height: 100%; top: 0;";
 										      
 										 if(typeof receipt_iframe.attachEvent === 'function'){
 
@@ -317,17 +317,17 @@
 										 }else if(typeof receipt_iframe.addEventListener === 'function'){
 
 											receipt_iframe.addEventListener('load', downloadPDFReceipt);
-										 }
+										 }*/
 
 										 var endpoint, _origin = window.location.origin;  // added by onuh
 
 										 if(/tuition/.test(continue_button.attr('href'))) {
 
-											endpoint = '/applicants/receipt/download/tuition';
+											endpoint = '/applicants/download/receipt/tuition';
 
 										 }else{
 
-										 	endpoint = '/applicants/receipt/download';  // added by onuh
+										 	endpoint = '/applicants/download/receipt';  // added by onuh
 										 }
 
 										 receipt_iframe.src = (_origin + endpoint);

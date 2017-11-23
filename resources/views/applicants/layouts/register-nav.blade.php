@@ -12,13 +12,13 @@
                     <a href="/" class="mynti-link nav-link" tabindex="1">Home</a>
                 </span>
                 <span class="mynti-box nav-item">
-                    <a href="{{ isset($page) && $page == 'register' ? '#' : '/applicants' }}" class="mynti-link nav-link {{ isset($page) && $page == 'register' ? 'active' : '' }}" tabindex="2">New Application</a>
+                    <a href="{{ isset($page) && $page == 'register' ? '#' : '/applicants/apply' }}" class="mynti-link nav-link {{ isset($page) && $page == 'register' ? 'active' : '' }}" tabindex="2">New Application</a>
                 </span>
                 <span class="mynti-box nav-item">
-                    <a href="/" class="mynti-link nav-link" tabindex="3">How to Apply</a>
+                    <a href="{{ env('APP_URL') . '/application-guide' }}" class="mynti-link nav-link" tabindex="3">How to Apply</a>
                 </span>
                 <span class="mynti-box nav-item">
-                    <a href="/" class="mynti-link nav-link" tabindex="4">Help &amp; Support</a>
+                    <a href="{{ env('APP_URL') . '/support' }}" class="mynti-link nav-link" tabindex="4">Help &amp; Support</a>
                 </span>
             </nav>
             <p class="pull-right mynti-mobile-navigation" role="button">

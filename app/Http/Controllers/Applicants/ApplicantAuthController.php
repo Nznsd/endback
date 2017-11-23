@@ -33,7 +33,7 @@ class ApplicantAuthController extends Controller
         return 'email';
     }
 
-    public function index()
+    public function apply()
     {
         return view('applicants.register', ['page' => 'register']);
     }
@@ -41,18 +41,6 @@ class ApplicantAuthController extends Controller
     public function loginGet()
     {
         return view('applicants.login', ['page' => 'login']);
-    }
-
-    public function loginPost(Request $request)
-    {
-        if(Auth::attempt(['username' => $request->email, 'password' => $request->password, 'role' => 'applicant']))
-        {
-            return $this->handleRedirect(Auth::id());
-        }
-
-        return redirect()
-            ->back()
-            ->withInput();
     }
 
     public function create(CreateApplicantRequest $request)
@@ -76,7 +64,14 @@ class ApplicantAuthController extends Controller
         // create new applicant and save
         $applicant = new Applicant;
 
-        $applicant->semester_id = $academicSemesterId;
+        if($academicSessionInfo->semester == 2)
+        {
+            $applicant->semester_id = $academicSemesterId + 1;
+        } 
+        else
+        {
+            $applicant->semester_id = $academicSemesterId;
+        }
 
         $applicant->user_id = $user->id;
 

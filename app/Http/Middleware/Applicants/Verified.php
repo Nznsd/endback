@@ -1,11 +1,12 @@
 <?php
 
-namespace NTI\Http\Middleware;
+namespace NTI\Http\Middleware\Applicants;
 
 use Closure;
 use NTI\Models\Applicant;
 use NTI\Models\Transaction;
 use NTI\Repository\Services\NTI as NTIService;
+use NTI\Repository\Modules\ApplicantsModule;
 
 class Verified
 {
@@ -22,12 +23,8 @@ class Verified
 		$academicSessionId = $academicSessionInfo->sessionId;
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
-        $transaction = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => 2,          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, 'application form', $academicSemesterId);
+        $transaction = $payment['transaction'];
         if(!isset($transaction))
         {
             return redirect('applicants/programme')

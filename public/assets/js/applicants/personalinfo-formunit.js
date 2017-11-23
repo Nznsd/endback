@@ -342,14 +342,18 @@
 						showCancelButton:true
 					}, 
 					function(){
+
+						var _text;
 	
 						photo_upload_button.removeAttr('disabled');
 	
 						$('p', '.sweet-alert').find('img').remove();
 	
 						photo_image.addClass('transparency-80');
+
+						_text = photo_upload_button.text();
 	
-						photo_upload_button.filter('.upload-btn').text('Uploading Photo...');
+						photo_upload_button.text('Uploading Photo...');
 	
 						var _status, 
 							_src = photo_image.attr('src'),
@@ -370,16 +374,24 @@
 							
 							data = JSON.parse(data.replace(/(<([^>]+)>)/ig, ""));
 
-							var _origin = w.location.origin;
+							var _origin = w.location.origin,
+                						img_src = (data.src.indexOf("http") == 0 ? "" : _origin) + data.src || _src;
 							
 							photo_image.removeClass('transparency-80')
-									.prop({'src':((data.src.indexOf('http') == 0 ? "" : _origin) + data.src || _src)});
+									.prop({'src':img_src});
 	
 							_status = $form.find('[aria-has-uploaded]').attr('aria-has-uploaded');
 							
-							$form.find('[aria-has-uploaded]').attr('aria-has-uploaded', 'true');
-	
-							photo_upload_button.filter('.upload-btn').text('Upload Photo');
+							if (_status === "false") {
+								$form.find("[aria-has-uploaded]")
+									.attr("aria-has-uploaded", "true");
+							}
+
+							photo_upload_button.filter(":visible").text(_text);
+
+							photo_upload_button = $("a[upload-file-async]:visible");
+
+							E.emit("navavatarchange", { avatar_url: img_src });
 	
 							
 						}, function(error){
@@ -412,6 +424,29 @@
 
 			init:function(){
 
+					/*
+						Initialize Popovers
+					*/
+
+					$('[data-toggle="popover"]').popover();
+
+					/*
+					Trigger the popover (Bootstrap) on the photo
+					upload button
+					*/
+
+					if (photo_upload_button.filter(":visible")
+						.is('.upload-btn')) {
+						photo_upload_button.queue(function (next) {
+
+							var _this = $(this);
+							setTimeout(function () {
+								_this.popover('destroy');
+								next();
+							}, 7800);
+
+						}).focusin();
+					}
 
 					/*
 						clear out all former values in all forms on
@@ -625,7 +660,7 @@
 
 				file_input = $('.profile-picture-file');
 
-				photo_upload_button = $('a[upload-file-async]'); // accordion-open
+				photo_upload_button = $('a[upload-file-async]:visible'); // accordion-open
 
 				photo_upload_iframe = $('iframe[name="avatarupload_sink"]').get(0);
 

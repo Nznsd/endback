@@ -1,2 +1,2 @@
-# NTIBackend
-This is Laravel's scaffolding. The working engine is hosted here.
+# NTIPortal
+This is the Official NTI Portal codes.  

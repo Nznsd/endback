@@ -19,11 +19,12 @@ class CreateStudyCentersTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->integer('programme_id');
-            $table->string('manager');
-            $table->string('manager_phone');
-            $table->string('desk');
-            $table->string('desk_phone');
-            $table->string('status');
+            $table->string('manager')->nullable();
+            $table->string('manager_phone')->nullable();
+            $table->string('desk')->nullable();
+            $table->string('desk_phone')->nullable();
+            $table->string('status')->default('active');
+            $table->json('mergee')->nullable();
             $table->timestamps();
         });
     }

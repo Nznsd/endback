@@ -1,0 +1,26 @@
+<svg width="23" height="17" viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-832 -1417)">
+<g id="Group">
+<g id="Stroke 135">
+<use xlink:href="#path0_stroke" transform="translate(833 1418)" fill="#005F91" fill-opacity="0.37"/>
+</g>
+<g id="Stroke 136">
+<use xlink:href="#path1_stroke" transform="translate(833 1422.5)" fill="#005F91" fill-opacity="0.37"/>
+</g>
+<g id="Stroke 137">
+<use xlink:href="#path2_stroke" transform="translate(837.5 1428.5)" fill="#005F91" fill-opacity="0.37"/>
+</g>
+<g id="Stroke 138">
+<use xlink:href="#path3_stroke" transform="translate(848 1428.5)" fill="#005F91" fill-opacity="0.37"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_stroke" d="M 19.5 14L 1.5 14L 1.5 16L 19.5 16L 19.5 14ZM 1.5 14C 1.22428 14 1 13.7757 1 13.5L -1 13.5C -1 14.8803 0.119716 16 1.5 16L 1.5 14ZM 1 13.5L 1 1.5L -1 1.5L -1 13.5L 1 13.5ZM 1 1.5C 1 1.22428 1.22428 1 1.5 1L 1.5 -1C 0.119715 -1 -1 0.119715 -1 1.5L 1 1.5ZM 1.5 1L 19.5 1L 19.5 -1L 1.5 -1L 1.5 1ZM 19.5 1C 19.7757 1 20 1.22428 20 1.5L 22 1.5C 22 0.119715 20.8803 -1 19.5 -1L 19.5 1ZM 20 1.5L 20 13.5L 22 13.5L 22 1.5L 20 1.5ZM 20 13.5C 20 13.7757 19.7757 14 19.5 14L 19.5 16C 20.8803 16 22 14.8803 22 13.5L 20 13.5Z"/>
+<path id="path1_stroke" d="M 0 -1C -0.552285 -1 -1 -0.552285 -1 0C -1 0.552285 -0.552285 1 0 1L 0 -1ZM 21 1C 21.5523 1 22 0.552285 22 0C 22 -0.552285 21.5523 -1 21 -1L 21 1ZM 0 1L 21 1L 21 -1L 0 -1L 0 1Z"/>
+<path id="path2_stroke" d="M 0 -1C -0.552285 -1 -1 -0.552285 -1 0C -1 0.552285 -0.552285 1 0 1L 0 -1ZM 4.5 1C 5.05228 1 5.5 0.552285 5.5 0C 5.5 -0.552285 5.05228 -1 4.5 -1L 4.5 1ZM 0 1L 4.5 1L 4.5 -1L 0 -1L 0 1Z"/>
+<path id="path3_stroke" d="M 0 -1C -0.552285 -1 -1 -0.552285 -1 0C -1 0.552285 -0.552285 1 0 1L 0 -1ZM 1.5 1C 2.05228 1 2.5 0.552285 2.5 0C 2.5 -0.552285 2.05228 -1 1.5 -1L 1.5 1ZM 0 1L 1.5 1L 1.5 -1L 0 -1L 0 1Z"/>
+</defs>
+</svg>

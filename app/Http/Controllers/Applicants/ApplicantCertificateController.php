@@ -12,6 +12,10 @@ use NTI\Models\Applicant;
 use NTI\Models\Upload;
 use NTI\Models\Certificate;
 use NTI\Models\EducationBackground;
+use NTI\Models\Subject;
+use NTI\Models\Grade;
+use NTI\Models\State;
+use NTI\Models\LGA;
 use NTI\Repository\Services\NTI as NTIService;
 
 class ApplicantCertificateController extends Controller
@@ -20,9 +24,10 @@ class ApplicantCertificateController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('verified');
+        $this->middleware('role:applicant');
     }
 
-    public function getEducationalInfo($type = null)
+    public function getEducationalInfo($cert = null)
     {
         $applicant = Applicant::where('user_id', Auth::id())->first();
         
@@ -34,40 +39,51 @@ class ApplicantCertificateController extends Controller
             ]
         )->latest()->first();
 
-        $certificates = NTIService::getInfo('certificates');
+        $certificates = Certificate::all();
                 
         $years = range(1970, date('Y'));
+
+        $education = EducationBackground::where(
+            [
+                'param' => 'applicant',
+                'val' => $applicant->id,
+                'certificate_name' => isset($cert) ? $cert : 'o_level',
+            ]
+        )->latest()->first();
         
-        if(!isset($type) || $type == 'o_level')
+        if(!isset($cert) || $cert == 'o_level')
         {
-                    $subjects = NTIService::getInfo('subjects');
-                    $grades = NTIService::getInfo('grades', 'certificate_id', 1);
-                    $states = NTIService::getInfo('states');
+            $subjects = Subject::all();
+            $grades = Grade::where([
+                ['certificate_id', 1],
+                ['type_id', 1],
+            ])->get();
+            //NTIService::getInfo('grades', 'certificate_id', 1);
             
-                    return view('applicants.certificates',
-                        [
-                            'applicant' => $applicant, 'passport' => $passport, 'certificates' => $certificates,
-                            'subjects' => $subjects, 'grades' => $grades, 'states' => $states, 
-                            'years' => $years, 'page' => 'certificate',
-                        ]);
-        } else if($type == 'tertiary')
+            $states = State::all();
+            $lgas = LGA::all();
+
+            return view('applicants.certificates',
+                [
+                    'applicant' => $applicant, 'passport' => $passport, 'certificates' => $certificates,
+                    'subjects' => $subjects, 'grades' => $grades, 'states' => $states, 
+                    'years' => $years, 'page' => 'certificate', 'education' => $education,
+                    'lgas' => $lgas,
+                ]);
+        } else if($cert == 'tertiary')
         {
-            $grades = NTIService::getInfo('grades', 'certificate_id', 2);
-            
-            $majors = [
-                'BSc' => 1,
-                'BEd' => 2,
-                'BA' => 3,
-                'BEng' => 4,
-            ];
+            $grades = Grade::where([
+                ['certificate_id', 2],
+                ['type_id', 1],
+            ])->get();
     
             return view('applicants.cert-degree', 
                 [
                     'applicant' => $applicant, 'passport' => $passport, 'certificates' => $certificates,
                     'grades' => $grades, 
                     'years' => $years,
-                    'majors' => $majors,
                     'page' => 'certificate',
+                    'education' => $education,
                 ]);
         }
 
@@ -76,7 +92,7 @@ class ApplicantCertificateController extends Controller
     public function handleExam(CertificateRequest $request, $cert)
     {
         $appstate = 6;
-        // dd($request->all());
+       //dd($request->all());
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
 
         foreach($request->sittings as $sitting)

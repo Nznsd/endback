@@ -11,3 +11,4 @@
     <iframe id="avatarupload_sink" name="avatarupload_sink" src="about:blank" class="absolute box-off" allowtransparency="true" frameborder="0" marginwidth="0" marginheight="0"></iframe>
     
     <script src="{{ asset('assets/js/lib/lib/noswfupload.js') }}"></script>
+

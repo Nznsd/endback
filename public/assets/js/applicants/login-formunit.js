@@ -312,8 +312,18 @@
 										$(event.target).trigger('change', ['fromKeys']);
 									}
 								}else{
+									if (event.keyCode === 13 &&
+										(typeof event.target.type != "undefined") &&
+										(event.target.value.length > 0) &&
+										(event.target.className.indexOf('input-error') == -1)) {
+										
+										event.preventDefault();
+										submit_button.removeAttr('disabled');
+										submit_button.trigger('click');
+										return false;
+									}
 
-										$(event.target).trigger('change', ['fromKeys']);
+									$(event.target).trigger('change', ['fromKeys']);
 									
 								}
 

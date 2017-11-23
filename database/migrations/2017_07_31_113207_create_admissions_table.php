@@ -26,7 +26,6 @@ class CreateAdmissionsTable extends Migration
             $table->string('param');
             $table->string('val')->default('pending');
             $table->integer('action_by');
-            $table->integer('student_id');           
             $table->timestamps();
         });
     }

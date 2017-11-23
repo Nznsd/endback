@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => NTI\Models\User::class,
+        'model' => NTI\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

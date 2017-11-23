@@ -5,6 +5,7 @@ namespace NTI\Http\Controllers\Applicants;
 use Illuminate\Http\Request;
 use NTI\Http\Controllers\Controller;
 use NTI\Models\Applicant;
+use NTI\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use NTI\Models\EducationBackground;
 use NTI\Models\Grade;
@@ -19,19 +20,21 @@ class ApplicantReviewController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('verified');
+        $this->middleware('role:applicant');
     }
 
     private static function getData($applicant)
     {
-        $data['programme'] = NTIService::getInfo('programmes', $applicant->programme_id);
-        $data['first_choice'] = NTIService::getInfo('specializations', $applicant->first_choice);
-        $data['second_choice'] = NTIService::getInfo('specializations', $applicant->second_choice);
-        $data['study_center'] = NTIService::getInfo('study_centers', $applicant->study_center_id);
-        $data['soo'] = NTIService::getInfo('states', $applicant->soo);
-        $data['soo_lga'] = NTIService::getInfo('lga', $applicant->soo_lga);
-        $data['sor'] = NTIService::getInfo('states', $applicant->sor);
-        $data['sor_lga'] = NTIService::getInfo('lga', $applicant->sor_lga);
+        $data['programme'] = NTIService::getInfo('programmes', 'id', $applicant->programme_id);
+        $data['first_choice'] = NTIService::getInfo('specializations', 'id', $applicant->first_choice);
+        $data['second_choice'] = NTIService::getInfo('specializations', 'id', $applicant->second_choice);
+        $data['study_center'] = NTIService::getInfo('study_centers', 'id', $applicant->study_center_id);
+        $data['soo'] = NTIService::getInfo('states', 'id', $applicant->soo);
+        $data['soo_lga'] = NTIService::getInfo('lga', 'id', $applicant->soo_lga);
+        $data['sor'] = NTIService::getInfo('states', 'id', $applicant->sor);
+        $data['sor_lga'] = NTIService::getInfo('lga', 'id', $applicant->sor_lga);
         $data['academicSessionInfo'] = NTIService::getCurrentAcademicSessionInfo();
+        
         return $data;
     }
     public function getReview()
@@ -81,7 +84,16 @@ class ApplicantReviewController extends Controller
 
     public function printApplicationForm()
     {
+        $semesterId = NTIService::getCurrentAcademicSessionInfo()->semesterId;
+
         $applicant = Applicant::where('user_id', Auth::id())->first();
+
+        $transaction = Transaction::where([
+            'param' => 'applicant', // make sure its an applicant
+            'val' => $applicant->id,// make sure its the logged in applicant
+            'fee_id' => 2,          // make sure it is the transaction for admission form fee
+            'semester_id' => $semesterId // for current semester
+        ])->first();
         
         $passport = Upload::where(
             [
@@ -104,19 +116,13 @@ class ApplicantReviewController extends Controller
             ['certificate_name', 'o_level'],
         ])->latest()->limit(2)->get();
 
-        $grades = NTIService::getInfo('grades');
-        $subjects = NTIService::getInfo('subjects');
-        $majors = [
-            'BSc' => 1,
-            'BEd' => 2,
-            'BA' => 3,
-            'BEng' => 4,
-        ];
+        $grades = Grade::all();
+        $subjects = Subject::all();
 
         $work_experience = WorkExperience::where([
             'param' => 'applicant',
             'val' => $applicant->id,
-        ])->latest()->first();
+        ])->latest()->limit(2)->get();
             
         return view('applicants.print.application-form',[
             'applicant' => $applicant,
@@ -126,8 +132,8 @@ class ApplicantReviewController extends Controller
             'o_level' => $o_level,
             'grades' => $grades,
             'subjects' => $subjects,
-            'majors' => $majors,
             'work_experience' => $work_experience,
+            'transaction' => $transaction,
         ]);
     }
 }

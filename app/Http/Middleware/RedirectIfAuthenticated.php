@@ -18,8 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('applicants/programme')
-			    ->with('status', 'you are already logged in, please log out first if you want to access the portal as a different user...');
+            return redirect('/home');
         }
 
         return $next($request);

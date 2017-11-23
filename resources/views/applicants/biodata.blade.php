@@ -58,7 +58,7 @@
                                                                 <select class="form-control" id="lga_origin" name="lga_origin" tabindex="19" data-select-loaded="false">
                                                                     <option value="-">Select Local Government Of Origin</option>
                                                                     @if(isset($applicant->soo_lga))
-                                                                        <option value="{{ $applicant->soo_lga }}" selected>Use Previously Selected</option>
+                                                                        <option value="{{ $applicant->soo_lga }}" selected>{{ $lgas[$applicant->soo_lga - 1]->name }}</option>
                                                                     @endif
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>
@@ -89,7 +89,7 @@
                                                                 <select class="form-control" id="lga_residence" name="lga_residence" tabindex="21" data-casacade-select-target="null" data-select-loaded="false">
                                                                     <option value="-">Select Local Government Of Residence</option>
                                                                     @if(isset($applicant->sor_lga))
-                                                                        <option value="{{ $applicant->sor_lga }}" selected>Use Previously Selected</option>
+                                                                        <option value="{{ $applicant->sor_lga }}" selected>{{ $lgas[$applicant->sor_lga - 1]->name }}</option>
                                                                     @endif
                                                                 </select>
                                                                 <span class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></span>

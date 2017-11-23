@@ -144,7 +144,19 @@
 							
 							delete payload.form;
 
-							hidden_iframe.contentWindow.onmessage(payload);
+							try{
+								hidden_iframe.contentWindow.onmessage(payload);
+							}catch(err){
+								/* 
+									Firefox throws an error, so we need to catch it
+									and work out the fix.
+								 */ 
+								if(err.name === "TypeError"){
+									;
+								}
+
+								hidden_iframe.contentWindow.postMessage(payload, "about:blank");
+							}
 						}
 					} 
 
@@ -388,7 +400,7 @@
        						*/
 
 	       					date_input.daterangepicker({
-	       						singleDatePicker: true, 
+								singleDatePicker: true, 
 	       						showDropdowns:true
 	       					}, function(start, end, label){
 							    
@@ -401,6 +413,8 @@
 							    	return false;
 							    } 
 							});
+
+							date_input.val('');
 
 
 							$(d).on('keydown', 'input[placeholder]', $.debounce(250, function(event){
@@ -418,8 +432,9 @@
 										$(event.target).trigger('change', ['fromKeys']);
 									}
 								}else{
+									
 
-										$(event.target).trigger('change', ['fromKeys']);
+									$(event.target).trigger('change', ['fromKeys']);
 									
 								}
 
@@ -453,7 +468,9 @@
 							 		if(!date_input.is('.input-error')){
 							 			
 							 			currentInputTab.trigger('focus');
-							 		}
+									 }
+									 
+									
 							});
 
 							body.on('click', 'a.mynti-button-calm', function(event){
@@ -603,6 +620,8 @@
 									percent = 0,
 									hasError = true,
 									statusElem = null,
+									formerElem = null,
+									currentTabIndex = -1,
 									index = filllist.indexOf(this.name) + 1;
 								
 								if(param != 'fromKeys'){
@@ -629,6 +648,8 @@
 
 									statusElem.addClass('input-correct');
 
+									currentTabIndex = parseInt(statusElem.attr('tabindex')) - 1;
+
 									if(!index){
 										filllist.push(this.name);
 									}
@@ -646,10 +667,22 @@
 
 									statusElem.removeClass('input-correct');
 
+									currentTabIndex = parseInt(statusElem.attr('tabindex')) - 1;
+
 									if(index){
 										filllist.splice(index, 1);
 									}
 
+								}
+
+								formerElem = $(".form-control[tabindex='"+currentTabIndex+"']", form);
+
+								if(formerElem.length){
+
+									if(formerElem.value.length == 0){
+
+										formerElem.addClass('input-error');
+									}
 								}
 
 								form.data("fill-list", JSON.stringify(filllist));
@@ -781,8 +814,16 @@
 										return (value in enums) || "This is not a valid gender type";
 									},
 									"firstname":function(value, title){
-										if(!(value && value.length)) return ">Please enter your "+title;
-										return /^[a-zA-Z\-]{2,60}$/.test(value) || "This is not a valid name";
+										if(title === "middlename" 
+											 && value.length == 0){
+											return true;
+										}
+										if(title != "middlename"){
+											if(!(value && value.length)) return ">Please enter your "+title;
+										}else{
+											if(value && value.length == 1) return ">This is optional, however enter correctly";
+										}
+										return /^[a-zA-Z\-']{2,60}$/.test(value) || "This is not a valid name";
 									}
 			                    }	
 						};

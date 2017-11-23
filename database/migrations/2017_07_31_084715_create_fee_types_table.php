@@ -16,6 +16,8 @@ class CreateFeeTypesTable extends Migration
         Schema::create('fee_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('remitaServiceTypeId')->nullable();
+            $table->boolean('display_request');
             $table->timestamps();
         });
     }

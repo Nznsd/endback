@@ -10,43 +10,29 @@ namespace NTI\Repository\Services;
 
 class Remita{
 
-	public $merchantId;
-	public $gatewayRRRPaymentUrl;
+	public $merchantId = "1543411755";
+	public $gatewayRRRPaymentUrl = "https://login.remita.net/remita/ecomm/finalize.reg";
 	public $path;
 	
-	private $serviceTypeId;
-	private $apiKey;
-	private $gatewayUrl;
-	private $checkStatusUrl;
+	public $serviceTypeId;
+	public $apiKey = "874963";
+	public $gatewayUrl = "https://login.remita.net/remita/ecomm/split/init.reg";
+	public $checkStatusUrl = "https://login.remita.net/remita/ecomm";
+	
+	public $beneficiaryName1 = "NATIONAL TEACHERS INSTITUTE";
+	public $beneficiaryName2 = "Omniswift Nigeria Limited";
+	public $beneficiaryAccount1 = "0100166661018";
+	public $beneficiaryAccount2 = "1013702918";
+	public $bankCode1 = "000";
+	public $bankCode2 = "057";
+	public $deductFeeFrom1=1;
+	public $deductFeeFrom2=0;
 
-	protected $beneficiaryName1;
-	protected $beneficiaryName2;
-	protected $beneficiaryAccount1;
-	protected $beneficiaryAccount2;
-	protected $bankCode1;
-	protected $bankCode2;
-	protected $deductFeeFrom1=1;
-	protected $deductFeeFrom2=0;
-
-	public function __construct()
+	public function __construct($serviceTypeId = null)
 	{
-
-            $this->merchantId = "2547916";
-            $this->serviceTypeId = "4430731";
-            $this->apiKey = "1946";
-            $this->gatewayUrl = "http://remitademo.net/remita/ecomm/v2/init.reg";
-            $this->gatewayRRRPaymentUrl = "http://remitademo.net/remita/ecomm/finalize.reg";
-            $this->checkStatusUrl = "http://remitademo.net/remita/ecomm";
-
-            $this->beneficiaryName1 = "Oshadami Mke";
-            $this->beneficiaryName2 = "Mujib Ishola";
-            $this->beneficiaryAccount1 = "6020067886";
-            $this->beneficiaryAccount2 = "0360883515";
-            $this->bankCode1 = "011";
-            $this->bankCode2 = "050";
-
+			$this->serviceTypeId = $serviceTypeId;
+			
             $this->path = env('APP_URL');
-
 	}
 	
 	public function timesammp()

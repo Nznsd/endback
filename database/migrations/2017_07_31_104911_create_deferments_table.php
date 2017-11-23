@@ -16,8 +16,9 @@ class CreateDefermentsTable extends Migration
         Schema::create('deferments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('student_id');
+            $table->integer('semester_id');
             $table->json('details')->nullable();
-            $table->string('status');
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace NTI\Http\Controllers\Applicants;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use NTI\Http\Controllers\Controller;
 
@@ -11,12 +12,15 @@ use NTI\Models\User;
 use NTI\Models\Applicant;
 use NTI\Models\Upload;
 
+use Image;
+
 class ApplicantUploadsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('verified');
+        $this->middleware('role:applicant');
     }
 
     public function index()
@@ -42,13 +46,29 @@ class ApplicantUploadsController extends Controller
     public function save(Request $request, $type)
     {
         $appstate = 8;
+        //dd($request->all());
+        $applicant = Applicant::where('user_id', Auth::id())->first();
 
-        if($request->file('photo')->isValid())
+        $file = null !== $request->file('photo') ? $request->file('photo') : $request->all()['document'];
+        
+        if($file->isValid())
         {
-            $applicant = Applicant::where('user_id', Auth::id())->first();
+            // resize image
+            if($type == 'photo')
+            {
+                $img = Image::make($file);
+                $img->resize(400, 400,  function ($constraint) {
+                        // $constraint->aspectRatio();
+                })->encode('jpg');
+                
+                $path = Storage::put('public/applicants/' . $applicant->id . '/photo.jpg', $img->__toString(), 'public');
+                if($path == 1)
+                    $path = 'public/applicants/' . $applicant->id . '/photo.jpg';
+            } else {
+                $path = Storage::putFile('public/applicants/' . $applicant->id, $file, 'public');
+            }
 
-            $path = Storage::putFile('public/applicants/' . $applicant->id, $request->file('photo'), 'public');
-            //$request->file('photo')->store('public/applicants/' . $applicant->id);
+            //
             
             // this line is for storage on the local filesystem
             //$path = str_replace('public/', '/storage/', $path); 
@@ -72,8 +92,10 @@ class ApplicantUploadsController extends Controller
                 $applicant->save();
             }
 
-            return response(['src' => env('AZURE_STORAGE_FILESHARE_URL') . '/' . $path, 'id' => $upload->id], 200);
-            //return response(['src' => Storage::url($path), 'id' => $upload->id], 200);
+            if(env('APP_ENV') == 'production')
+                //header_remove('X-Frame-Options');
+                return response(['src' => env('AZURE_STORAGE_FILESHARE_URL') . '/' . $path, 'id' => $upload->id], 200);
+            return response(['src' => Storage::url($path), 'id' => $upload->id], 200);
         }
 
         return response('invalid file',422);

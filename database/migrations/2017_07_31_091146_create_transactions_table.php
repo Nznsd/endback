@@ -19,14 +19,16 @@ class CreateTransactionsTable extends Migration
             $table->integer('semester_id');
             $table->string('param');
             $table->string('val');
-            $table->integer('installment')->nullable();
-            $table->decimal('amount');
-            $table->string('order_id');
-            $table->json('remita_before')->nullable();
-            $table->json('remita_after')->nullable();
+            $table->integer('installment');
+            $table->decimal('amount', 10, 2);
+            $table->string('orderId');
+            $table->json('remitaBefore')->nullable();
+            $table->json('remitaAfter')->nullable();
             $table->string('status')->default('unpaid');
+            $table->string('remark')->default('N/A');            
             $table->string('fee_table');
             $table->integer('fee_table_id');
+            $table->json('archive')->nullable();            
             $table->timestamps();
         });
     }

@@ -5,15 +5,18 @@ namespace NTI\Http\Controllers\Applicants;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use NTI\Http\Controllers\Controller;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 use NTI\Models\Applicant;
 use NTI\Models\Programme;
 use NTI\Models\Specialization;
 use NTI\Models\FeeDefinition;
 use NTI\Models\Transaction;
+use NTI\Models\Upload;
 use NTI\Repository\Services\NTI as NTIService;
 use NTI\Repository\Services\Remita as RemitaService;
+use NTI\Repository\Libraries\HTMLPDF as PDFService;
+use NTI\Repository\Modules\ApplicantsModule;
 
 
 class ApplicantPaymentController extends Controller
@@ -27,33 +30,6 @@ class ApplicantPaymentController extends Controller
        $this->middleware('payment')->only('pay');
     }
 
-    public static function getFeeDefParams($applicant, $type)
-    {
-        $params['fee_id'] = $type == 'tuition' ? 19 : 2;
-        $params['specialization_id'] = $type == 'tuition' ? $applicant->first_choice : 0;
-        $params['level'] = $type == 'tuition' &&
-         ($applicant->programme_id == 1 || $applicant->programme_id == 5) 
-         ? 1 : 0;
-        $params['semester'] = 1;
-        $params['category'] = $type == 'tuition' && $applicant->entry_level != 1 ? 'DE' : 'fresh';
-
-        return $params;
-    }
-
-    public function testParams($type, $programme_id)
-    {
-        $applicant = json_decode(json_encode([
-            'programme_id' => $programme_id,
-            'first_choice' => 0,
-            'entry_level' => 1,
-        ]));
-        $params = self::getFeeDefParams($applicant, $type);
-        $fee_table = NTIService::getFeeDefinition($params['fee_id'], 
-        $applicant->programme_id, $params['specialization_id'], 
-        $params['level'], $params['semester'], $params['category']);
-        dd($fee_table);
-    }
-
     public function pay(Request $request, $type = null)
     {
         // set up required variables
@@ -61,23 +37,18 @@ class ApplicantPaymentController extends Controller
         $academicSessionInfo = NTIService::getCurrentAcademicSessionInfo();
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
-        $params = self::getFeeDefParams($applicant, $type);
-        $transaction = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => $params['fee_id'],          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
-
-        $fee_table_id = NTIService::getFeeDefinition($params['fee_id'], 
-            $applicant->programme_id, $params['specialization_id'], 
-            $params['level'], $params['semester'], $params['category'])->id;
+        $payment = ApplicantsModule::getTransaction($applicant, $type, $academicSemesterId);
+        $transaction = $payment['transaction'];
+        $fee_def = $payment['fee_def'];
+        $fee_type = $payment['fee_type'];
 
          // construct payment parameters
-         $rem = new RemitaService;
+         
+         //$rem = new RemitaService('4430731');
+         $rem = new RemitaService($fee_type->remitaServiceTypeId);
          $orderId = $rem->generateOrderId($applicant->id);
          $responseUrl = $rem->getResponseUrl('/applicants/remita-response/' . $type);
-         $totalAmount = FeeDefinition::find($fee_table_id)->amount;
+         $totalAmount = $fee_def->amount;
          $hash = $rem->generateHash1($orderId, $totalAmount, $responseUrl);
          $payerName = $applicant->surname . ' ' . $applicant->firstname. ' '.$applicant->othername;
          $payerEmail = $applicant->email;
@@ -105,38 +76,56 @@ class ApplicantPaymentController extends Controller
         {
             $response = $rem->getRemitaResponse($paymentDetails);
             // save payment parameters to db
-            if(!isset($response))
+            if(!isset($response) || !isset($response->RRR))
             {
+                abort(500, 'We are unable to contact Remita at the moment, please try again after a few seconds...');
                 return redirect('applicants/programme')->withInput()
                     ->with('status', 'We are unable to contact Remita at the moment, please try again after a few seconds...');
             }
 
             $transaction = new Transaction;
-            $transaction->fee_id = $params['fee_id'];
+            $transaction->fee_id =  $fee_type->id;
             $transaction->param = 'applicant';
             $transaction->val = $applicant->id;
             $transaction->amount = $totalAmount;
-            $transaction->order_id = $orderId;
+            $transaction->installment = 0;
+            $transaction->orderId = $orderId;
             $transaction->fee_table = 'fee_definitions';
-            $transaction->fee_table_id = $fee_table_id;
+            $transaction->fee_table_id = $fee_def->id;
             $transaction->semester_id = $academicSemesterId;
-            $transaction->remita_before = json_encode($response);
+            $transaction->remitaBefore = json_encode($response);
             $transaction->save();
-        } else if(!isset($transaction->remita_after) 
+        } else if($transaction->fee_table_id != $fee_def->id)
+        {
+            $response = $rem->getRemitaResponse($paymentDetails);
+            // save payment parameters to db
+            if(!isset($response) || !isset($response->RRR))
+            {
+                return redirect('applicants/programme')
+                    ->with('status', 'We are unable to contact Remita at the moment, please try again after a few seconds...');
+            }
+            $transaction->amount = $totalAmount;
+            $transaction->orderId = $orderId;
+            $transaction->fee_table_id = $fee_def->id;
+            $transaction->remitaBefore = json_encode($response);
+            $transaction->save();
+        }
+        
+        if(isset($transaction) && !isset($transaction->remitaAfter) 
             || $transaction->status !== 'paid')
         {
-            $paymentDetails["orderId"] = $transaction->order_id;
+            $paymentDetails["orderId"] = $transaction->orderId;
             $paymentDetails["totalAmount"] = $transaction->amount;
-            // $paymentDetails["hash1"] = $rem->generateHash1($transaction->order_id, $transaction->amount, $responseUrl);
-            $response = json_decode($transaction->remita_before);
+            // $paymentDetails["hash1"] = $rem->generateHash1($transaction->orderId, $transaction->amount, $responseUrl);
+            $response = json_decode($transaction->remitaBefore);
         }
 
 
         $applicant->application_state = $applicant->application_state < $appstate ? $appstate : $applicant->application_state;
         $applicant->save();
 
-        $programme = Programme::findOrFail($applicant->programme_id)->name;
-        $specialization = Specialization::findOrFail($applicant->first_choice)->name;
+        $programme = Programme::find($applicant->programme_id)->name;
+        $specialization = Specialization::find($applicant->first_choice)->name;
         $remita = [
             'rrr' => $response->RRR,
             'merchantId' => $rem->merchantId,
@@ -153,21 +142,24 @@ class ApplicantPaymentController extends Controller
             'paymentDetails' => $paymentDetails, 
             'remita' => $remita,
             'type' => $type,
-            ]);
+        ]);
     }
 
     public function remitaResponse(Request $request, $type = null)
     {
         // after handling this, step becomes 3 so that any applicant on step 3 will be sent
         // to the verify RRR view.
-        $transaction = Transaction::where('order_id', $request->orderID)->first();
+        $transaction = Transaction::where('orderId', $request->orderID)
+            ->orWhere('remitaBefore->RRR', $request->RRR)
+            ->first();
         // construct json of remita payload
         $remita = [
-            'orderId' => $request->orderID,
-            'RRR' => $request->RRR
+            'orderId' => isset($request->orderID) ? $request->orderID : 'not set',
+            'RRR' => isset($request->RRR) ? $request->RRR : 'not set'
         ];
 
-        $transaction->remita_after = json_encode($remita);
+        $transaction->remitaAfter = json_encode($remita);
+        
         $transaction->save();
 
         return redirect('applicants/verify/' . $type);
@@ -179,13 +171,8 @@ class ApplicantPaymentController extends Controller
         $academicSessionInfo = NTIService::getCurrentAcademicSessionInfo(); 
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
-        $params = self::getFeeDefParams($applicant, $type);
-        $transaction = Transaction::where([
-            ['param','applicant'],
-            ['val', $applicant->id],
-            ['fee_id', $params['fee_id']],
-            ['semester_id', $academicSemesterId]
-                ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, $type, $academicSemesterId);
+        $transaction = $payment['transaction'];
         if(!isset($transaction))
         {
             return redirect('applicants/programme');
@@ -193,10 +180,10 @@ class ApplicantPaymentController extends Controller
 
         if($transaction->status == 'unpaid')
         {
-            $rem = new RemitaService;
-            $rrr = json_decode($transaction->remita_before)->RRR;
+            $rem = new RemitaService('serviceTypeId');
+            $rrr = json_decode($transaction->remitaBefore)->RRR;
             $response = $rem->verifyPayment('RRR', $rrr);
-            $transaction->remita_after = isset($response) ? json_encode($response) : null;
+            $transaction->remitaAfter = isset($response) ? json_encode($response) : null;
 
             if(isset($response) && $response->status == "01")
             {
@@ -216,8 +203,8 @@ class ApplicantPaymentController extends Controller
         }
 
         $data = [
-            'programme' => NTIService::getInfo('programmes', $applicant->programme_id)->name,
-            'specialization' => NTIService::getInfo('specializations', $applicant->first_choice)->name,
+            'programme' => NTIService::getInfo('programmes', 'id', $applicant->programme_id)->name,
+            'specialization' => NTIService::getInfo('specializations', 'id', $applicant->first_choice)->name,
         ];
 
         return view('applicants.verify', 
@@ -238,7 +225,7 @@ class ApplicantPaymentController extends Controller
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
         $transaction = Transaction::where([
-            ['remita_before->RRR', $request->rrr],
+            ['remitaBefore->RRR', $request->rrr],
             ['param','applicant'],
             //['val', $applicant->id],
             ['semester_id', $academicSemesterId]
@@ -252,12 +239,12 @@ class ApplicantPaymentController extends Controller
         }
         $app = Applicant::find($transaction->val);
         
-        if($transaction->status == 'unpaid')
+        if($transaction->status === 'unpaid')
         {
-            $rem = new RemitaService;
+            $rem = new RemitaService();
             $rrr = $request->rrr;
             $response = $rem->verifyPayment('RRR', $rrr);
-            $transaction->remita_after = isset($response) ? json_encode($response) : null;
+            $transaction->remitaAfter = isset($response) ? json_encode($response) : null;
     
             if(isset($response) && $response->status == "01")
             {
@@ -273,14 +260,14 @@ class ApplicantPaymentController extends Controller
 
         return response()->json([
             'fullname' => $app->surname . " " . $app->firstname,
-            'programme' => NTIService::getInfo('programmes', $app->programme_id)->name,
-            'specialization' => NTIService::getInfo('specializations', $app->first_choice)->name,
+            'programme' => NTIService::getInfo('programmes', 'id', $app->programme_id)->name,
+            'specialization' => NTIService::getInfo('specializations', 'id', $app->first_choice)->name,
             'paystatus' => $transaction->status,
             'amount' => $transaction->amount,
-            'rrr' => json_decode($transaction->remita_after)->RRR,
-            'orderid' => $transaction->order_id,
-            'message' => json_decode($transaction->remita_after)->message,
-            'status' => json_decode($transaction->remita_after)->status,
+            'rrr' => json_decode($transaction->remitaAfter)->RRR,
+            'orderid' => $transaction->orderId,
+            'message' => json_decode($transaction->remitaAfter)->message,
+            'status' => json_decode($transaction->remitaAfter)->status,
         ])->setStatusCode(($hasPaid ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST), ($hasPaid ? Response::$statusTexts[Response::HTTP_OK] : Response::$statusTexts[Response::HTTP_BAD_REQUEST]));
     }
 
@@ -301,24 +288,40 @@ class ApplicantPaymentController extends Controller
         $academicSessionInfo = NTIService::getCurrentAcademicSessionInfo();
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
-        $params = self::getFeeDefParams($applicant, $type);
-        $fee_def = NTIService::getFeeDefinition($params['fee_id'], 
-                $applicant->programme_id, $params['specialization_id'], 
-                $params['level'], $params['semester'], $params['category']);
-        $collection = json_decode($fee_def->collection);
-        $transaction = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => $params['fee_id'],          // make sure it is the transaction for admission or tuition fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, $type, $academicSemesterId);
+        $transaction = $payment['transaction'];
+        $data = [
+            'programme' => NTIService::getInfo('programmes', 'id', $applicant->programme_id)->abbr,
+            'academic_session' => $academicSessionInfo->academicSession,
+        ];
 
-        return view('applicants.print.invoice', 
-        [
-            'applicant' => $applicant, 
-            'transaction' => $transaction,
-            'collection' => $collection,
-        ]);
+        if($request->is('applicants/download*'))
+        {
+            $html = view('applicants.print.invoice', 
+                [
+                    'applicant' => $applicant,
+                    'transaction' => $transaction,
+                    'data' => $data,
+                    'pdf' => true
+                ]
+            )->render();
+    
+            $resp = PDFService::getPDF($html);
+
+            ApplicantsModule::echoPDF($resp);
+
+        }else
+        {
+            return view('applicants.print.invoice', 
+                [
+                    'applicant' => $applicant, 
+                    'transaction' => $transaction,
+                    'data' => $data,
+                    //'collection' => $collection,
+                ]
+            );
+        }
+        
     }
 
     public function getReceipt(Request $request, $type = null)
@@ -326,22 +329,47 @@ class ApplicantPaymentController extends Controller
         $academicSessionInfo = NTIService::getCurrentAcademicSessionInfo();
         $academicSemesterId = $academicSessionInfo->semesterId;
         $applicant = Applicant::where('user_id', $request->user()->id)->first();
-        $params = self::getFeeDefParams($applicant, $type);
-        $fee_def = NTIService::getFeeDefinition($params['fee_id'], 
-                $applicant->programme_id, $params['specialization_id'], 
-                $params['level'], $params['semester'], $params['category']);
-        $collection = json_decode($fee_def->collection);
-        $transaction = Transaction::where([
-            'param' => 'applicant', // make sure its an applicant
-            'val' => $applicant->id,// make sure its the logged in applicant
-            'fee_id' => $params['fee_id'],          // make sure it is the transaction for admission form fee
-            'semester_id' => $academicSemesterId // for current semester
-        ])->first();
+        $payment = ApplicantsModule::getTransaction($applicant, $type, $academicSemesterId);
+        $transaction = $payment['transaction'];
+        $data = [
+            'programme' => NTIService::getInfo('programmes', 'id', $applicant->programme_id)->abbr,
+            'academic_session' => $academicSessionInfo->academicSession,
+        ];
 
-        return view('applicants.print.receipt', 
+        if($request->is('applicants/download/*'))
+        {
+            $html = view('applicants.print.receipt', 
             [
+                'applicant' => $applicant,
                 'transaction' => $transaction,
-                'collection' => $collection,
-            ]);
+                'data' => $data,
+                'pdf' => true
+            ])->render();
+        
+            $resp = PDFService::getPDF($html);
+        
+            ApplicantsModule::echoPDF($resp);
+            
+            //file_put_contents(storage_path('app/public') . '/receipt/receipt.pdf', $resp);
+
+            //return response()->download(storage_path('app/public') . '/receipt/receipt.pdf', 'mynti-receipt.pdf');
+
+        }else
+        {
+            return view('applicants.print.receipt', 
+                [
+                    'applicant' => $applicant,
+                    'transaction' => $transaction,
+                    'data' => $data,
+                ]
+            );
+        }
     }
+
+    public function uploadFile()
+	{
+        $file = realpath('remita.png');
+        $resp = PDFService::uploadAsset($file);
+        dd($resp);
+	}
 }

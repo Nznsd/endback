@@ -116,16 +116,16 @@
 									|| w.currentFocusElement // Mobile Browsers
 										|| w.previousFocusElement), // Mobile Browsers
 	       	 	leaveMessage = "Are you sure you want to logout and/or leave ?",
-	       	 	isLogout = (false && ('href' in lastActivatedNode) && (lastActivatedNode.href.indexOf('/logout') === 0)),
-	       	 	isDownload = (false && ('download' in lastActivatedNode));
+	       	 	isLogout = ((lastActivatedNode.className == "dropdown-item") && ('href' in lastActivatedNode) && (lastActivatedNode.href.indexOf('/applicants/logout') === 0)),
+	       	 	isDownload = ((lastActivatedNode.className == "download-trigger") && ('download' in lastActivatedNode));
 	       
-	       __cancelStorage = (('href' in lastActivatedNode) && (lastActivatedNode.href.indexOf('/logout') === 0));
+	       __cancelStorage = ((lastActivatedNode.className == "dropdown-item") && ('href' in lastActivatedNode) && (lastActivatedNode.href.indexOf('/applicants/logout') === 0));
 
 	       beforeUnloadTimer = setTimeout(function(){
 	       			
       	     		w.$cdvjs && w.$cdvjs.Application.deactivateAllModules(null);
                     
-                    console.log('settimeout before unload task...');                    
+                    	console.log('setimeout before unload task...');                    
 
 		           	__hasDeactivated = true;
 
@@ -230,9 +230,13 @@ jQuery(d).fullyReady(function(){
 				var _status = jQuery('meta[name="_status"]')
 								.remove()
 									.attr('content');
+
+				var _email = jQuery('meta[name="_email"]')
+								.remove()
+									.attr('content');
 					
 					jQuery(d.documentElement).data('token', _token);
-					jQuery(d.documentElement).data('status', (_status || 'logged-out'));
+					jQuery(d.documentElement).data('status', (_status || 'guest'));
 
 				var _ihtml = jQuery(d.scripts["iframe_document"])
 								.remove()
@@ -270,7 +274,7 @@ jQuery(d).fullyReady(function(){
 				}
 					
 				var futuresDelayId, storageDelta = '{"email"\
-							:"applicants.no-reply@mynti.edu.ng"\
+							:"'+_email+'"\
 							,"isLocked"\
 							:false\
 							,"status"\

@@ -18,8 +18,9 @@
         <meta name="application-url" content="https://my.nti.edu.ng/">
         <meta name="google" content="notranslate">
         <meta name="_status" content="{{ Auth::check() ? 'user' : 'guest' }}">
+        <meta name="_email" content="{{ Auth::check() ? 'user@mynti.org' : 'applicants.no-reply@mynti.edu.ng' }}">
 	
-	<noscript>&lt;meta http-equiv="refresh" content="0; URL=/?_mynti_noscript=1" /&gt;</noscript>
+	      <noscript>&lt;meta http-equiv="refresh" content="0; URL=/?_mynti_noscript=1" /&gt;</noscript>
 
         <!--
 
@@ -38,7 +39,7 @@
         <link rel="dns-prefetch" href="https://app.bugsnag.com">
         <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
-        <link rel="prefetch" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="prefetch" href="https://fonts.googleapis.com">
 
         <!--
 
@@ -55,8 +56,7 @@
 			so we need to build it manually...
 		*/
 
-		if (!('origin' in w.location) 
-			|| !w.location.origin) { 
+		if (!('origin' in w.location)) { 
 		  	w.location.origin = w.location.protocol + '//' + w.location.hostname + (w.location.port ? (':' + w.location.port) : '');
 		}
 
@@ -130,7 +130,7 @@
     -->
 
 
-    <!--[if gte IE 9]>
+    <!--[if IE 9]>
         <script type="text/javascript" async="async" defer="defer" src="{{ asset('assets/js/oldie/PIE/CSS3Pie_IE9.min.js') }}"></script>
         <script type="text/javascript" async="async" defer="defer" src="//ajax.googleapis.com/libs/swfobject/2.2/swfobject.js"></script>
     <![endif]-->
@@ -277,11 +277,26 @@
         </script>
 
         <script async="async" src="//www.google-analytics.com/analytics.js"></script>
+        <!-- Hotjar Tracking Code for mynti.omniswift.com
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:658531,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>  -->
 
         <link type="text/css" rel="stylesheet" media="screen" href="{{ asset('assets/css/lib/bootstrap-daterangepicker.2.1.25.css') }}">
 
-        <link type="text/css" rel="stylesheet" media="screen" href="{{ asset('assets/css/applicants.css') }}"> 
-        
+        <link type="text/css" rel="stylesheet" media="screen" href="{{ asset('assets/css/applicants/applicants.css') }}"> 
+    
+    @if(isset($page) && $page == 'uploads')   
+        <link type="text/css" rel="stylesheet" media="screen" href="{{ asset('assets/css/lib/docxjs.css') }}">
+    @endif
+
 	<!--<style type="text/css">
             .mynti-toolsbar-nav {
                 line-height: normal;
@@ -310,6 +325,10 @@
           <script type="text/javascript" src="{{ asset('assets/js/lib/lib/sweetalert.js') }}"></script>
 
           <script type="text/javascript" src="{{ asset('assets/js/lib/lib/jquery.combopack.min.js') }}"></script>
+
+        @if(isset($page) && $page == 'uploads')   
+          <script src="{{ asset('assets/js/lib/lib/docxjs-1.0.0.min.js') }}"></script>
+        @endif
 
           <script type="text/javascript" src="{{ asset('assets/js/lib/lib/bootstrap.js') }}"></script>
 

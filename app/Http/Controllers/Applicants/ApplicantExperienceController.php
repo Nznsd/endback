@@ -18,6 +18,7 @@ class ApplicantExperienceController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('verified');
+        $this->middleware('role:applicant');
     }
 
     public function getExperience()
@@ -52,25 +53,30 @@ class ApplicantExperienceController extends Controller
     {
         $appstate = 7;
 
+       // dd($request->all());
+
         $applicant = Applicant::where('user_id', Auth::id())->first();
 
-        $exp = new WorkExperience;
+        foreach($request->workplaces as $work)
+        {
+            $exp = new WorkExperience;
 
-        $exp->param = 'applicant';
+            $exp->param = 'applicant';
 
-        $exp->val = $applicant->id;
+            $exp->val = $applicant->id;
 
-        $exp->employer = $request->employer;
+            $exp->employer = $work['employer'];
 
-        $exp->position = $request->position;
+            $exp->position = $work['position'];
 
-        $exp->desc = $request->job_description;
+            $exp->desc = $work['job_description'];
 
-        $exp->startDate = Carbon::createFromFormat('m/d/Y', $request->from_date)->format('Y-m-d');
+            $exp->startDate = Carbon::createFromFormat('m/d/Y', $work['from_date'])->format('Y-m-d');
 
-        $exp->endDate = Carbon::createFromFormat('m/d/Y', $request->to_date)->format('Y-m-d');
+            $exp->endDate = Carbon::createFromFormat('m/d/Y', $work['to_date'])->format('Y-m-d');
 
-        $exp->save();
+            $exp->save();
+        }
 
         $applicant->application_state = $applicant->application_state < $appstate ? $appstate : $applicant->application_state;        
 

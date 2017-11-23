@@ -28,17 +28,26 @@ class CertificateRequest extends FormRequest
             'sittings.*.school_name' => 'required',
             'sittings.*.year' => 'required|alpha_num',
             'sittings.*.result_type' => 'required|alpha_num',
+            // first sitting required, others can be null
             'sittings.first' => 'required|array',
-            'sittings.*.subjects' => 'required|array',
-            'sittings.*.grades' => 'required|array',
-            // same subject cannot be selected more than once(distinct) and field cannot be empty(alpha_num)
-            'sittings.first.subjects.*' => 'required|distinct|alpha_num',
-            'sittings.second.subjects.*' => 'nullable|distinct|alpha_num',
-            'sittings.third.subjects.*' => 'nullable|distinct|alpha_num',
+            'sittings.second' => 'nullable|array',
+            'sittings.third' => 'nullable|array',
+            //
+            'sittings.first.subjects' => 'required|array',
+            'sittings.second.subjects' => 'nullable|array',
+            'sittings.third.subjects' => 'nullable|array',
+            //
+            'sittings.first.grades' => 'required|array',
+            'sittings.second.grades' => 'nullable|array',
+            'sittings.third.grades' => 'nullable|array',
+            // same subject cannot be selected more than once(distinct) and field cannot be empty(required)
+            'sittings.first.subjects.*' => 'distinct|required',
+            'sittings.second.subjects.*' => 'nullable|distinct',
+            'sittings.third.subjects.*' => 'nullable|distinct',
             // same grades fields cannot be empty(alpha_num)
-            'sittings.first.grades.*' => 'required|alpha_num',
-            'sittings.second.grades.*' => 'nullable|alpha_num',
-            'sittings.third.grades.*' => 'nullable|alpha_num',
+            'sittings.first.grades.*' => 'required',
+            'sittings.second.grades.*' => 'nullable',
+            'sittings.third.grades.*' => 'nullable',
             // file uploads
             'sittings.*.certificate' => 'required|file',
         ];
@@ -48,16 +57,18 @@ class CertificateRequest extends FormRequest
     {
         return [
             'required' => ':attribute is required',
-            'array' => 'please fill in completely all the values',
-            'size' => ':attribute selected must be 9',
-            'distinct' => 'subjects selected must be distinct',
-            'file' => 'invalid file',
-            'alpha_num' => 'unselected fields are not allowed',
-            'sittings.*.certificate.required' => 'Certificate Upload is Required',
-            'sittings.*.subjects.required' => 'Subjects is Required',
-            'sittings.*.subjects.*.required' => 'All subjects fields must be entered',
+            'array' => 'Please fill in completely all the values',
+            'distinct' => 'Please do not select the same subject more than once',
+            'file' => 'Invalid File',
+            'alpha_num' => 'Unselected fields are not allowed',
+            'sittings.*.certificate.required' => 'Certificate Upload is required',
+            'sittings.*.subjects.required' => 'Subjects is required',
+            'sittings.*.subjects.*.required' => 'All subjects/majors fields must be entered',
             'sittings.*.grades.required' => 'Grades is Required',
             'sittings.*.grades.*.required' => 'All grades fields must be entered',
+            'sittings.*.school_name.required' => 'School or Institution name is required',
+            'sittings.*.year.alpha_num' => 'Year is required',
+            'sittings.*.result_type.alpha_num' => 'Result Type is required',
         ];
     }
 }

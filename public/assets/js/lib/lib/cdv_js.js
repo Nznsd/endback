@@ -1173,8 +1173,10 @@
                     return (radians * 180 / Math.PI);
                 }     
             }
+
+            
 			 
-			win["TaskRunner"] = (function(){
+		win["TaskRunner"] = (function(){
 			                       // Constructor
                                    function Task(e, t) {
                                        this.handler = e,
@@ -1464,13 +1466,14 @@
    
 							// Mozilla Firefox has refused to implement {outerHTML} & {innerText}, even in version 30.0.
 							// These properties are well supported by other major browsers, including IE4+
-							// dunno why Firefox has to be the odd one out, but here is a shim for all that !:-(
+							// dunno why Firefox has to be the odd one out, but here is a shim for all that :(
 							
 							
-							      if(!win.document.all && win.cyrpto && Object.defineProperty){
-								      if ((Element && Element.prototype) || (HTMLElement && HTMLElement.prototype)){
-									     alert("it's true oooooo!");
-                                         Object.defineProperty(Element.prototype,
+							      if(!('all' in window.document) && window.external && Object.defineProperty){
+								      if ( (HTMLElement && HTMLElement.prototype)
+                                                            && (!('innerText' in HTMLElement.prototype) || !('outerHTML' in HTMLElement.prototype)) ){
+									     //console.log("Element.prototype for it's true oooooo!");
+                                                           Object.defineProperty(HTMLElement.prototype,
  											   "innerText",
  											 {
 											  get:function(){ 
@@ -1480,15 +1483,14 @@
 											       this.innerHTML = this.innerHTML.replace(/^.*$/, str); 
 											  }, 
 											  configurable:true,
-											  enumerable: true,
-                                              writable: true											  
+											  enumerable: true											  
 										 });
                                     
-									     Object.defineProperty(Element.prototype,
+									     Object.defineProperty(HTMLElement.prototype,
  											   "outerHTML",
  											 {
 											  get:function(){ 
-											      var j = d.createElement("body");
+											      var j = d.createElement("div");
 												  j.appendChild(this.cloneNode(true));
 											      return j.innerHTML; 
 											  }, 
@@ -1496,11 +1498,43 @@
 											       this.parentNode && this.parentNode.replaceChild(this, d.createDocumentFragment(str).firstChild); 
 											  }, 
 											  configurable:true,
-											  enumerable: true, 
-											  writable: true
+											  enumerable: true
 										 });
 									  }	 
 								  }
+
+                                                /*
+                                                      Culled from:
+
+                                                      https://stackoverflow.com/questions/14358599/object-doesnt-support-this-action-ie9-with-customevent-initialization
+
+                                                      Though IE 9 to IE 11 supports the CustomEvent constructor, IE throws an error {Object doesn't support this action} 
+                                                      whenever it's used. This weird behaviour is fixed below
+
+                                                */
+
+
+                                                try {
+                                                      new CustomEvent('test');
+                                                      return;
+                                                } catch(e) {
+                                                  
+                                                    function CEvent ( event, params ) {
+                                                            var evt;
+                                                            params = params || { bubbles: false, cancelable: false, detail: undefined };
+                                                            try{
+                                                                  evt = document.createEvent( 'CustomEvent' );
+                                                                  evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+                                                            }catch(e){
+                                                                  evt = document.createEventObject(window.event);
+                                                            }
+                                                            return evt;
+                                                    };
+
+                                                    CEvent.prototype = Object.create(window.Event.prototype, {_polyfill:true});
+                                                    window.CustomEvent = null;
+                                                    window.CustomEvent = CEvent;
+                                                }
 							
                              
 							 // Shim missing functionality in ES5 global Constructors
@@ -2265,14 +2299,14 @@ Futures = function(){
 						  window.addEventListener('error', function(event){
 							 setTimeout(function(){ 
 							   if(self.currentErrorObj === null){
-								   self.currentErrorObj = event.error;
+								   self.currentErrorObj = event.error || {};
 								   if(!('message' in self.currentErrorObj)){
 										self.currentErrorObj.message = event.message;
 								   }
 							   }
 							   self.promiseObj.resolve(self.currentErrorObj.stack);
 							 },1); // delay the event until all synchronously handled events finish executing 
-						  });
+						  }, false);
 					   }
 					   
 					   if(hasWHATWGEvent){
@@ -3664,13 +3698,17 @@ Futures = function(){
 							 },
 							 trigger_event : function(target, eType, detail, globale){
 									   // the target must be a DOM node
-									   if(!this.is_node(target) 
-                                                                  || target !== document 
-                                                                        || target !== window){
-										  return false;
+									   if(!this.is_node(target)){
+										  return null;
 									   }
-										var t, evt = (('CustomEvent' in globale) && !globale.document.documentMode ? new CustomEvent(eType) : globale.document.createEventObject()),
+
+                                                         if(globale == void 0){
+                                                            globale = window;
+                                                         }
+                                                         
+										var t, evt = (('CustomEvent' in globale) && !globale.document.documentMode ? new CustomEvent(eType) : globale.document.createEventObject(window.event)),
 											dispatch = target[ (globale.document.documentMode || (globale.execScript && String(globale.execScript).indexOf("native") > -1)) ? "fireEvent" : "dispatchEvent" ];
+                                                         
 							 
 									   if(typeof detail === "object"){
 											// set expando properties on event object
@@ -3681,7 +3719,7 @@ Futures = function(){
 											}
 									   }
 									   // Actually, including support for IE6 here ;)
-									   dispatch.apply(target, ((globale.document.documentMode && ((globale.execScript || {}).toString()).indexOf("native") > -1) ? ["on"+eType , evt] : [evt])); 
+									   dispatch.apply(target, ((((globale.attachEvent || {}).toString()).indexOf("native") > -1) ? ["on"+eType , evt] : [evt])); 
 									   return true;
 						     },
 							 

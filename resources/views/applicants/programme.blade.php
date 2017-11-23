@@ -66,7 +66,7 @@
                         <label class="mynti-box light-size" for="residence">Select State of Residence</label>
                         <div class="input-dropdown relative pill">
                             <select class="form-control" data-casacade-select-target="[cascade-target-dropdown=studycenter-choice-select]" name="residence" tabindex="12">
-                                <option value="-">Select State Resident</option>
+                                <option value="-">Select State of Residence</option>
                                 @foreach($states as $state)
                                     <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
@@ -86,7 +86,7 @@
                     <div class="form-group mynti-input-container">
                         <label class="mynti-box light-size" for="application-fees">Application Form Fees</label>
                         <div class="input-text mynti-mega-input form-group-disabled relative not-flexible pill">
-                            <input type="text" class="form-control" readonly="readonly" name="application-fees" tabindex="14">
+                            <input type="text" class="form-control" readonly="readonly" name="application-fees" tabindex="14" data-toggle="popover" title="Calculating Your Fees" data-content="Please wait... while we calculate your application fees. Do not click any other thing" data-trigger="focus">
                             <span id="fee" class="mynti-icon absolute snap-left-top-center currency-placeholder">₦</span>
                         </div>
                     </div>

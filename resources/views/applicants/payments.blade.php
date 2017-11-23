@@ -100,7 +100,7 @@
                                         <input type="submit" name="submit_btn" class="btn mynti-button-calm continue pill" tabindex="17" value="Pay Via Remita &rsaquo;">
                                 </form>
                                <a href="javascript:void(0);" class="btn mynti-button-calm save-and-print pill" tabindex="18"><b class="">Save Invoice</b></a>
-                               <a href="{{ '/applicants/verify/' . $type }}" class="btn mynti-button-calm pill verify" tabindex="19"><b class="">Verify RRR</b></a>
+                                <br><br><p>If you have made payment <strong>via bank</strong>, <a class="verify" href="{{ '/applicants/verify/' . $type }}">click here</a> to verify your RRR</p>
                             </div>
                             <div class="form-group mynti-input-container">
                                 <p class="mynti-remita-mast"></p>

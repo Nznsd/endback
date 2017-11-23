@@ -15,15 +15,15 @@ class CreateApplicantsTable extends Migration
     {
         Schema::create('applicants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->string('app_no')->nullable();
-            $table->string('surname');
-            $table->string('firstname');
-            $table->string('othername');
-            $table->string('email');
-            $table->string('phone');
-            $table->date('dob');
-            $table->string('gender');
+            $table->bigInteger('user_id')->unique()->nullable();
+            $table->string('app_no')->unique()->nullable();
+            $table->string('surname')->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('othername')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('gender')->nullable();
             $table->string('marital_status')->nullable();
             $table->string('address')->nullable();
             $table->integer('sor')->nullable();
@@ -38,7 +38,7 @@ class CreateApplicantsTable extends Migration
             $table->string('entry_type')->default('fresh');
             $table->integer('entry_semester')->nullable();
             $table->integer('study_center_id')->nullable();
-            $table->integer('application_state');
+            $table->integer('application_state')->nullable();
             $table->boolean('application_status')->nullable();
             $table->timestamps();
         });

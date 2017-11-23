@@ -17,7 +17,7 @@
                         </div>
                     </article>
                     <div class="mynti-breadcrumbs">
-                            <span class="mynti-reg-number"><b>{{ $applicant->app_no }}</b></span> 
+                            <span class="mynti-reg-number"></span> 
                     </div>
                     
                     <section class="mynti-section-placid">
@@ -32,9 +32,9 @@
                                     <div class="mynti-dashlet-details">
                                         <div class="mynti-dashlet-details-preamble">
                                             <span class="myntibox pull-left dashlet-avatar">
-                                                <img src="{{ asset('assets/img/png/userframe.png') }}" width="90" height="90" class="img-responsive">
+                                                <img src="{{ asset('assets/img/png/userframe.png') }}" srcset="{{ asset('assets/img/svg/userframe.svg') }}" width="90" height="90" class="img-responsive">
                                             </span>
-                                            <p class="pull-left text-left dashlet-lead"><!-- 270px -->
+                                            <p class="pull-left text-left dashlet-lead">
                                                 <span>Please, use the information on this portal to login to the NTI Student Portal.</span>
                                             </p>
                                         </div>
@@ -45,11 +45,11 @@
                                                     <span class="punched-up">
                                                         <dl>
                                                             <dd>Username</dd>
-                                                            <dt>Salihu_Funtua</dt>
+                                                            <dt>{{ $applicant->surname }} {{ $applicant->firstname }}</dt>
                                                         </dl>
                                                         <dl>
                                                             <dd>Password</dd>
-                                                            <dt><i>************</i><input type="text" value="eR4377K_Q1bn#" mask></dt>
+                                                            <dt><input type="password" value="eR4377K_Q1bn#" readonly="readonly"></dt>
                                                         </dl>
                                                     </span>
                                                 </li>
@@ -58,7 +58,7 @@
                                                     <span class="punched-up">
                                                         <dl>
                                                             <dd>Email</dd>
-                                                            <dt>s.funtua@nti.edu.ng</dt>
+                                                            <dt>{{ $applicant->email }}</dt>
                                                         </dl>
                                                     </span>
                                                 </li>
@@ -67,7 +67,7 @@
                                                     <span class="punched-up">
                                                         <dl>
                                                             <dd>Number</dd>
-                                                            <dt class="text-uppercase">nti/2018/pgde/000137</dt>
+                                                            <dt class="text-uppercase">{{ $applicant->app_no }}</dt>
                                                         </dl>
                                                     </span>
                                                 </li>
@@ -89,8 +89,8 @@
                                         <h6 class="text-uppercase mynti-dashlet-heading progress-item" mask>application status</h6>
                                         <h6 class="text-uppercase mynti-dashlet-heading level" mask>level or semester</h6>
                                         <div class="text-left mynti-dashlet-details">
-                                             <img src="{{ asset('assets/img/svg/mouse.svg') }}" id="mouse" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
-                                             <img src="{{ asset('assets/img/svg/passport.svg') }}" id="passport" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
+                                             <img src="{{ asset('assets/img/png/mouse.png') }}" srcset="{{ asset('assets/img/svg/mouse.svg') }}" id="mouse" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
+                                             <img src="{{ asset('assets/img/png/passport.png') }}" srcset="{{ asset('assets/img/svg/passport.svg') }}" id="passport" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
                                              <section class="offset-pane">
                                                  <p class="dashlet-info-pane">
                                                  @if($applicant->application_state > 8)
@@ -120,21 +120,22 @@
                                     <section class="mynti-dashlet-container ultrapill" aria-application-fees="paid"><!-- unpaid | paid -->
                                         <h6 class="text-uppercase mynti-dashlet-heading">payments</h6>
                                         <div class="text-left mynti-dashlet-details">
-                                             <img src="{{ asset('assets/img/svg/camera.svg') }}" alt="" longdesc="" width="150" height="100" class="img-responsive">
-                                             <section class="offset-pane">
+                                             <img src="{{ asset('assets/img/png/camera.png') }}" srcset="{{ asset('assets/img/svg/camera.svg') }}" alt="" longdesc="" width="150" height="100" class="img-responsive">
+                                             <section class="offset-pane recanted">
                                                  <p class="dashlet-info-pane">
                                                      @if(isset($payments['total']))
-                                                        <big class="text-inflective" id="digits" mask>₦{{ $payments['total'] }}</big>
+                                                        <big class="text-inflective" id="digits">₦{{ $payments['total'] }}</big>
                                                      @endif
                                                      @if(isset($payments['feeslist']))
-                                                     <div class="table-responsive" id="digits-table" mask>
-                                                        <table class="inline-table table table-condensed">
+                                                     <div class="table-responsive" id="digits-table">
+                                                        <table class="table table-condensed">
                                                           <thead>
                                                             <tr>
                                                                <th class="text-uppercase">fee description</th>
                                                                <th class="text-uppercase">amount</th>
                                                                <th class="text-uppercase">status</th>
                                                             </tr>
+                                                            </thead>
                                                             <tbody>
                                                              @foreach($payments['feeslist'] as $fees)
                                                               <tr>
@@ -144,13 +145,12 @@
                                                               </tr>
                                                              @endforeach
                                                             </tbody>
-                                                          </thead>
                                                         </table>
                                                      </div>
                                                     @endif 
                                                  </p>
                                                  <span class="mynti-box">
-                                                    @if(true)
+                                                    @if(count($admission) > 0)                                                    
                                                         @if(!isset($payments['feeslist']['tuition']))  {{-- if(isset($payments['feeslist']['tuition']) && $payments['feeslist']['tuition']->status != 'paid') --}}
                                                             <a href="/applicants/payments/tuition" target="blank" class="text-titlecase dashlet-link paid" mask><b class="circular text-icon-plus">&#43;</b><small>pay tuition fees</small></a>
                                                         @elseif($payments['feeslist']['tuition']->status != 'paid')
@@ -168,9 +168,9 @@
                                     <section class="mynti-dashlet-container ultrapill" aria-admission-status="not-issued"><!-- not-issued | pending | issued -->
                                         <h6 class="text-uppercase mynti-dashlet-heading">admission status</h6>
                                         <div class="text-left mynti-dashlet-details">
-                                             <img src="{{ asset('assets/img/svg/blank-paper.svg') }}" id="bp-1" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
-                                             <img src="{{ asset('assets/img/svg/blank-paper-2.svg') }}" id="bp-2" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
-                                             <img src="{{ asset('assets/img/svg/certificate.svg') }}" id="bp-3" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
+                                             <img src="{{ asset('assets/img/png/blank-paper.png') }}" srcset="{{ asset('assets/img/svg/blank-paper.svg') }}" id="bp-1" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
+                                             <img src="{{ asset('assets/img/png/blank-paper-2.png') }}" srcset="{{ asset('assets/img/svg/blank-paper-2.svg') }}" id="bp-2" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
+                                             <img src="{{ asset('assets/img/png/certificate.png') }}" srcset="{{ asset('assets/img/svg/certificate.svg') }}" id="bp-3" alt="" longdesc="" width="150" height="100" class="img-responsive" mask>
                                              <section class="offset-pane">
                                                  <p class="dashlet-info-pane">
                                                     @if(count($admission) > 0)
@@ -181,11 +181,11 @@
                                                     @endif
                                                  </p>
                                                  <span class="mynti-box">
-                                                    @if(count($admission) > 0)
+                                                    @if(true) {{-- count($admission) > 0 --}}
                                                         @if(isset($payments['feeslist']['tuition']) && $payments['feeslist']['tuition']->status == 'paid')
                                                             <a href="/applicants/dashboard/admission/print" target="blank" class="text-titlecase dashlet-link wait" mask><b class="circular text-icon-plus">&#43;</b><small>download admission letter</small></a>
                                                         @else
-                                                            <p class="text-titlecase dashlet-link wait" mask><b class="circular text-icon-plus">&#43;</b><small>Pay tuition fees for admission letter</small></p>
+                                                            <p class="text-titlecase dashlet-link wait" mask><b class="circular text-icon-plus">&#43;</b><small>{{ $applicant->app_no }}</small></p>
                                                         @endif
                                                     @else
                                                         <a href="/applicants/review/print" target="blank" class="text-titlecase dashlet-link wait" mask><b class="circular text-icon-plus">&#43;</b><small>view application form</small></a>

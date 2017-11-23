@@ -7,7 +7,7 @@
                     <article class="mynti-banner">
                         <div class="clearfix">
                             <div class="pull-left">
-                                <h3 class="mynti-heading heading-regular">Upload Certificates</h3>
+                                <h3 class="mynti-heading heading-regular">Other Uploads</h3>
                                 <p class="mynti-subheading subheading-regular light-size">Please complete your application</p>
                             </div>
                             <div class="mynti-greetings-container pull-right">
@@ -35,7 +35,7 @@
                                  <div class="stretchable" style="">   
                                             <form class="mynti-context-form" name="" method="post" target="_top" action="/applicants/uploads/save/other" novalidate>
                                                 <div class="mynti-form-caption form-heading-frame">
-                                                    <h2 class="heading-placeholder-size">Upload Additional Documents</h2>
+                                                    <h2 class="heading-placeholder-size">Upload Other Documents</h2>
                                                 </div>
 
                                                 <div class="mynti-select-upload-form">
@@ -46,10 +46,9 @@
                                                                  <span class="mynti-box mynti-upload-text stretchable input-dropdown relative pill">
                                                                     <select tabindex="18" class="form-control" name="documents">
                                                                         <option value="-">Select Upload Document</option>
-                                                                        <option value="1">Marriage Certificate</option>
-                                                                        <option value="2">Change of Name</option>
-                                                                        <option value="3">NYSC</option>
-                                                                        
+                                                                        <option value="marriage_cert">Marriage Certificate</option>
+                                                                        <option value="change_of_name">Change of Name</option>
+                                                                        <option value="nysc">NYSC</option>           
                                                                     </select>
                                                                     <b class="input-dropdown-addon chevron-btn"><i class="mynti-icon relative chevron"></i></b>
                                                                 </span>
@@ -66,7 +65,7 @@
                                                 </div>
                                                 
                                                 <div class="form-group mynti-input-container">
-                                                    <a href="/applicants/uploads/continue" rel="next" class="btn mynti-button-calm pill continue" tabindex="20"><i class="mynti-spinner-white"></i><b class="">Continue &rsaquo;</b></a>
+                                                    <a href="/applicants/uploads/continue" rel="next" class="btn mynti-button-calm pill continue" tabindex="20" data-toggle="popover" title="Quick Info" data-content="You can click this button to skip if you don't have any other documents to upload" data-trigger="focus"><i class="mynti-spinner-white"></i><b class="">Continue &rsaquo;</b></a>
                                                     
                                                 </div>
                                             </form>
